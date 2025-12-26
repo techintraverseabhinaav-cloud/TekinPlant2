@@ -8,7 +8,7 @@ const EmailSystem = () => {
     {
       id: 1,
       name: "Welcome Email",
-      subject: "Welcome to TRAININ - Your Learning Journey Begins!",
+      subject: "Welcome to TEKINPLANT - Your Learning Journey Begins!",
       type: "welcome",
       trigger: "user_registration",
       status: "active",

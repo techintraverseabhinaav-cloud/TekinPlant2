@@ -16,7 +16,7 @@ const CertificatePage = () => {
     grade: "A+",
     duration: "12 weeks",
     trainer: "Prof. John Smith",
-    certificateNumber: "TRAININ-2024-FSW-001",
+    certificateNumber: "TEKINPLANT-2024-FSW-001",
     qrCode:
       "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iIzMzMzMzMyIvPgogIDx0ZXh0IHg9IjUwIiB5PSI1NSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjEyIiBmaWxsPSJ3aGl0ZSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+UVIgQ29kZTwvdGV4dD4KICA8L3N2Zz4K",
     skills: ["React.js", "Node.js", "MongoDB", "Express.js", "JavaScript", "HTML/CSS"],
@@ -91,7 +91,7 @@ const CertificatePage = () => {
           <div className="relative z-10 text-center">
             {/* Header */}
             <div className="mb-8">
-              <h1 className="text-4xl font-bold text-purple-600 mb-2">TRAININ</h1>
+              <h1 className="text-4xl font-bold text-purple-600 mb-2">TEKINPLANT</h1>
               <p className="text-lg text-gray-600">Industrial Training Institute</p>
             </div>
 
@@ -129,7 +129,7 @@ const CertificatePage = () => {
                   <span className="text-xs text-gray-500">Digital Signature</span>
                 </div>
                 <p className="text-sm font-semibold">Dr. Swati Bhasme</p>
-                <p className="text-xs text-gray-600">Director, TRAININ</p>
+                <p className="text-xs text-gray-600">Director, TEKINPLANT</p>
               </div>
               <div className="text-right">
                 <p className="text-sm text-gray-600">Issue Date</p>

@@ -334,7 +334,7 @@ const HomePage = () => {
           <p className="text-gray-400">
             Contact us: 9860970798 |{" "}
             <a href="https://www.trainin.com" className="text-dark-primary hover:text-purple-400">
-              WWW.TRAININ.COM
+              WWW.TEKINPLANT.COM
             </a>
           </p>
         </div>

@@ -77,7 +77,7 @@ const ContactPage = () => {
                   <div>
                     <h3 className="font-semibold mb-1">Address</h3>
                     <p className="text-gray-400">
-                      TRAININ Institute
+                      TEKINPLANT Institute
                       <br />
                       Tech Park, Sector 5<br />
                       Bangalore, Karnataka 560001
@@ -290,7 +290,7 @@ const ContactPage = () => {
                 <MapPin className="mx-auto mb-4 text-gray-400" size={48} />
                 <p className="text-gray-400">Interactive map would be embedded here</p>
                 <p className="text-sm text-gray-500 mt-2">
-                  TRAININ Institute, Tech Park, Sector 5, Bangalore, Karnataka 560001
+                  TEKINPLANT Institute, Tech Park, Sector 5, Bangalore, Karnataka 560001
                 </p>
               </div>
             </div>
