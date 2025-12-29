@@ -198,7 +198,7 @@ export default function CompanyDetailPage({ params }: { params: { id: string } }
                             <Star size={16} className="mr-2" />
                             Rating
                           </span>
-                          <span className="text-yellow-400">{course.rating} ⭐</span>
+                          <span className="text-yellow-400 flex items-center gap-1">{course.rating} <Star className="w-4 h-4 fill-current" /></span>
                         </div>
                         <div className="flex items-center justify-between">
                           <span className="flex items-center">

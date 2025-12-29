@@ -7,6 +7,7 @@ import Navbar from "../src/components/Navbar"
 import ThreeScene from "../components/ThreeScene"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
+import { useUser } from "@clerk/nextjs"
 import { industryCourses, industryStats, industryInsights } from "../lib/industry-data"
 
 const inter = Inter({ subsets: ["latin"] })
@@ -14,6 +15,7 @@ const inter = Inter({ subsets: ["latin"] })
 export default function HomePage() {
   const [searchTerm, setSearchTerm] = useState("")
   const router = useRouter()
+  const { isSignedIn } = useUser()
   const featuredCourses = industryCourses.slice(0, 6)
   const popularSearches = ["PLC Training", "Automation", "Electrical Engineering", "Industrial Training", "Siemens", "ABB"]
   
@@ -74,60 +76,6 @@ export default function HomePage() {
             <p className="text-2xl mb-12 max-w-2xl mx-auto leading-relaxed text-white/70" style={{ lineHeight: '1.8' }}>
                 Connect with leading companies, master cutting-edge technologies, and accelerate your professional growth with our comprehensive training programs.
               </p>
-
-              {/* Search Bar */}
-            <div className="max-w-2xl mx-auto mb-8">
-                <form onSubmit={handleSearch} className="relative">
-                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 z-10 text-white/50" size={24} />
-                      <input
-                        type="text"
-                    placeholder="Search for courses, companies, or skills..."
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-12 pr-32 py-5 backdrop-blur-xl rounded-2xl transition-all duration-300 text-lg border border-purple-500/20"
-                  style={{ backgroundColor: 'rgba(168,85,247,0.08)', color: '#ffffff' }}
-                  />
-                  <button 
-                    type="submit"
-                  className="absolute right-2 top-1/2 transform -translate-y-1/2 px-6 py-2.5 rounded-xl transition-all duration-300 hover:opacity-90 backdrop-blur-sm border border-purple-400/40"
-                  style={{ background: 'linear-gradient(to right, #a78bfa, #c084fc, #a78bfa)', color: '#ffffff', boxShadow: '0 0 20px rgba(196,181,253,0.4), 0 0 40px rgba(196,181,253,0.2)' }}
-                  onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 25px rgba(196,181,253,0.6), 0 0 50px rgba(196,181,253,0.4)'}
-                  onMouseLeave={(e) => e.currentTarget.style.boxShadow = '0 0 20px rgba(196,181,253,0.4), 0 0 40px rgba(196,181,253,0.2)'}
-                  >
-                    Search
-                  </button>
-                </form>
-              </div>
-
-              {/* Popular Searches */}
-              <div className="mb-8">
-              <p className="text-base mb-4 text-white/60">Popular searches:</p>
-              <div className="flex flex-wrap gap-2 justify-center">
-                  {popularSearches.map((term, index) => (
-                    <button
-                      key={index}
-                      onClick={() => handleQuickSearch(term)}
-                    className="px-4 py-2 rounded-full text-base transition-all duration-300 backdrop-blur-sm border border-purple-500/20 hover:border-purple-400/40"
-                    style={{ backgroundColor: 'rgba(168,85,247,0.08)', color: '#ffffff' }}
-                    onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 20px rgba(196,181,253,0.5), 0 0 40px rgba(196,181,253,0.3)'}
-                    onMouseLeave={(e) => e.currentTarget.style.boxShadow = 'none'}
-                    >
-                      {term}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/courses" className="text-lg px-8 py-4 rounded-2xl flex items-center gap-2 group w-fit transition-all duration-300 hover:opacity-90 backdrop-blur-sm border border-purple-400/40" style={{ background: 'linear-gradient(to right, #a78bfa, #c084fc, #a78bfa)', color: '#ffffff', boxShadow: '0 0 20px rgba(196,181,253,0.4), 0 0 40px rgba(196,181,253,0.2)' }} onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 25px rgba(196,181,253,0.6), 0 0 50px rgba(196,181,253,0.4)'} onMouseLeave={(e) => e.currentTarget.style.boxShadow = '0 0 20px rgba(196,181,253,0.4), 0 0 40px rgba(196,181,253,0.2)'}>
-                  Explore Courses
-                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                </Link>
-              <Link href="/partners" className="text-lg px-8 py-4 rounded-2xl flex items-center gap-2 transition-all duration-300 w-fit backdrop-blur-sm border border-purple-500/20 hover:border-purple-400/40" style={{ backgroundColor: 'rgba(168,85,247,0.08)', color: '#ffffff' }} onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 20px rgba(196,181,253,0.5), 0 0 40px rgba(196,181,253,0.3)'} onMouseLeave={(e) => e.currentTarget.style.boxShadow = 'none'}>
-                  Watch Demo
-                </Link>
-            </div>
           </div>
         </div>
       </section>
@@ -225,8 +173,8 @@ export default function HomePage() {
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                   <div className="absolute top-3 right-3">
-                    <span className="px-3 py-1 rounded-full text-xs font-medium backdrop-blur-sm bg-black/50 border border-purple-500/20" style={{ color: '#fbbf24' }}>
-                      ⭐ {course.rating}
+                    <span className="px-3 py-1 rounded-full text-xs font-medium backdrop-blur-sm bg-black/50 border border-purple-500/20 flex items-center gap-1" style={{ color: '#fbbf24' }}>
+                      <Star className="w-3 h-3 fill-current" /> {course.rating}
                     </span>
                   </div>
                   <div className="absolute bottom-3 left-3">
@@ -267,9 +215,9 @@ export default function HomePage() {
                   </div>
 
                   <div className="flex items-center justify-center pt-4">
-                    <Link href={`/courses/${course.id}`} className="text-base px-5 py-2.5 rounded-xl hover:opacity-90 backdrop-blur-sm border border-purple-400/40 transition-all duration-300" style={{ background: 'linear-gradient(to right, #a78bfa, #c084fc, #a78bfa)', color: '#ffffff', boxShadow: '0 0 15px rgba(196,181,253,0.4), 0 0 30px rgba(196,181,253,0.2)' }} onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 20px rgba(196,181,253,0.6), 0 0 40px rgba(196,181,253,0.4)'} onMouseLeave={(e) => e.currentTarget.style.boxShadow = '0 0 15px rgba(196,181,253,0.4), 0 0 30px rgba(196,181,253,0.2)'}>
+                    <button onClick={() => isSignedIn ? router.push(`/courses/${course.id}`) : router.push('/login')} className="text-base px-5 py-2.5 rounded-xl hover:opacity-90 backdrop-blur-sm border border-purple-400/40 transition-all duration-300" style={{ background: 'linear-gradient(to right, #a78bfa, #c084fc, #a78bfa)', color: '#ffffff', boxShadow: '0 0 15px rgba(196,181,253,0.4), 0 0 30px rgba(196,181,253,0.2)' }} onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 20px rgba(196,181,253,0.6), 0 0 40px rgba(196,181,253,0.4)'} onMouseLeave={(e) => e.currentTarget.style.boxShadow = '0 0 15px rgba(196,181,253,0.4), 0 0 30px rgba(196,181,253,0.2)'}>
                       Learn More
-                    </Link>
+                    </button>
                   </div>
                 </div>
               </div>

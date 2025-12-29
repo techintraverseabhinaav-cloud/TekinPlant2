@@ -26,15 +26,15 @@ export default function InsightsPage() {
           {/* Key Metrics */}
           <div className="grid md:grid-cols-4 gap-6 mb-12">
             {[
-              { icon: Users, value: industryStats.totalStudents, label: "Total Students", color: 'rgba(168,85,247,0.12)', border: 'rgba(168,85,247,0.25)', iconColor: '#c084fc' },
-              { icon: Building, value: industryStats.totalPartners, label: "Partner Companies", color: 'rgba(99,102,241,0.12)', border: 'rgba(99,102,241,0.25)', iconColor: '#818cf8' },
-              { icon: Star, value: industryStats.averageRating, label: "Average Rating", color: 'rgba(236,72,153,0.12)', border: 'rgba(236,72,153,0.25)', iconColor: '#f472b6' },
-              { icon: Award, value: industryInsights.successRate, label: "Success Rate", color: 'rgba(139,92,246,0.12)', border: 'rgba(139,92,246,0.25)', iconColor: '#a78bfa' },
+              { icon: Users, value: industryStats.totalStudents, label: "Total Students", color: 'rgba(0,0,0,0.4)', border: 'rgba(168,85,247,0.25)', iconColor: '#c084fc' },
+              { icon: Building, value: industryStats.totalPartners, label: "Partner Companies", color: 'rgba(0,0,0,0.4)', border: 'rgba(99,102,241,0.25)', iconColor: '#818cf8' },
+              { icon: Star, value: industryStats.averageRating, label: "Average Rating", color: 'rgba(0,0,0,0.4)', border: 'rgba(236,72,153,0.25)', iconColor: '#f472b6' },
+              { icon: Award, value: industryInsights.successRate, label: "Success Rate", color: 'rgba(0,0,0,0.4)', border: 'rgba(139,92,246,0.25)', iconColor: '#a78bfa' },
             ].map((stat, index) => (
               <div key={index} className="p-6 rounded-xl text-center transition-all duration-300 backdrop-blur-xl border" style={{ backgroundColor: stat.color, borderColor: stat.border }} onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 20px rgba(196,181,253,0.5), 0 0 40px rgba(196,181,253,0.3)'} onMouseLeave={(e) => e.currentTarget.style.boxShadow = 'none'}>
-                <div className="flex items-center justify-center mb-2">
+              <div className="flex items-center justify-center mb-2">
                   <stat.icon className="mr-2" size={24} style={{ color: stat.iconColor }} />
-                </div>
+              </div>
                 <h3 className="text-2xl font-bold mb-2 bg-gradient-to-r from-purple-300 to-purple-400 bg-clip-text text-transparent">{stat.value}</h3>
                 <p className="text-white/70">{stat.label}</p>
               </div>
@@ -43,7 +43,7 @@ export default function InsightsPage() {
 
           {/* Overview Stats */}
           <div className="grid md:grid-cols-2 gap-8 mb-12">
-            <div className="p-8 rounded-xl backdrop-blur-xl border border-purple-500/20 transition-all duration-300" style={{ backgroundColor: 'rgba(168,85,247,0.08)' }} onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 20px rgba(196,181,253,0.5), 0 0 40px rgba(196,181,253,0.3)'} onMouseLeave={(e) => e.currentTarget.style.boxShadow = 'none'}>
+            <div className="p-8 rounded-xl backdrop-blur-xl border border-purple-500/20 transition-all duration-300" style={{ backgroundColor: 'rgba(0,0,0,0.4)' }} onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 20px rgba(196,181,253,0.5), 0 0 40px rgba(196,181,253,0.3)'} onMouseLeave={(e) => e.currentTarget.style.boxShadow = 'none'}>
               <h3 className="text-2xl font-normal mb-6 text-white">Training Programs Overview</h3>
               <div className="space-y-4">
                 <div className="flex justify-between items-center">
@@ -65,7 +65,7 @@ export default function InsightsPage() {
               </div>
             </div>
 
-            <div className="p-8 rounded-xl backdrop-blur-xl border border-purple-500/20 transition-all duration-300" style={{ backgroundColor: 'rgba(168,85,247,0.08)' }} onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 20px rgba(196,181,253,0.5), 0 0 40px rgba(196,181,253,0.3)'} onMouseLeave={(e) => e.currentTarget.style.boxShadow = 'none'}>
+            <div className="p-8 rounded-xl backdrop-blur-xl border border-purple-500/20 transition-all duration-300" style={{ backgroundColor: 'rgba(0,0,0,0.4)' }} onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 20px rgba(196,181,253,0.5), 0 0 40px rgba(196,181,253,0.3)'} onMouseLeave={(e) => e.currentTarget.style.boxShadow = 'none'}>
               <h3 className="text-2xl font-normal mb-6 text-white">Partner Companies Overview</h3>
               <div className="space-y-4">
                 <div className="flex justify-between items-center">
@@ -99,7 +99,7 @@ export default function InsightsPage() {
                     <div key={index} className="flex items-center justify-between">
                       <span className="text-white/70">{industry.name}</span>
                       <div className="flex items-center">
-                        <div className="w-32 rounded-full h-2 mr-3 backdrop-blur-sm border border-purple-500/20" style={{ backgroundColor: 'rgba(168,85,247,0.1)' }}>
+                        <div className="w-32 rounded-full h-2 mr-3 backdrop-blur-sm border border-purple-500/20" style={{ backgroundColor: 'rgba(0,0,0,0.4)' }}>
                           <div
                             className="h-2 rounded-full"
                             style={{ width: `${(industry.count / Math.max(...industryInsights.topIndustries.map(i => i.count))) * 100}%`, background: 'linear-gradient(to right, #a78bfa, #c084fc, #a78bfa)' }}
@@ -119,7 +119,7 @@ export default function InsightsPage() {
                     <div key={index} className="flex items-center justify-between">
                       <span className="text-white/70">{location.name}</span>
                       <div className="flex items-center">
-                        <div className="w-32 rounded-full h-2 mr-3 backdrop-blur-sm border border-purple-500/20" style={{ backgroundColor: 'rgba(168,85,247,0.1)' }}>
+                        <div className="w-32 rounded-full h-2 mr-3 backdrop-blur-sm border border-purple-500/20" style={{ backgroundColor: 'rgba(0,0,0,0.4)' }}>
                           <div
                             className="h-2 rounded-full"
                             style={{ width: `${(location.count / Math.max(...industryInsights.popularLocations.map(l => l.count))) * 100}%`, background: 'linear-gradient(to right, #a78bfa, #c084fc, #a78bfa)' }}
@@ -142,12 +142,12 @@ export default function InsightsPage() {
                 .sort((a, b) => b.rating - a.rating)
                 .slice(0, 6)
                 .map((course) => (
-                  <div key={course.id} className="p-4 rounded-lg backdrop-blur-sm border border-purple-500/20 transition-all duration-300" style={{ backgroundColor: 'rgba(168,85,247,0.05)' }} onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 15px rgba(196,181,253,0.4), 0 0 30px rgba(196,181,253,0.2)'} onMouseLeave={(e) => e.currentTarget.style.boxShadow = 'none'}>
+                  <div key={course.id} className="p-4 rounded-lg backdrop-blur-sm border border-purple-500/20 transition-all duration-300" style={{ backgroundColor: 'rgba(0,0,0,0.3)' }} onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 15px rgba(196,181,253,0.4), 0 0 30px rgba(196,181,253,0.2)'} onMouseLeave={(e) => e.currentTarget.style.boxShadow = 'none'}>
                     <h4 className="font-semibold mb-2" style={{ color: '#c084fc' }}>{course.company}</h4>
                     <p className="text-white/70 text-sm mb-2">{course.title}</p>
                     <div className="flex items-center justify-between">
                       <span className="text-white/60 text-sm">Rating</span>
-                      <span className="font-semibold" style={{ color: '#fbbf24' }}>{course.rating} ⭐</span>
+                      <span className="font-semibold flex items-center gap-1" style={{ color: '#fbbf24' }}>{course.rating} <Star className="w-4 h-4 fill-current" /></span>
                     </div>
                   </div>
                 ))}
@@ -225,7 +225,7 @@ export default function InsightsPage() {
                         <p className="text-white/60 text-sm">Average rating</p>
                       </div>
                     </div>
-                    <span className="font-semibold" style={{ color: '#fbbf24' }}>{industryStats.averageRating} ⭐</span>
+                    <span className="font-semibold flex items-center gap-1" style={{ color: '#fbbf24' }}>{industryStats.averageRating} <Star className="w-4 h-4 fill-current" /></span>
                   </div>
                 </div>
               </div>

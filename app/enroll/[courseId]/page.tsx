@@ -186,14 +186,14 @@ export default function EnrollmentPage({ params }: { params: Promise<{ courseId:
                     Experience Level
                   </label>
                   <div className="relative">
-                    <select
-                      id="experience"
-                      name="experience"
-                      value={formData.experience}
-                      onChange={handleChange}
+                  <select
+                    id="experience"
+                    name="experience"
+                    value={formData.experience}
+                    onChange={handleChange}
                       className="w-full px-4 py-3 pr-10 rounded-xl text-white focus:outline-none transition-all duration-300 backdrop-blur-xl border appearance-none cursor-pointer"
                       style={{ 
-                        backgroundColor: 'rgba(168,85,247,0.12)',
+                        backgroundColor: 'rgba(0,0,0,0.5)',
                         borderColor: 'rgba(168,85,247,0.3)',
                         boxShadow: '0 0 15px rgba(196,181,253,0.2), inset 0 1px 0 rgba(255,255,255,0.05)'
                       }}
@@ -213,11 +213,11 @@ export default function EnrollmentPage({ params }: { params: Promise<{ courseId:
                         e.currentTarget.style.borderColor = 'rgba(168,85,247,0.3)'
                         e.currentTarget.style.boxShadow = '0 0 15px rgba(196,181,253,0.2), inset 0 1px 0 rgba(255,255,255,0.05)'
                       }}
-                    >
+                  >
                       <option value="beginner" style={{ backgroundColor: '#0a0a0a', color: '#ffffff' }}>Beginner</option>
                       <option value="intermediate" style={{ backgroundColor: '#0a0a0a', color: '#ffffff' }}>Intermediate</option>
                       <option value="advanced" style={{ backgroundColor: '#0a0a0a', color: '#ffffff' }}>Advanced</option>
-                    </select>
+                  </select>
                     <div className="absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none">
                       <ChevronDown className="w-5 h-5" style={{ color: '#c084fc' }} />
                     </div>

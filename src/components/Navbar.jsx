@@ -9,12 +9,9 @@ import { useUser, useClerk } from "@clerk/nextjs"
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [isScrolled, setIsScrolled] = useState(false)
   const [showUserMenu, setShowUserMenu] = useState(false)
-  const [showCoursesDropdown, setShowCoursesDropdown] = useState(false)
   const [showSearch, setShowSearch] = useState(false)
   const [searchTerm, setSearchTerm] = useState("")
-  const coursesDropdownTimerRef = useRef(null)
   const userMenuTimerRef = useRef(null)
   const searchInputRef = useRef(null)
   const router = useRouter()
@@ -26,14 +23,6 @@ export default function Navbar() {
   const userRole = (user?.publicMetadata?.role) || 'student'
   const userName = user?.fullName || user?.firstName || user?.emailAddresses[0]?.emailAddress || 'User'
   const userEmail = user?.emailAddresses[0]?.emailAddress || ''
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10)
-    }
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -50,7 +39,6 @@ export default function Navbar() {
   // Clear timers on unmount
   useEffect(() => {
     return () => {
-      if (coursesDropdownTimerRef.current) clearTimeout(coursesDropdownTimerRef.current)
       if (userMenuTimerRef.current) clearTimeout(userMenuTimerRef.current)
     }
   }, [])
@@ -111,19 +99,11 @@ export default function Navbar() {
   }, [showSearch])
 
   return (
-    <nav className={`fixed top-0 left-1/2 -translate-x-1/2 z-50 transition-all duration-300 ${
-      isScrolled 
-        ? 'backdrop-blur-xl border' 
-        : 'bg-transparent'
-    }`}
-    style={isScrolled ? {
+    <nav className="relative z-50 backdrop-blur-xl border mx-auto"
+    style={{
       backgroundColor: 'rgba(0, 0, 0, 0.7)',
       borderColor: 'rgba(168, 85, 247, 0.2)',
       borderRadius: '1.5rem',
-      width: 'calc(100% - 2rem)',
-      maxWidth: 'calc(1280px + 2rem)',
-      marginTop: '1rem'
-    } : {
       width: 'calc(100% - 2rem)',
       maxWidth: 'calc(1280px + 2rem)',
       marginTop: '1rem'
@@ -165,120 +145,26 @@ export default function Navbar() {
               Home
             </Link>
 
-            {/* Courses + sub‑pages */}
-            <div 
-              className="relative group"
-              onMouseEnter={() => {
-                if (coursesDropdownTimerRef.current) {
-                  clearTimeout(coursesDropdownTimerRef.current)
-                  coursesDropdownTimerRef.current = null
-                }
-                setShowCoursesDropdown(true)
+            {/* Courses */}
+            <Link
+              href="/courses"
+              className="text-sm font-medium transition-all duration-300 text-white/70 hover:text-white px-3 py-2 rounded-xl"
+              style={{ 
+                backgroundColor: pathname?.startsWith('/courses') ? 'rgba(168,85,247,0.1)' : 'transparent'
               }}
-              onMouseLeave={() => {
-                const timer = setTimeout(() => {
-                  setShowCoursesDropdown(false)
-                }, 1500)
-                coursesDropdownTimerRef.current = timer
+              onMouseEnter={(e) => {
+                if (!pathname?.startsWith('/courses')) {
+                  e.currentTarget.style.backgroundColor = 'rgba(168,85,247,0.08)'
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (!pathname?.startsWith('/courses')) {
+                  e.currentTarget.style.backgroundColor = 'transparent'
+                }
               }}
             >
-              <Link
-                href="/courses"
-                className="inline-flex items-center text-sm font-medium transition-all duration-300 text-white/70 hover:text-white px-3 py-2 rounded-xl"
-                style={{ 
-                  backgroundColor: pathname?.startsWith('/courses') ? 'rgba(168,85,247,0.1)' : 'transparent'
-                }}
-                onMouseEnter={(e) => {
-                  if (!pathname?.startsWith('/courses')) {
-                    e.currentTarget.style.backgroundColor = 'rgba(168,85,247,0.08)'
-                  }
-                }}
-                onMouseLeave={(e) => {
-                  if (!pathname?.startsWith('/courses')) {
-                    e.currentTarget.style.backgroundColor = 'transparent'
-                  }
-                }}
-              >
               Courses
-                <span className="ml-1 text-xs text-white/50">▼</span>
-              </Link>
-              <div 
-                className={`${showCoursesDropdown ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'} transition-all duration-200 absolute left-0 mt-3 w-64 rounded-2xl border backdrop-blur-xl z-40`}
-                style={{
-                  backgroundColor: 'rgba(168,85,247,0.08)',
-                  borderColor: 'rgba(168,85,247,0.25)',
-                  boxShadow: '0 0 20px rgba(196,181,253,0.3), 0 0 40px rgba(196,181,253,0.2)'
-                }}
-                onMouseEnter={() => {
-                  if (coursesDropdownTimerRef.current) {
-                    clearTimeout(coursesDropdownTimerRef.current)
-                    coursesDropdownTimerRef.current = null
-                  }
-                  setShowCoursesDropdown(true)
-                }}
-              >
-                <div className="py-3">
-                  <Link
-                    href="/courses"
-                    className="block px-4 py-2 text-sm text-white/80 hover:text-white rounded-lg transition-all duration-200"
-                    style={{ backgroundColor: 'transparent' }}
-                    onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'rgba(168,85,247,0.15)'}
-                    onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
-                  >
-                    All Courses
-                  </Link>
-                  {/* Example course detail pages – these map to app/courses/[id] */}
-                  <Link
-                    href="/courses/1"
-                    className="block px-4 py-2 text-sm text-white/70 hover:text-white rounded-lg transition-all duration-200"
-                    style={{ backgroundColor: 'transparent' }}
-                    onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'rgba(168,85,247,0.15)'}
-                    onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
-                  >
-                    PLC Programming &amp; Automation
-                  </Link>
-                  <Link
-                    href="/courses/2"
-                    className="block px-4 py-2 text-sm text-white/70 hover:text-white rounded-lg transition-all duration-200"
-                    style={{ backgroundColor: 'transparent' }}
-                    onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'rgba(168,85,247,0.15)'}
-                    onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
-                  >
-                    Industrial SCADA &amp; HMI
-                  </Link>
-                  <Link
-                    href="/courses/3"
-                    className="block px-4 py-2 text-sm text-white/70 hover:text-white rounded-lg transition-all duration-200"
-                    style={{ backgroundColor: 'transparent' }}
-                    onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'rgba(168,85,247,0.15)'}
-                    onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
-                  >
-                    Drives &amp; Motion Control
-                  </Link>
-                </div>
-                <div className="border-t py-2" style={{ borderColor: 'rgba(168,85,247,0.2)' }}>
-                  {/* Example deep links into other course‑related flows */}
-                  <Link
-                    href="/enroll/1"
-                    className="block px-4 py-2 text-xs text-white/60 hover:text-white rounded-lg transition-all duration-200"
-                    style={{ backgroundColor: 'transparent' }}
-                    onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'rgba(168,85,247,0.15)'}
-                    onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
-                  >
-                    Enroll in Course #1
-                  </Link>
-                  <Link
-                    href="/certificate/1"
-                    className="block px-4 py-2 text-xs text-white/60 hover:text-white rounded-lg transition-all duration-200"
-                    style={{ backgroundColor: 'transparent' }}
-                    onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'rgba(168,85,247,0.15)'}
-                    onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
-                  >
-                    View Sample Certificate
             </Link>
-                </div>
-              </div>
-            </div>
 
             {/* Partners */}
             <Link
@@ -532,89 +418,25 @@ export default function Navbar() {
               >
                 Home
               </Link>
-              {/* Courses + sub‑pages (mobile) */}
-              <div>
-                <Link 
-                  href="/courses" 
-                  className="text-sm font-medium transition-all duration-300 text-white/70 hover:text-white py-2 px-3 rounded-xl flex items-center justify-between"
-                  style={{ backgroundColor: pathname?.startsWith('/courses') ? 'rgba(168,85,247,0.15)' : 'transparent' }}
-                  onMouseEnter={(e) => {
-                    if (!pathname?.startsWith('/courses')) {
-                      e.currentTarget.style.backgroundColor = 'rgba(168,85,247,0.1)'
-                    }
-                  }}
-                  onMouseLeave={(e) => {
-                    if (!pathname?.startsWith('/courses')) {
-                      e.currentTarget.style.backgroundColor = 'transparent'
-                    }
-                  }}
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  <span>Courses</span>
-                </Link>
-                <div className="ml-4 mt-1 space-y-1 text-xs text-white/70">
+              {/* Courses (mobile) */}
               <Link 
                 href="/courses" 
-                    className="block py-1 px-3 rounded-lg transition-all duration-200"
-                    style={{ backgroundColor: 'transparent' }}
-                    onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'rgba(168,85,247,0.1)'}
-                    onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    All Courses
-                  </Link>
-                  <Link
-                    href="/courses/1"
-                    className="block py-1 px-3 rounded-lg transition-all duration-200"
-                    style={{ backgroundColor: 'transparent' }}
-                    onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'rgba(168,85,247,0.1)'}
-                    onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    PLC Programming &amp; Automation
-                  </Link>
-                  <Link
-                    href="/courses/2"
-                    className="block py-1 px-3 rounded-lg transition-all duration-200"
-                    style={{ backgroundColor: 'transparent' }}
-                    onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'rgba(168,85,247,0.1)'}
-                    onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    Industrial SCADA &amp; HMI
-                  </Link>
-                  <Link
-                    href="/courses/3"
-                    className="block py-1 px-3 rounded-lg transition-all duration-200"
-                    style={{ backgroundColor: 'transparent' }}
-                    onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'rgba(168,85,247,0.1)'}
-                    onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    Drives &amp; Motion Control
-                  </Link>
-                  <Link
-                    href="/enroll/1"
-                    className="block py-1 px-3 rounded-lg transition-all duration-200 text-[11px] text-white/60"
-                    style={{ backgroundColor: 'transparent' }}
-                    onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'rgba(168,85,247,0.1)'}
-                    onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    Enroll in Course #1
-                  </Link>
-                  <Link
-                    href="/certificate/1"
-                    className="block py-1 px-3 rounded-lg transition-all duration-200 text-[11px] text-white/60"
-                    style={{ backgroundColor: 'transparent' }}
-                    onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'rgba(168,85,247,0.1)'}
-                    onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
+                className="text-sm font-medium transition-all duration-300 text-white/70 hover:text-white py-2 px-3 rounded-xl"
+                style={{ backgroundColor: pathname?.startsWith('/courses') ? 'rgba(168,85,247,0.15)' : 'transparent' }}
+                onMouseEnter={(e) => {
+                  if (!pathname?.startsWith('/courses')) {
+                    e.currentTarget.style.backgroundColor = 'rgba(168,85,247,0.1)'
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (!pathname?.startsWith('/courses')) {
+                    e.currentTarget.style.backgroundColor = 'transparent'
+                  }
+                }}
                 onClick={() => setIsMenuOpen(false)}
               >
-                    Sample Certificate
+                Courses
               </Link>
-                </div>
-              </div>
               <Link 
                 href="/partners" 
                 className="text-sm font-medium transition-all duration-300 text-white/70 hover:text-white py-2 px-3 rounded-xl"

@@ -32,7 +32,7 @@ export default function LoginPage() {
       <div className="hidden lg:flex lg:flex-1 relative overflow-hidden">
         <div className="relative z-10 flex flex-col justify-between p-12 text-white w-full">
           <div>
-            <div className="slide-up inline-flex items-center gap-2 rounded-full px-4 py-2 mb-6 backdrop-blur-sm border border-purple-500/20" style={{ backgroundColor: 'rgba(168,85,247,0.08)', transitionDelay: '0.1s' }}>
+            <div className="slide-up inline-flex items-center gap-2 rounded-full px-4 py-2 mb-6 backdrop-blur-sm border border-purple-500/20" style={{ backgroundColor: 'rgba(0,0,0,0.4)', transitionDelay: '0.1s' }}>
               <Award className="w-4 h-4" style={{ color: '#a855f7' }} />
               <span className="text-sm font-medium text-white/80">Welcome Back</span>
             </div>
@@ -43,8 +43,8 @@ export default function LoginPage() {
           </div>
           
           <div className="space-y-6">
-            <div className="slide-up flex items-center gap-4 rounded-xl p-4 backdrop-blur-xl border border-purple-500/20 transition-all duration-300" style={{ backgroundColor: 'rgba(168,85,247,0.08)', transitionDelay: '0.4s' }} onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 15px rgba(196,181,253,0.4), 0 0 30px rgba(196,181,253,0.2)'} onMouseLeave={(e) => e.currentTarget.style.boxShadow = 'none'}>
-              <div className="w-12 h-12 rounded-xl flex items-center justify-center backdrop-blur-sm border border-purple-500/20" style={{ backgroundColor: 'rgba(168,85,247,0.12)' }}>
+            <div className="slide-up flex items-center gap-4 rounded-xl p-4 backdrop-blur-xl border border-purple-500/20 transition-all duration-300" style={{ backgroundColor: 'rgba(0,0,0,0.4)', transitionDelay: '0.4s' }} onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 15px rgba(196,181,253,0.4), 0 0 30px rgba(196,181,253,0.2)'} onMouseLeave={(e) => e.currentTarget.style.boxShadow = 'none'}>
+              <div className="w-12 h-12 rounded-xl flex items-center justify-center backdrop-blur-sm border border-purple-500/20" style={{ backgroundColor: 'rgba(0,0,0,0.5)' }}>
                 <Award className="w-6 h-6" style={{ color: '#c084fc' }} />
               </div>
               <div>
@@ -52,8 +52,8 @@ export default function LoginPage() {
                 <p className="text-white/70 text-sm">Learn from top companies</p>
               </div>
             </div>
-            <div className="slide-up flex items-center gap-4 rounded-xl p-4 backdrop-blur-xl border border-purple-500/20 transition-all duration-300" style={{ backgroundColor: 'rgba(168,85,247,0.08)', transitionDelay: '0.5s' }} onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 15px rgba(196,181,253,0.4), 0 0 30px rgba(196,181,253,0.2)'} onMouseLeave={(e) => e.currentTarget.style.boxShadow = 'none'}>
-              <div className="w-12 h-12 rounded-xl flex items-center justify-center backdrop-blur-sm border border-purple-500/20" style={{ backgroundColor: 'rgba(168,85,247,0.12)' }}>
+            <div className="slide-up flex items-center gap-4 rounded-xl p-4 backdrop-blur-xl border border-purple-500/20 transition-all duration-300" style={{ backgroundColor: 'rgba(0,0,0,0.4)', transitionDelay: '0.5s' }} onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 15px rgba(196,181,253,0.4), 0 0 30px rgba(196,181,253,0.2)'} onMouseLeave={(e) => e.currentTarget.style.boxShadow = 'none'}>
+              <div className="w-12 h-12 rounded-xl flex items-center justify-center backdrop-blur-sm border border-purple-500/20" style={{ backgroundColor: 'rgba(0,0,0,0.5)' }}>
                 <Users className="w-6 h-6" style={{ color: '#c084fc' }} />
               </div>
               <div>
@@ -61,8 +61,8 @@ export default function LoginPage() {
                 <p className="text-white/70 text-sm">Learn from industry professionals</p>
               </div>
             </div>
-            <div className="slide-up flex items-center gap-4 rounded-xl p-4 backdrop-blur-xl border border-purple-500/20 transition-all duration-300" style={{ backgroundColor: 'rgba(168,85,247,0.08)', transitionDelay: '0.6s' }} onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 15px rgba(196,181,253,0.4), 0 0 30px rgba(196,181,253,0.2)'} onMouseLeave={(e) => e.currentTarget.style.boxShadow = 'none'}>
-              <div className="w-12 h-12 rounded-xl flex items-center justify-center backdrop-blur-sm border border-purple-500/20" style={{ backgroundColor: 'rgba(168,85,247,0.12)' }}>
+            <div className="slide-up flex items-center gap-4 rounded-xl p-4 backdrop-blur-xl border border-purple-500/20 transition-all duration-300" style={{ backgroundColor: 'rgba(0,0,0,0.4)', transitionDelay: '0.6s' }} onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 15px rgba(196,181,253,0.4), 0 0 30px rgba(196,181,253,0.2)'} onMouseLeave={(e) => e.currentTarget.style.boxShadow = 'none'}>
+              <div className="w-12 h-12 rounded-xl flex items-center justify-center backdrop-blur-sm border border-purple-500/20" style={{ backgroundColor: 'rgba(0,0,0,0.5)' }}>
                 <Target className="w-6 h-6" style={{ color: '#c084fc' }} />
               </div>
               <div>

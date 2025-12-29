@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Users, Award, Globe, Target } from "lucide-react"
+import { Users, Award, Globe, Target, Handshake, Lightbulb } from "lucide-react"
 import Navbar from "../../src/components/Navbar"
 import Link from "next/link"
 
@@ -28,24 +28,6 @@ export default function AboutPage() {
       role: "CEO & Founder",
       image: "/placeholder.svg",
       bio: "Former tech executive with 15+ years in software development and education."
-    },
-    {
-      name: "Prof. Michael Chen",
-      role: "Head of Technology",
-      image: "/placeholder.svg",
-      bio: "PhD in Computer Science with expertise in AI and machine learning."
-    },
-    {
-      name: "Lisa Rodriguez",
-      role: "Head of Marketing",
-      image: "/placeholder.svg",
-      bio: "Digital marketing expert with experience in edtech and corporate training."
-    },
-    {
-      name: "Dr. Robert Williams",
-      role: "Head of Engineering",
-      image: "/placeholder.svg",
-      bio: "Civil engineering professor with 20+ years of industry experience."
     }
   ]
 
@@ -65,7 +47,7 @@ export default function AboutPage() {
         <div className="absolute inset-0 backdrop-blur-[1px]" style={{ background: 'linear-gradient(180deg, #0a0a0a 0%, #1a1a1a 50%, #000000 100%)' }}></div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-20">
-            <div className="slide-up inline-flex items-center gap-2 rounded-full px-4 py-2 mb-6 backdrop-blur-sm border border-purple-500/20" style={{ backgroundColor: 'rgba(168,85,247,0.08)', transitionDelay: '0.1s' }}>
+            <div className="slide-up inline-flex items-center gap-2 rounded-full px-4 py-2 mb-6 backdrop-blur-sm border border-purple-500/20" style={{ backgroundColor: 'rgba(0,0,0,0.4)', transitionDelay: '0.1s' }}>
               <Award className="w-4 h-4" style={{ color: '#a855f7' }} />
               <span className="text-sm font-medium text-white/80">Who We Are</span>
             </div>
@@ -81,8 +63,8 @@ export default function AboutPage() {
           {/* Stats */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {stats.map((stat, index) => (
-              <div key={index} className="slide-up text-center p-6 rounded-2xl transition-all duration-300" style={{ backgroundColor: 'rgba(168,85,247,0.08)', borderColor: 'rgba(168,85,247,0.25)', borderWidth: '1px', transitionDelay: `${0.4 + index * 0.1}s` }} onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 20px rgba(196,181,253,0.5), 0 0 40px rgba(196,181,253,0.3)'} onMouseLeave={(e) => e.currentTarget.style.boxShadow = 'none'}>
-                <div className="w-14 h-14 rounded-xl flex items-center justify-center mx-auto mb-4 backdrop-blur-sm border border-purple-500/20" style={{ backgroundColor: 'rgba(168,85,247,0.12)' }}>
+              <div key={index} className="slide-up text-center p-6 rounded-2xl transition-all duration-300" style={{ backgroundColor: 'rgba(0,0,0,0.4)', borderColor: 'rgba(168,85,247,0.25)', borderWidth: '1px', transitionDelay: `${0.4 + index * 0.1}s` }} onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 20px rgba(196,181,253,0.5), 0 0 40px rgba(196,181,253,0.3)'} onMouseLeave={(e) => e.currentTarget.style.boxShadow = 'none'}>
+                <div className="w-14 h-14 rounded-xl flex items-center justify-center mx-auto mb-4 backdrop-blur-sm border border-purple-500/20" style={{ backgroundColor: 'rgba(0,0,0,0.5)' }}>
                   <stat.icon className="w-7 h-7" style={{ color: '#c084fc' }} />
                 </div>
                 <div className="text-3xl font-bold mb-2 bg-gradient-to-r from-purple-300 to-purple-400 bg-clip-text text-transparent">{stat.number}</div>
@@ -98,13 +80,13 @@ export default function AboutPage() {
         <div className="absolute inset-0 backdrop-blur-[1px]" style={{ background: 'linear-gradient(180deg, #0a0a0a 0%, #1a1a1a 50%, #000000 100%)' }}></div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <div className="slide-up inline-flex items-center gap-2 rounded-full px-4 py-2 mb-6 backdrop-blur-sm border border-purple-500/20" style={{ backgroundColor: 'rgba(168,85,247,0.08)', transitionDelay: '0.1s' }}>
+            <div className="slide-up inline-flex items-center gap-2 rounded-full px-4 py-2 mb-6 backdrop-blur-sm border border-purple-500/20" style={{ backgroundColor: 'rgba(0,0,0,0.4)', transitionDelay: '0.1s' }}>
               <Target className="w-4 h-4" style={{ color: '#a855f7' }} />
               <span className="text-sm font-medium text-white/80">Our Purpose</span>
             </div>
           </div>
           <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
-            <div className="slide-up rounded-2xl p-8 backdrop-blur-xl border border-purple-500/20 transition-all duration-300" style={{ backgroundColor: 'rgba(168,85,247,0.08)', transitionDelay: '0.2s' }} onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 20px rgba(196,181,253,0.5), 0 0 40px rgba(196,181,253,0.3)'} onMouseLeave={(e) => e.currentTarget.style.boxShadow = 'none'}>
+            <div className="slide-up rounded-2xl p-8 backdrop-blur-xl border border-purple-500/20 transition-all duration-300" style={{ backgroundColor: 'rgba(0,0,0,0.4)', transitionDelay: '0.2s' }} onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 20px rgba(196,181,253,0.5), 0 0 40px rgba(196,181,253,0.3)'} onMouseLeave={(e) => e.currentTarget.style.boxShadow = 'none'}>
               <h2 className="text-3xl font-normal mb-6">
                 <span className="text-white" style={{ textShadow: '0 0 20px rgba(255,255,255,0.3)' }}>Our</span> <span className="bg-gradient-to-r from-purple-300 to-purple-400 bg-clip-text text-transparent" style={{ textShadow: '0 0 30px rgba(196,181,253,0.5), 0 0 60px rgba(196,181,253,0.3)' }}>Mission</span>
               </h2>
@@ -116,7 +98,7 @@ export default function AboutPage() {
                 Our comprehensive approach combines theoretical knowledge with hands-on projects, industry mentorship, and practical case studies to ensure our students are job-ready.
               </p>
             </div>
-            <div className="slide-up rounded-2xl p-8 backdrop-blur-xl border border-purple-500/20 transition-all duration-300" style={{ backgroundColor: 'rgba(168,85,247,0.08)', transitionDelay: '0.3s' }} onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 20px rgba(196,181,253,0.5), 0 0 40px rgba(196,181,253,0.3)'} onMouseLeave={(e) => e.currentTarget.style.boxShadow = 'none'}>
+            <div className="slide-up rounded-2xl p-8 backdrop-blur-xl border border-purple-500/20 transition-all duration-300" style={{ backgroundColor: 'rgba(0,0,0,0.4)', transitionDelay: '0.3s' }} onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 20px rgba(196,181,253,0.5), 0 0 40px rgba(196,181,253,0.3)'} onMouseLeave={(e) => e.currentTarget.style.boxShadow = 'none'}>
               <h2 className="text-3xl font-normal mb-6">
                 <span className="text-white" style={{ textShadow: '0 0 20px rgba(255,255,255,0.3)' }}>Our</span> <span className="bg-gradient-to-r from-purple-300 to-purple-400 bg-clip-text text-transparent" style={{ textShadow: '0 0 30px rgba(196,181,253,0.5), 0 0 60px rgba(196,181,253,0.3)' }}>Vision</span>
               </h2>
@@ -136,7 +118,7 @@ export default function AboutPage() {
         <div className="absolute inset-0 backdrop-blur-[1px]" style={{ background: 'linear-gradient(180deg, #0a0a0a 0%, #1a1a1a 50%, #000000 100%)' }}></div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <div className="slide-up inline-flex items-center gap-2 rounded-full px-4 py-2 mb-6 backdrop-blur-sm border border-purple-500/20" style={{ backgroundColor: 'rgba(168,85,247,0.08)', transitionDelay: '0.1s' }}>
+            <div className="slide-up inline-flex items-center gap-2 rounded-full px-4 py-2 mb-6 backdrop-blur-sm border border-purple-500/20" style={{ backgroundColor: 'rgba(0,0,0,0.4)', transitionDelay: '0.1s' }}>
               <Award className="w-4 h-4" style={{ color: '#a855f7' }} />
               <span className="text-sm font-medium text-white/80">What We Stand For</span>
             </div>
@@ -145,27 +127,27 @@ export default function AboutPage() {
             </h2>
           </div>
           <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
-            <div className="slide-up rounded-xl p-8 text-center transition-all duration-300" style={{ backgroundColor: 'rgba(168,85,247,0.08)', borderColor: 'rgba(168,85,247,0.25)', borderWidth: '1px', transitionDelay: '0.3s' }} onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 20px rgba(196,181,253,0.5), 0 0 40px rgba(196,181,253,0.3)'} onMouseLeave={(e) => e.currentTarget.style.boxShadow = 'none'}>
-              <div className="w-16 h-16 rounded-xl flex items-center justify-center mx-auto mb-4 backdrop-blur-sm border border-purple-500/20" style={{ backgroundColor: 'rgba(168,85,247,0.12)' }}>
-                <div className="text-3xl">🎯</div>
+            <div className="slide-up rounded-xl p-8 text-center transition-all duration-300" style={{ backgroundColor: 'rgba(0,0,0,0.4)', borderColor: 'rgba(168,85,247,0.25)', borderWidth: '1px', transitionDelay: '0.3s' }} onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 20px rgba(196,181,253,0.5), 0 0 40px rgba(196,181,253,0.3)'} onMouseLeave={(e) => e.currentTarget.style.boxShadow = 'none'}>
+              <div className="w-16 h-16 rounded-xl flex items-center justify-center mx-auto mb-4 backdrop-blur-sm border border-purple-500/20" style={{ backgroundColor: 'rgba(0,0,0,0.5)' }}>
+                <Target className="w-8 h-8" style={{ color: '#c084fc' }} />
               </div>
               <h3 className="text-xl font-semibold mb-4 text-white">Excellence</h3>
               <p className="text-white/70 leading-relaxed">
                 We maintain the highest standards in our training programs, ensuring quality education that meets industry requirements.
               </p>
             </div>
-            <div className="slide-up rounded-xl p-8 text-center transition-all duration-300" style={{ backgroundColor: 'rgba(168,85,247,0.08)', borderColor: 'rgba(168,85,247,0.25)', borderWidth: '1px', transitionDelay: '0.4s' }} onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 20px rgba(196,181,253,0.5), 0 0 40px rgba(196,181,253,0.3)'} onMouseLeave={(e) => e.currentTarget.style.boxShadow = 'none'}>
-              <div className="w-16 h-16 rounded-xl flex items-center justify-center mx-auto mb-4 backdrop-blur-sm border border-purple-500/20" style={{ backgroundColor: 'rgba(168,85,247,0.12)' }}>
-                <div className="text-3xl">🤝</div>
+            <div className="slide-up rounded-xl p-8 text-center transition-all duration-300" style={{ backgroundColor: 'rgba(0,0,0,0.4)', borderColor: 'rgba(168,85,247,0.25)', borderWidth: '1px', transitionDelay: '0.4s' }} onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 20px rgba(196,181,253,0.5), 0 0 40px rgba(196,181,253,0.3)'} onMouseLeave={(e) => e.currentTarget.style.boxShadow = 'none'}>
+              <div className="w-16 h-16 rounded-xl flex items-center justify-center mx-auto mb-4 backdrop-blur-sm border border-purple-500/20" style={{ backgroundColor: 'rgba(0,0,0,0.5)' }}>
+                <Handshake className="w-8 h-8" style={{ color: '#c084fc' }} />
               </div>
               <h3 className="text-xl font-semibold mb-4 text-white">Collaboration</h3>
               <p className="text-white/70 leading-relaxed">
                 We foster partnerships with industry leaders and educational institutions to create comprehensive learning experiences.
               </p>
             </div>
-            <div className="slide-up rounded-xl p-8 text-center transition-all duration-300" style={{ backgroundColor: 'rgba(168,85,247,0.08)', borderColor: 'rgba(168,85,247,0.25)', borderWidth: '1px', transitionDelay: '0.5s' }} onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 20px rgba(196,181,253,0.5), 0 0 40px rgba(196,181,253,0.3)'} onMouseLeave={(e) => e.currentTarget.style.boxShadow = 'none'}>
-              <div className="w-16 h-16 rounded-xl flex items-center justify-center mx-auto mb-4 backdrop-blur-sm border border-purple-500/20" style={{ backgroundColor: 'rgba(168,85,247,0.12)' }}>
-                <div className="text-3xl">💡</div>
+            <div className="slide-up rounded-xl p-8 text-center transition-all duration-300" style={{ backgroundColor: 'rgba(0,0,0,0.4)', borderColor: 'rgba(168,85,247,0.25)', borderWidth: '1px', transitionDelay: '0.5s' }} onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 20px rgba(196,181,253,0.5), 0 0 40px rgba(196,181,253,0.3)'} onMouseLeave={(e) => e.currentTarget.style.boxShadow = 'none'}>
+              <div className="w-16 h-16 rounded-xl flex items-center justify-center mx-auto mb-4 backdrop-blur-sm border border-purple-500/20" style={{ backgroundColor: 'rgba(0,0,0,0.5)' }}>
+                <Lightbulb className="w-8 h-8" style={{ color: '#c084fc' }} />
               </div>
               <h3 className="text-xl font-semibold mb-4 text-white">Innovation</h3>
               <p className="text-white/70 leading-relaxed">
@@ -181,7 +163,7 @@ export default function AboutPage() {
         <div className="absolute inset-0 backdrop-blur-[1px]" style={{ background: 'linear-gradient(180deg, #0a0a0a 0%, #1a1a1a 50%, #000000 100%)' }}></div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <div className="slide-up inline-flex items-center gap-2 rounded-full px-4 py-2 mb-6 backdrop-blur-sm border border-purple-500/20" style={{ backgroundColor: 'rgba(168,85,247,0.08)', transitionDelay: '0.1s' }}>
+            <div className="slide-up inline-flex items-center gap-2 rounded-full px-4 py-2 mb-6 backdrop-blur-sm border border-purple-500/20" style={{ backgroundColor: 'rgba(0,0,0,0.4)', transitionDelay: '0.1s' }}>
               <Users className="w-4 h-4" style={{ color: '#a855f7' }} />
               <span className="text-sm font-medium text-white/80">Meet the Team</span>
             </div>
@@ -189,10 +171,10 @@ export default function AboutPage() {
               <span className="text-white" style={{ textShadow: '0 0 20px rgba(255,255,255,0.3)' }}>Our Leadership</span> <span className="bg-gradient-to-r from-purple-300 to-purple-400 bg-clip-text text-transparent" style={{ textShadow: '0 0 30px rgba(196,181,253,0.5), 0 0 60px rgba(196,181,253,0.3)' }}>Team</span>
             </h2>
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+          <div className="flex justify-center">
             {team.map((member, index) => (
-              <div key={index} className="slide-up rounded-xl p-6 text-center transition-all duration-300" style={{ backgroundColor: 'rgba(168,85,247,0.08)', borderColor: 'rgba(168,85,247,0.25)', borderWidth: '1px', transitionDelay: `${0.3 + index * 0.1}s` }} onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 20px rgba(196,181,253,0.5), 0 0 40px rgba(196,181,253,0.3)'} onMouseLeave={(e) => e.currentTarget.style.boxShadow = 'none'}>
-                <div className="w-24 h-24 mx-auto mb-4 rounded-full overflow-hidden backdrop-blur-sm border border-purple-500/20" style={{ backgroundColor: 'rgba(168,85,247,0.12)' }}>
+              <div key={index} className="slide-up rounded-xl p-6 text-center transition-all duration-300 max-w-sm" style={{ backgroundColor: 'rgba(0,0,0,0.4)', borderColor: 'rgba(168,85,247,0.25)', borderWidth: '1px', transitionDelay: `${0.3 + index * 0.1}s` }} onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 20px rgba(196,181,253,0.5), 0 0 40px rgba(196,181,253,0.3)'} onMouseLeave={(e) => e.currentTarget.style.boxShadow = 'none'}>
+                <div className="w-24 h-24 mx-auto mb-4 rounded-full overflow-hidden backdrop-blur-sm border border-purple-500/20" style={{ backgroundColor: 'rgba(0,0,0,0.5)' }}>
                   <img
                     src={member.image}
                     alt={member.name}

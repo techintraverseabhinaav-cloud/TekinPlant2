@@ -509,26 +509,26 @@ export default function CourseDetailPage({ params }: { params: Promise<{ id: str
 
               {/* Course Stats */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-                <div className="slide-up rounded-xl p-4 text-center backdrop-blur-xl border transition-all duration-300" style={{ backgroundColor: 'rgba(168,85,247,0.08)', borderColor: 'rgba(168,85,247,0.25)', transitionDelay: '0.4s' }} onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 15px rgba(196,181,253,0.4), 0 0 30px rgba(196,181,253,0.2)'} onMouseLeave={(e) => e.currentTarget.style.boxShadow = 'none'}>
+                <div className="slide-up rounded-xl p-4 text-center backdrop-blur-xl border transition-all duration-300" style={{ backgroundColor: 'rgba(0,0,0,0.4)', borderColor: 'rgba(168,85,247,0.25)', transitionDelay: '0.4s' }} onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 15px rgba(196,181,253,0.4), 0 0 30px rgba(196,181,253,0.2)'} onMouseLeave={(e) => e.currentTarget.style.boxShadow = 'none'}>
                   <div className="text-2xl font-bold bg-gradient-to-r from-purple-300 to-purple-400 bg-clip-text text-transparent">{courseData.duration}</div>
                   <div className="text-sm text-white/70 mt-1">Duration</div>
                 </div>
-                <div className="slide-up rounded-xl p-4 text-center backdrop-blur-xl border transition-all duration-300" style={{ backgroundColor: 'rgba(168,85,247,0.08)', borderColor: 'rgba(168,85,247,0.25)', transitionDelay: '0.5s' }} onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 15px rgba(196,181,253,0.4), 0 0 30px rgba(196,181,253,0.2)'} onMouseLeave={(e) => e.currentTarget.style.boxShadow = 'none'}>
+                <div className="slide-up rounded-xl p-4 text-center backdrop-blur-xl border transition-all duration-300" style={{ backgroundColor: 'rgba(0,0,0,0.4)', borderColor: 'rgba(168,85,247,0.25)', transitionDelay: '0.5s' }} onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 15px rgba(196,181,253,0.4), 0 0 30px rgba(196,181,253,0.2)'} onMouseLeave={(e) => e.currentTarget.style.boxShadow = 'none'}>
                   <div className="text-2xl font-bold bg-gradient-to-r from-purple-300 to-purple-400 bg-clip-text text-transparent">{courseData.students}</div>
                   <div className="text-sm text-white/70 mt-1">Students</div>
                 </div>
-                <div className="slide-up rounded-xl p-4 text-center backdrop-blur-xl border transition-all duration-300" style={{ backgroundColor: 'rgba(168,85,247,0.08)', borderColor: 'rgba(168,85,247,0.25)', transitionDelay: '0.6s' }} onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 15px rgba(196,181,253,0.4), 0 0 30px rgba(196,181,253,0.2)'} onMouseLeave={(e) => e.currentTarget.style.boxShadow = 'none'}>
+                <div className="slide-up rounded-xl p-4 text-center backdrop-blur-xl border transition-all duration-300" style={{ backgroundColor: 'rgba(0,0,0,0.4)', borderColor: 'rgba(168,85,247,0.25)', transitionDelay: '0.6s' }} onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 15px rgba(196,181,253,0.4), 0 0 30px rgba(196,181,253,0.2)'} onMouseLeave={(e) => e.currentTarget.style.boxShadow = 'none'}>
                   <div className="text-2xl font-bold bg-gradient-to-r from-purple-300 to-purple-400 bg-clip-text text-transparent">{courseData.rating}</div>
                   <div className="text-sm text-white/70 mt-1">Rating</div>
                 </div>
-                <div className="slide-up rounded-xl p-4 text-center backdrop-blur-xl border transition-all duration-300" style={{ backgroundColor: 'rgba(168,85,247,0.08)', borderColor: 'rgba(168,85,247,0.25)', transitionDelay: '0.7s' }} onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 15px rgba(196,181,253,0.4), 0 0 30px rgba(196,181,253,0.2)'} onMouseLeave={(e) => e.currentTarget.style.boxShadow = 'none'}>
+                <div className="slide-up rounded-xl p-4 text-center backdrop-blur-xl border transition-all duration-300" style={{ backgroundColor: 'rgba(0,0,0,0.4)', borderColor: 'rgba(168,85,247,0.25)', transitionDelay: '0.7s' }} onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 15px rgba(196,181,253,0.4), 0 0 30px rgba(196,181,253,0.2)'} onMouseLeave={(e) => e.currentTarget.style.boxShadow = 'none'}>
                   <div className="text-2xl font-bold bg-gradient-to-r from-purple-300 to-purple-400 bg-clip-text text-transparent">{courseData.price}</div>
                   <div className="text-sm text-white/70 mt-1">Price</div>
                 </div>
               </div>
 
               {/* Tabs */}
-              <div className="slide-up rounded-2xl p-6 backdrop-blur-xl border transition-all duration-300" style={{ backgroundColor: 'rgba(168,85,247,0.08)', borderColor: 'rgba(168,85,247,0.25)', transitionDelay: '0.8s' }} onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 20px rgba(196,181,253,0.5), 0 0 40px rgba(196,181,253,0.3)'} onMouseLeave={(e) => e.currentTarget.style.boxShadow = 'none'}>
+              <div className="slide-up rounded-2xl p-6 backdrop-blur-xl border transition-all duration-300" style={{ backgroundColor: 'rgba(0,0,0,0.4)', borderColor: 'rgba(168,85,247,0.25)', transitionDelay: '0.8s' }} onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 20px rgba(196,181,253,0.5), 0 0 40px rgba(196,181,253,0.3)'} onMouseLeave={(e) => e.currentTarget.style.boxShadow = 'none'}>
                 <div className="flex flex-wrap gap-4 mb-6 border-b" style={{ borderColor: 'rgba(168,85,247,0.2)' }}>
                   {[
                     { id: "overview", label: "Overview", icon: BookOpen },
@@ -565,7 +565,7 @@ export default function CourseDetailPage({ params }: { params: Promise<{ id: str
                       <div>
                         <h3 className="text-xl font-semibold mb-4 text-white">Instructor</h3>
                         <div className="flex items-center space-x-4">
-                          <div className="w-16 h-16 rounded-xl flex items-center justify-center text-2xl font-bold backdrop-blur-sm border" style={{ backgroundColor: 'rgba(168,85,247,0.12)', borderColor: 'rgba(168,85,247,0.25)', color: '#c084fc' }}>
+                          <div className="w-16 h-16 rounded-xl flex items-center justify-center text-2xl font-bold backdrop-blur-sm border" style={{ backgroundColor: 'rgba(0,0,0,0.5)', borderColor: 'rgba(168,85,247,0.25)', color: '#c084fc' }}>
                             {courseData.instructor.split(' ').map(n => n[0]).join('')}
                           </div>
                           <div>
@@ -598,7 +598,7 @@ export default function CourseDetailPage({ params }: { params: Promise<{ id: str
                       <div className="space-y-4">
                         {courseData.syllabus.map((item, index) => (
                           <div key={index} className="flex items-start space-x-3">
-                            <div className="w-8 h-8 rounded-lg flex items-center justify-center text-sm font-bold backdrop-blur-sm border flex-shrink-0" style={{ backgroundColor: 'rgba(168,85,247,0.12)', borderColor: 'rgba(168,85,247,0.25)', color: '#c084fc' }}>
+                            <div className="w-8 h-8 rounded-lg flex items-center justify-center text-sm font-bold backdrop-blur-sm border flex-shrink-0" style={{ backgroundColor: 'rgba(0,0,0,0.5)', borderColor: 'rgba(168,85,247,0.25)', color: '#c084fc' }}>
                               {index + 1}
                             </div>
                             <span className="text-white/70 leading-relaxed">{item}</span>
@@ -641,7 +641,7 @@ export default function CourseDetailPage({ params }: { params: Promise<{ id: str
 
             {/* Sidebar */}
             <div className="lg:col-span-1">
-              <div className="slide-up rounded-2xl p-6 backdrop-blur-xl border sticky top-24 transition-all duration-300" style={{ backgroundColor: 'rgba(168,85,247,0.08)', borderColor: 'rgba(168,85,247,0.25)', transitionDelay: '0.9s' }} onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 20px rgba(196,181,253,0.5), 0 0 40px rgba(196,181,253,0.3)'} onMouseLeave={(e) => e.currentTarget.style.boxShadow = 'none'}>
+              <div className="slide-up rounded-2xl p-6 backdrop-blur-xl border sticky top-24 transition-all duration-300" style={{ backgroundColor: 'rgba(0,0,0,0.4)', borderColor: 'rgba(168,85,247,0.25)', transitionDelay: '0.9s' }} onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 20px rgba(196,181,253,0.5), 0 0 40px rgba(196,181,253,0.3)'} onMouseLeave={(e) => e.currentTarget.style.boxShadow = 'none'}>
                 <div className="aspect-video rounded-xl overflow-hidden mb-6 border" style={{ borderColor: 'rgba(168,85,247,0.25)' }}>
                   <img
                     src={courseData.image}
@@ -664,11 +664,11 @@ export default function CourseDetailPage({ params }: { params: Promise<{ id: str
                   Enroll Now
                 </Link>
 
-                <button className="w-full px-6 py-3 rounded-xl font-semibold transition-all duration-300 mb-6 border backdrop-blur-sm" style={{ backgroundColor: 'rgba(168,85,247,0.08)', borderColor: 'rgba(168,85,247,0.3)', color: '#ffffff' }} onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = 'rgba(168,85,247,0.15)'
+                <button className="w-full px-6 py-3 rounded-xl font-semibold transition-all duration-300 mb-6 border backdrop-blur-sm"                 style={{ backgroundColor: 'rgba(0,0,0,0.4)', borderColor: 'rgba(168,85,247,0.3)', color: '#ffffff' }} onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = 'rgba(0,0,0,0.6)'
                   e.currentTarget.style.borderColor = 'rgba(168,85,247,0.5)'
                 }} onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = 'rgba(168,85,247,0.08)'
+                  e.currentTarget.style.backgroundColor = 'rgba(0,0,0,0.4)'
                   e.currentTarget.style.borderColor = 'rgba(168,85,247,0.3)'
                 }}>
                   Add to Wishlist

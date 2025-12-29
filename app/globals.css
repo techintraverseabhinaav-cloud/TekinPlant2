@@ -458,3 +458,16 @@ body {
 .cl-footer {
   border-top: 1px solid rgba(168,85,247,0.2) !important;
 }
+
+/* Flip Card Styles */
+.flip-card-container {
+  transform-style: preserve-3d;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
+
+.flip-card-container > div {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform-style: preserve-3d;
+}

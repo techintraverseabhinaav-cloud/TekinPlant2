@@ -4,7 +4,8 @@ import { useState, useEffect, Suspense, useMemo } from "react"
 import { Search, Clock, Users, Star, MapPin, Building, Filter, ArrowRight, ChevronDown } from "lucide-react"
 import Navbar from "../../src/components/Navbar"
 import Link from "next/link"
-import { useSearchParams } from "next/navigation"
+import { useSearchParams, useRouter } from "next/navigation"
+import { useUser } from "@clerk/nextjs"
 import { industryCourses, industryStats } from "../../lib/industry-data"
 
 function CoursesContent() {
@@ -12,6 +13,8 @@ function CoursesContent() {
   const [category, setCategory] = useState("All Categories")
   const [location, setLocation] = useState("All Locations")
   const searchParams = useSearchParams()
+  const router = useRouter()
+  const { isSignedIn } = useUser()
 
   // Get unique categories and locations for filters
   const categories = ["All Categories", ...new Set(industryCourses.map(course => course.type))]
@@ -51,7 +54,7 @@ function CoursesContent() {
         
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center animate-fade-in-up">
-            <div className="inline-flex items-center gap-2 rounded-full px-4 py-2 mb-6 backdrop-blur-sm border border-purple-500/20" style={{ backgroundColor: 'rgba(168,85,247,0.08)' }}>
+            <div className="inline-flex items-center gap-2 rounded-full px-4 py-2 mb-6 backdrop-blur-sm border border-purple-500/20" style={{ backgroundColor: 'rgba(0,0,0,0.4)' }}>
               <Building className="w-4 h-4" style={{ color: '#a855f7' }} />
               <span className="text-sm font-medium text-white/80">Industry Training Programs</span>
             </div>
@@ -70,10 +73,10 @@ function CoursesContent() {
                 { icon: Users, value: industryStats.totalStudents, label: "Students Trained", color: 'rgba(236,72,153,0.12)', border: 'rgba(236,72,153,0.25)', iconColor: '#f472b6' },
                 { icon: Star, value: industryStats.averageRating, label: "Average Rating", color: 'rgba(139,92,246,0.12)', border: 'rgba(139,92,246,0.25)', iconColor: '#a78bfa' },
               ].map((stat, index) => (
-                <div key={index} className="text-center hover-lift p-6 rounded-2xl transition-all duration-300" style={{ backgroundColor: stat.color, borderColor: stat.border, borderWidth: '1px' }} onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 20px rgba(196,181,253,0.5), 0 0 40px rgba(196,181,253,0.3)'} onMouseLeave={(e) => e.currentTarget.style.boxShadow = 'none'}>
-                  <div className="w-14 h-14 rounded-xl flex items-center justify-center mx-auto mb-4" style={{ backgroundColor: stat.color.replace('0.12', '0.22'), borderColor: stat.border, borderWidth: '1px' }}>
+                <div key={index} className="text-center hover-lift p-6 rounded-2xl transition-all duration-300" style={{ backgroundColor: 'rgba(0,0,0,0.4)', borderColor: stat.border, borderWidth: '1px' }} onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 20px rgba(196,181,253,0.5), 0 0 40px rgba(196,181,253,0.3)'} onMouseLeave={(e) => e.currentTarget.style.boxShadow = 'none'}>
+                  <div className="w-14 h-14 rounded-xl flex items-center justify-center mx-auto mb-4" style={{ backgroundColor: 'rgba(0,0,0,0.5)', borderColor: stat.border, borderWidth: '1px' }}>
                     <stat.icon className="w-7 h-7" style={{ color: stat.iconColor }} />
-                  </div>
+                </div>
                   <h3 className="text-2xl lg:text-3xl font-bold mb-3 break-words bg-gradient-to-r from-purple-300 to-purple-400 bg-clip-text text-transparent">{stat.value}</h3>
                   <p className="text-base break-words text-white/70" style={{ lineHeight: '1.6' }}>{stat.label}</p>
                 </div>
@@ -81,7 +84,7 @@ function CoursesContent() {
             </div>
 
             {/* Search and Filters */}
-            <div className="rounded-2xl p-6 mb-8 backdrop-blur-xl border border-purple-500/20" style={{ backgroundColor: 'rgba(168,85,247,0.08)' }}>
+            <div className="rounded-2xl p-6 mb-8 backdrop-blur-xl border border-purple-500/20" style={{ backgroundColor: 'rgba(0,0,0,0.4)' }}>
               <div className="grid md:grid-cols-4 gap-4">
                 <div className="md:col-span-2">
                   <div className="relative">
@@ -92,17 +95,17 @@ function CoursesContent() {
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
                       className="w-full pl-12 pr-4 py-3 rounded-xl backdrop-blur-sm border border-purple-500/20 transition-all duration-300"
-                      style={{ backgroundColor: 'rgba(168,85,247,0.08)', color: '#ffffff' }}
+                      style={{ backgroundColor: 'rgba(0,0,0,0.4)', color: '#ffffff' }}
                     />
                   </div>
                 </div>
                 <div className="relative">
-                  <select
-                    value={category}
-                    onChange={(e) => setCategory(e.target.value)}
+                <select
+                  value={category}
+                  onChange={(e) => setCategory(e.target.value)}
                     className="w-full px-4 py-3 pr-10 rounded-xl text-white focus:outline-none transition-all duration-300 backdrop-blur-xl border appearance-none cursor-pointer"
                     style={{ 
-                      backgroundColor: 'rgba(168,85,247,0.12)',
+                      backgroundColor: 'rgba(0,0,0,0.5)',
                       borderColor: 'rgba(168,85,247,0.3)',
                       boxShadow: '0 0 15px rgba(196,181,253,0.2), inset 0 1px 0 rgba(255,255,255,0.05)'
                     }}
@@ -122,22 +125,22 @@ function CoursesContent() {
                       e.currentTarget.style.borderColor = 'rgba(168,85,247,0.3)'
                       e.currentTarget.style.boxShadow = '0 0 15px rgba(196,181,253,0.2), inset 0 1px 0 rgba(255,255,255,0.05)'
                     }}
-                  >
-                    {categories.map((cat) => (
+                >
+                  {categories.map((cat) => (
                       <option key={cat} value={cat} style={{ backgroundColor: '#0a0a0a', color: '#ffffff' }}>{cat}</option>
-                    ))}
-                  </select>
+                  ))}
+                </select>
                   <div className="absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none">
                     <ChevronDown className="w-5 h-5" style={{ color: '#c084fc' }} />
                   </div>
                 </div>
                 <div className="relative">
-                  <select
-                    value={location}
-                    onChange={(e) => setLocation(e.target.value)}
+                <select
+                  value={location}
+                  onChange={(e) => setLocation(e.target.value)}
                     className="w-full px-4 py-3 pr-10 rounded-xl text-white focus:outline-none transition-all duration-300 backdrop-blur-xl border appearance-none cursor-pointer"
                     style={{ 
-                      backgroundColor: 'rgba(168,85,247,0.12)',
+                      backgroundColor: 'rgba(0,0,0,0.5)',
                       borderColor: 'rgba(168,85,247,0.3)',
                       boxShadow: '0 0 15px rgba(196,181,253,0.2), inset 0 1px 0 rgba(255,255,255,0.05)'
                     }}
@@ -157,11 +160,11 @@ function CoursesContent() {
                       e.currentTarget.style.borderColor = 'rgba(168,85,247,0.3)'
                       e.currentTarget.style.boxShadow = '0 0 15px rgba(196,181,253,0.2), inset 0 1px 0 rgba(255,255,255,0.05)'
                     }}
-                  >
-                    {locations.map((loc) => (
+                >
+                  {locations.map((loc) => (
                       <option key={loc} value={loc} style={{ backgroundColor: '#0a0a0a', color: '#ffffff' }}>{loc}</option>
-                    ))}
-                  </select>
+                  ))}
+                </select>
                   <div className="absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none">
                     <ChevronDown className="w-5 h-5" style={{ color: '#c084fc' }} />
                   </div>
@@ -190,7 +193,7 @@ function CoursesContent() {
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {filteredCourses.length === 0 ? (
             <div className="text-center py-20">
-              <div className="w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-6 backdrop-blur-sm border border-purple-500/20" style={{ backgroundColor: 'rgba(168,85,247,0.08)' }}>
+              <div className="w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-6 backdrop-blur-sm border border-purple-500/20" style={{ backgroundColor: 'rgba(0,0,0,0.4)' }}>
                 <Search className="w-12 h-12 text-white/70" />
               </div>
               <h3 className="text-2xl font-normal text-white mb-4">
@@ -217,7 +220,7 @@ function CoursesContent() {
                   Clear Filters
                 </button>
                 {searchTerm && (
-                  <Link href="/courses" className="px-6 py-3 rounded-xl transition-all duration-300 backdrop-blur-sm border border-purple-500/20 hover:border-purple-400/40" style={{ backgroundColor: 'rgba(168,85,247,0.08)', color: '#ffffff' }} onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 20px rgba(196,181,253,0.5), 0 0 40px rgba(196,181,253,0.3)'} onMouseLeave={(e) => e.currentTarget.style.boxShadow = 'none'}>
+                  <Link href="/courses" className="px-6 py-3 rounded-xl transition-all duration-300 backdrop-blur-sm border border-purple-500/20 hover:border-purple-400/40" style={{ backgroundColor: 'rgba(0,0,0,0.4)', color: '#ffffff' }} onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 20px rgba(196,181,253,0.5), 0 0 40px rgba(196,181,253,0.3)'} onMouseLeave={(e) => e.currentTarget.style.boxShadow = 'none'}>
                     View All Courses
                   </Link>
                 )}
@@ -226,7 +229,7 @@ function CoursesContent() {
           ) : (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {filteredCourses.map((course, index) => (
-                <div key={course.id} className="hover-lift animate-fade-in-scale group border border-purple-500/20 rounded-2xl p-6 transition-all duration-300" style={{ animationDelay: `${index * 0.1}s`, backgroundColor: 'rgba(168,85,247,0.05)' }} onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 20px rgba(196,181,253,0.5), 0 0 40px rgba(196,181,253,0.3)'} onMouseLeave={(e) => e.currentTarget.style.boxShadow = 'none'}>
+                <div key={course.id} className="hover-lift animate-fade-in-scale group border border-purple-500/20 rounded-2xl p-6 transition-all duration-300" style={{ animationDelay: `${index * 0.1}s`, backgroundColor: 'rgba(0,0,0,0.3)' }} onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 20px rgba(196,181,253,0.5), 0 0 40px rgba(196,181,253,0.3)'} onMouseLeave={(e) => e.currentTarget.style.boxShadow = 'none'}>
                   <div className="aspect-video rounded-xl overflow-hidden mb-6 relative bg-black/20">
                     <img
                       src={course.image}
@@ -234,8 +237,8 @@ function CoursesContent() {
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                     <div className="absolute top-3 right-3">
-                      <span className="px-3 py-1 rounded-full text-xs font-medium backdrop-blur-sm bg-black/50 border border-purple-500/20" style={{ color: '#fbbf24' }}>
-                        ⭐ {course.rating}
+                      <span className="px-3 py-1 rounded-full text-xs font-medium backdrop-blur-sm bg-black/50 border border-purple-500/20 flex items-center gap-1" style={{ color: '#fbbf24' }}>
+                        <Star className="w-3 h-3 fill-current" /> {course.rating}
                       </span>
                     </div>
                     <div className="absolute bottom-3 left-3">
@@ -247,7 +250,7 @@ function CoursesContent() {
 
                   <div className="space-y-4">
                     <div className="mb-3">
-                      <span className="px-3 py-1 rounded-full text-base font-medium border border-purple-500/20" style={{ backgroundColor: 'rgba(168,85,247,0.1)', color: '#ffffff' }}>
+                      <span className="px-3 py-1 rounded-full text-base font-medium border border-purple-500/20" style={{ backgroundColor: 'rgba(0,0,0,0.4)', color: '#ffffff' }}>
                         {course.type}
                       </span>
                     </div>
@@ -276,9 +279,9 @@ function CoursesContent() {
                     </div>
 
                     <div className="flex items-center justify-center pt-4">
-                      <Link href={`/courses/${course.id}`} className="text-base px-5 py-2.5 rounded-xl hover:opacity-90 backdrop-blur-sm border border-purple-400/40 transition-all duration-300" style={{ background: 'linear-gradient(to right, #a78bfa, #c084fc, #a78bfa)', color: '#ffffff', boxShadow: '0 0 15px rgba(196,181,253,0.4), 0 0 30px rgba(196,181,253,0.2)' }} onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 20px rgba(196,181,253,0.6), 0 0 40px rgba(196,181,253,0.4)'} onMouseLeave={(e) => e.currentTarget.style.boxShadow = '0 0 15px rgba(196,181,253,0.4), 0 0 30px rgba(196,181,253,0.2)'}>
+                      <button onClick={() => isSignedIn ? router.push(`/courses/${course.id}`) : router.push('/login')} className="text-base px-5 py-2.5 rounded-xl hover:opacity-90 backdrop-blur-sm border border-purple-400/40 transition-all duration-300" style={{ background: 'linear-gradient(to right, #a78bfa, #c084fc, #a78bfa)', color: '#ffffff', boxShadow: '0 0 15px rgba(196,181,253,0.4), 0 0 30px rgba(196,181,253,0.2)' }} onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 20px rgba(196,181,253,0.6), 0 0 40px rgba(196,181,253,0.4)'} onMouseLeave={(e) => e.currentTarget.style.boxShadow = '0 0 15px rgba(196,181,253,0.4), 0 0 30px rgba(196,181,253,0.2)'}>
                         Learn More
-                      </Link>
+                      </button>
                     </div>
                   </div>
                 </div>
