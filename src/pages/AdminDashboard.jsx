@@ -70,7 +70,7 @@ const AdminDashboardHome = () => {
       {/* Welcome Section */}
       <div className="bg-dark-surface border border-gray-700 rounded-2xl p-8">
         <h1 className="text-3xl font-bold mb-2">Admin Dashboard</h1>
-        <p className="text-gray-400">Welcome back! Here's what's happening with TRAININ today.</p>
+        <p className="text-gray-400">Welcome back! Here's what's happening with TEKINPLANT today.</p>
       </div>
 
       {/* Stats Cards */}

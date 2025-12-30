@@ -31,7 +31,7 @@ export default function CompanyDetailPage({ params }: { params: { id: string } }
           <div className="text-center">
             <h1 className="text-4xl font-bold mb-4">Company Not Found</h1>
             <p className="text-gray-400 mb-8">The company you're looking for doesn't exist.</p>
-            <Link href="/partners" className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-200">
+            <Link href="/partners" className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg font-semibold transition-colors duration-200 text-sm">
               Back to Partners
             </Link>
           </div>
@@ -198,7 +198,7 @@ export default function CompanyDetailPage({ params }: { params: { id: string } }
                             <Star size={16} className="mr-2" />
                             Rating
                           </span>
-                          <span className="text-yellow-400">{course.rating} ⭐</span>
+                          <span className="text-yellow-400 flex items-center gap-1">{course.rating} <Star className="w-4 h-4 fill-current" /></span>
                         </div>
                         <div className="flex items-center justify-between">
                           <span className="flex items-center">
@@ -211,7 +211,7 @@ export default function CompanyDetailPage({ params }: { params: { id: string } }
 
                       <button
                         onClick={() => handleEnrollment(course.id)}
-                        className="w-full bg-purple-600 hover:bg-purple-700 text-white py-3 rounded-lg font-semibold transition-colors duration-200"
+                        className="w-full bg-purple-600 hover:bg-purple-700 text-white py-2 rounded-lg font-semibold transition-colors duration-200 text-sm px-4"
                       >
                         Enroll Now
                       </button>
@@ -276,14 +276,14 @@ export default function CompanyDetailPage({ params }: { params: { id: string } }
               <div className="flex space-x-4 pt-4">
                 <button
                   type="submit"
-                  className="flex-1 bg-purple-600 hover:bg-purple-700 text-white py-3 rounded-lg font-semibold transition-colors duration-200"
+                  className="flex-1 bg-purple-600 hover:bg-purple-700 text-white py-2 rounded-lg font-semibold transition-colors duration-200 text-sm px-4"
                 >
                   Submit Enrollment
                 </button>
                 <button
                   type="button"
                   onClick={() => setSelectedCourse(null)}
-                  className="flex-1 bg-gray-700 hover:bg-gray-600 text-white py-3 rounded-lg font-semibold transition-colors duration-200"
+                  className="flex-1 bg-gray-700 hover:bg-gray-600 text-white py-2 rounded-lg font-semibold transition-colors duration-200 text-sm px-4"
                 >
                   Cancel
                 </button>

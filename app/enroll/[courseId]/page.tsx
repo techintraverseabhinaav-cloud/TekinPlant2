@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { use } from "react"
-import { ArrowLeft, CreditCard, User, Mail, Phone, Calendar, CheckCircle, Clock, Users, Star } from "lucide-react"
+import { ArrowLeft, CreditCard, User, Mail, Phone, Calendar, CheckCircle, Clock, Users, Star, ChevronDown } from "lucide-react"
 import Navbar from "../../../src/components/Navbar"
 import Link from "next/link"
 
@@ -185,17 +185,43 @@ export default function EnrollmentPage({ params }: { params: Promise<{ courseId:
                   <label htmlFor="experience" className="block text-sm font-medium mb-2">
                     Experience Level
                   </label>
+                  <div className="relative">
                   <select
                     id="experience"
                     name="experience"
                     value={formData.experience}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 bg-gray-900 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-purple-500 transition-colors"
+                      className="w-full px-4 py-3 pr-10 rounded-xl text-white focus:outline-none transition-all duration-300 backdrop-blur-xl border appearance-none cursor-pointer"
+                      style={{ 
+                        backgroundColor: 'rgba(0,0,0,0.5)',
+                        borderColor: 'rgba(168,85,247,0.3)',
+                        boxShadow: '0 0 15px rgba(196,181,253,0.2), inset 0 1px 0 rgba(255,255,255,0.05)'
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.borderColor = 'rgba(168,85,247,0.5)'
+                        e.currentTarget.style.boxShadow = '0 0 20px rgba(196,181,253,0.3), inset 0 1px 0 rgba(255,255,255,0.08)'
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.borderColor = 'rgba(168,85,247,0.3)'
+                        e.currentTarget.style.boxShadow = '0 0 15px rgba(196,181,253,0.2), inset 0 1px 0 rgba(255,255,255,0.05)'
+                      }}
+                      onFocus={(e) => {
+                        e.currentTarget.style.borderColor = 'rgba(168,85,247,0.6)'
+                        e.currentTarget.style.boxShadow = '0 0 25px rgba(196,181,253,0.4), inset 0 1px 0 rgba(255,255,255,0.1)'
+                      }}
+                      onBlur={(e) => {
+                        e.currentTarget.style.borderColor = 'rgba(168,85,247,0.3)'
+                        e.currentTarget.style.boxShadow = '0 0 15px rgba(196,181,253,0.2), inset 0 1px 0 rgba(255,255,255,0.05)'
+                      }}
                   >
-                    <option value="beginner">Beginner</option>
-                    <option value="intermediate">Intermediate</option>
-                    <option value="advanced">Advanced</option>
+                      <option value="beginner" style={{ backgroundColor: '#0a0a0a', color: '#ffffff' }}>Beginner</option>
+                      <option value="intermediate" style={{ backgroundColor: '#0a0a0a', color: '#ffffff' }}>Intermediate</option>
+                      <option value="advanced" style={{ backgroundColor: '#0a0a0a', color: '#ffffff' }}>Advanced</option>
                   </select>
+                    <div className="absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none">
+                      <ChevronDown className="w-5 h-5" style={{ color: '#c084fc' }} />
+                    </div>
+                  </div>
                 </div>
 
                 <div>
@@ -246,7 +272,7 @@ export default function EnrollmentPage({ params }: { params: Promise<{ courseId:
 
                 <button
                   type="submit"
-                  className="w-full bg-purple-600 hover:bg-purple-700 text-white px-6 py-4 rounded-lg font-semibold transition-colors duration-200 text-lg"
+                  className="w-full bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-200 text-base"
                 >
                   Complete Enrollment - {courseData.price}
                 </button>

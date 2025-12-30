@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { use } from "react"
 import { Clock, Users, Star, MapPin, Calendar, BookOpen, CheckCircle, Play, Download, Building, Mail, Globe } from "lucide-react"
 import Navbar from "../../../src/components/Navbar"
@@ -460,58 +460,76 @@ export default function CourseDetailPage({ params }: { params: Promise<{ id: str
 
   const courseData = industryCoursesData[resolvedParams.id as keyof typeof industryCoursesData] || industryCoursesData["1"]
 
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          if (entry.target.classList.contains('slide-up')) {
+            entry.target.classList.add('slide-up-visible')
+          }
+        }
+      })
+    }, { threshold: 0.1 })
+    
+    const elements = document.querySelectorAll('.slide-up')
+    elements.forEach(el => observer.observe(el))
+    
+    return () => observer.disconnect()
+  }, [])
+
   return (
-    <div className="min-h-screen bg-gray-900 text-white">
+    <div className="min-h-screen relative" style={{ backgroundColor: '#000000' }}>
       <Navbar />
       
       {/* Course Header */}
-      <section className="py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-3 gap-12">
+      <section className="py-24 relative overflow-hidden">
+        <div className="absolute inset-0 backdrop-blur-[1px]" style={{ background: 'linear-gradient(180deg, #0a0a0a 0%, #1a1a1a 50%, #000000 100%)' }}></div>
+        <div className="slide-up relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
+          <div className="grid lg:grid-cols-3 gap-8 lg:gap-12">
             {/* Main Content */}
             <div className="lg:col-span-2">
               <div className="mb-8">
-                <h1 className="text-4xl lg:text-5xl font-bold mb-4">
-                  {courseData.title}
+                <h1 className="slide-up text-4xl lg:text-5xl font-normal mb-6" style={{ transitionDelay: '0.1s' }}>
+                  <span className="text-white" style={{ textShadow: '0 0 20px rgba(255,255,255,0.3)' }}>{courseData.title}</span>
                 </h1>
-                <div className="flex items-center space-x-6 text-gray-400 mb-6">
-                  <span className="flex items-center">
-                    <Building size={20} className="mr-2" />
+                <div className="slide-up flex flex-wrap items-center gap-6 mb-6" style={{ transitionDelay: '0.2s' }}>
+                  <span className="flex items-center text-white/70">
+                    <Building size={20} className="mr-2" style={{ color: '#c084fc' }} />
                     {courseData.company}
                   </span>
-                  <span className="flex items-center">
-                    <MapPin size={20} className="mr-2" />
+                  <span className="flex items-center text-white/70">
+                    <MapPin size={20} className="mr-2" style={{ color: '#c084fc' }} />
                     {courseData.location}
                   </span>
                 </div>
-                <p className="text-xl text-gray-300 leading-relaxed">
+                <p className="slide-up text-xl text-white/70 leading-relaxed" style={{ transitionDelay: '0.3s' }}>
                   {courseData.description}
                 </p>
               </div>
 
               {/* Course Stats */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
-                <div className="bg-gray-800 p-4 rounded-lg text-center">
-                  <div className="text-2xl font-bold text-purple-400">{courseData.duration}</div>
-                  <div className="text-sm text-gray-400">Duration</div>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                <div className="slide-up rounded-xl p-4 text-center backdrop-blur-xl border transition-all duration-300" style={{ backgroundColor: 'rgba(0,0,0,0.4)', borderColor: 'rgba(168,85,247,0.25)', transitionDelay: '0.4s' }} onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 15px rgba(196,181,253,0.4), 0 0 30px rgba(196,181,253,0.2)'} onMouseLeave={(e) => e.currentTarget.style.boxShadow = 'none'}>
+                  <div className="text-2xl font-bold bg-gradient-to-r from-purple-300 to-purple-400 bg-clip-text text-transparent">{courseData.duration}</div>
+                  <div className="text-sm text-white/70 mt-1">Duration</div>
                 </div>
-                <div className="bg-gray-800 p-4 rounded-lg text-center">
-                  <div className="text-2xl font-bold text-purple-400">{courseData.students}</div>
-                  <div className="text-sm text-gray-400">Students</div>
+                <div className="slide-up rounded-xl p-4 text-center backdrop-blur-xl border transition-all duration-300" style={{ backgroundColor: 'rgba(0,0,0,0.4)', borderColor: 'rgba(168,85,247,0.25)', transitionDelay: '0.5s' }} onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 15px rgba(196,181,253,0.4), 0 0 30px rgba(196,181,253,0.2)'} onMouseLeave={(e) => e.currentTarget.style.boxShadow = 'none'}>
+                  <div className="text-2xl font-bold bg-gradient-to-r from-purple-300 to-purple-400 bg-clip-text text-transparent">{courseData.students}</div>
+                  <div className="text-sm text-white/70 mt-1">Students</div>
                 </div>
-                <div className="bg-gray-800 p-4 rounded-lg text-center">
-                  <div className="text-2xl font-bold text-purple-400">{courseData.rating}</div>
-                  <div className="text-sm text-gray-400">Rating</div>
+                <div className="slide-up rounded-xl p-4 text-center backdrop-blur-xl border transition-all duration-300" style={{ backgroundColor: 'rgba(0,0,0,0.4)', borderColor: 'rgba(168,85,247,0.25)', transitionDelay: '0.6s' }} onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 15px rgba(196,181,253,0.4), 0 0 30px rgba(196,181,253,0.2)'} onMouseLeave={(e) => e.currentTarget.style.boxShadow = 'none'}>
+                  <div className="text-2xl font-bold bg-gradient-to-r from-purple-300 to-purple-400 bg-clip-text text-transparent">{courseData.rating}</div>
+                  <div className="text-sm text-white/70 mt-1">Rating</div>
                 </div>
-                <div className="bg-gray-800 p-4 rounded-lg text-center">
-                  <div className="text-2xl font-bold text-purple-400">{courseData.price}</div>
-                  <div className="text-sm text-gray-400">Price</div>
+                <div className="slide-up rounded-xl p-4 text-center backdrop-blur-xl border transition-all duration-300" style={{ backgroundColor: 'rgba(0,0,0,0.4)', borderColor: 'rgba(168,85,247,0.25)', transitionDelay: '0.7s' }} onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 15px rgba(196,181,253,0.4), 0 0 30px rgba(196,181,253,0.2)'} onMouseLeave={(e) => e.currentTarget.style.boxShadow = 'none'}>
+                  <div className="text-2xl font-bold bg-gradient-to-r from-purple-300 to-purple-400 bg-clip-text text-transparent">{courseData.price}</div>
+                  <div className="text-sm text-white/70 mt-1">Price</div>
                 </div>
               </div>
 
               {/* Tabs */}
-              <div className="bg-gray-800 rounded-lg p-6">
-                <div className="flex space-x-8 mb-6 border-b border-gray-700">
+              <div className="slide-up rounded-2xl p-6 backdrop-blur-xl border transition-all duration-300" style={{ backgroundColor: 'rgba(0,0,0,0.4)', borderColor: 'rgba(168,85,247,0.25)', transitionDelay: '0.8s' }} onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 20px rgba(196,181,253,0.5), 0 0 40px rgba(196,181,253,0.3)'} onMouseLeave={(e) => e.currentTarget.style.boxShadow = 'none'}>
+                <div className="flex flex-wrap gap-4 mb-6 border-b" style={{ borderColor: 'rgba(168,85,247,0.2)' }}>
                   {[
                     { id: "overview", label: "Overview", icon: BookOpen },
                     { id: "syllabus", label: "Syllabus", icon: CheckCircle },
@@ -521,13 +539,14 @@ export default function CourseDetailPage({ params }: { params: Promise<{ id: str
                     <button
                       key={tab.id}
                       onClick={() => setActiveTab(tab.id)}
-                      className={`flex items-center space-x-2 pb-4 px-2 border-b-2 transition-colors ${
+                      className={`flex items-center space-x-2 pb-4 px-2 border-b-2 transition-all duration-300 ${
                         activeTab === tab.id
-                          ? "border-purple-500 text-purple-400"
-                          : "border-transparent text-gray-400 hover:text-white"
+                          ? "border-purple-400 text-white"
+                          : "border-transparent text-white/70 hover:text-white"
                       }`}
+                      style={activeTab === tab.id ? { borderColor: '#c084fc' } : {}}
                     >
-                      <tab.icon size={20} />
+                      <tab.icon size={20} style={{ color: activeTab === tab.id ? '#c084fc' : 'rgba(255,255,255,0.7)' }} />
                       <span>{tab.label}</span>
                     </button>
                   ))}
@@ -536,35 +555,35 @@ export default function CourseDetailPage({ params }: { params: Promise<{ id: str
                 {/* Tab Content */}
                 <div className="min-h-[400px]">
                   {activeTab === "overview" && (
-                    <div className="space-y-6">
+                    <div className="space-y-8">
                       <div>
-                        <h3 className="text-xl font-semibold mb-4">About This Program</h3>
-                        <p className="text-gray-300 leading-relaxed">
+                        <h3 className="text-xl font-semibold mb-4 text-white">About This Program</h3>
+                        <p className="text-white/70 leading-relaxed">
                           {courseData.description}
                         </p>
                       </div>
                       <div>
-                        <h3 className="text-xl font-semibold mb-4">Instructor</h3>
+                        <h3 className="text-xl font-semibold mb-4 text-white">Instructor</h3>
                         <div className="flex items-center space-x-4">
-                          <div className="w-16 h-16 bg-purple-600 rounded-full flex items-center justify-center text-2xl font-bold">
+                          <div className="w-16 h-16 rounded-xl flex items-center justify-center text-2xl font-bold backdrop-blur-sm border" style={{ backgroundColor: 'rgba(0,0,0,0.5)', borderColor: 'rgba(168,85,247,0.25)', color: '#c084fc' }}>
                             {courseData.instructor.split(' ').map(n => n[0]).join('')}
                           </div>
                           <div>
-                            <div className="font-semibold">{courseData.instructor}</div>
-                            <div className="text-gray-400">{courseData.company}</div>
+                            <div className="font-semibold text-white">{courseData.instructor}</div>
+                            <div className="text-white/70">{courseData.company}</div>
                           </div>
                         </div>
                       </div>
                       <div>
-                        <h3 className="text-xl font-semibold mb-4">Contact Information</h3>
-                        <div className="space-y-2">
-                          <div className="flex items-center space-x-2">
-                            <Mail size={16} />
+                        <h3 className="text-xl font-semibold mb-4 text-white">Contact Information</h3>
+                        <div className="space-y-3">
+                          <div className="flex items-center space-x-2 text-white/70">
+                            <Mail size={16} style={{ color: '#c084fc' }} />
                             <span>{courseData.contact}</span>
                           </div>
                           <div className="flex items-center space-x-2">
-                            <Globe size={16} />
-                            <a href={courseData.website} target="_blank" rel="noopener noreferrer" className="text-purple-400 hover:text-purple-300">
+                            <Globe size={16} style={{ color: '#c084fc' }} />
+                            <a href={courseData.website} target="_blank" rel="noopener noreferrer" className="text-white/70 hover:text-white transition-colors" style={{ color: '#c084fc' }}>
                               {courseData.website}
                             </a>
                           </div>
@@ -575,14 +594,14 @@ export default function CourseDetailPage({ params }: { params: Promise<{ id: str
 
                   {activeTab === "syllabus" && (
                     <div>
-                      <h3 className="text-xl font-semibold mb-4">Course Syllabus</h3>
-                      <div className="space-y-3">
+                      <h3 className="text-xl font-semibold mb-6 text-white">Course Syllabus</h3>
+                      <div className="space-y-4">
                         {courseData.syllabus.map((item, index) => (
                           <div key={index} className="flex items-start space-x-3">
-                            <div className="w-6 h-6 bg-purple-600 rounded-full flex items-center justify-center text-sm font-bold mt-0.5">
+                            <div className="w-8 h-8 rounded-lg flex items-center justify-center text-sm font-bold backdrop-blur-sm border flex-shrink-0" style={{ backgroundColor: 'rgba(0,0,0,0.5)', borderColor: 'rgba(168,85,247,0.25)', color: '#c084fc' }}>
                               {index + 1}
                             </div>
-                            <span className="text-gray-300">{item}</span>
+                            <span className="text-white/70 leading-relaxed">{item}</span>
                           </div>
                         ))}
                       </div>
@@ -591,12 +610,12 @@ export default function CourseDetailPage({ params }: { params: Promise<{ id: str
 
                   {activeTab === "requirements" && (
                     <div>
-                      <h3 className="text-xl font-semibold mb-4">Prerequisites & Requirements</h3>
-                      <div className="space-y-3">
+                      <h3 className="text-xl font-semibold mb-6 text-white">Prerequisites & Requirements</h3>
+                      <div className="space-y-4">
                         {courseData.requirements.map((item, index) => (
                           <div key={index} className="flex items-start space-x-3">
-                            <CheckCircle size={20} className="text-green-400 mt-0.5" />
-                            <span className="text-gray-300">{item}</span>
+                            <CheckCircle size={20} className="mt-0.5 flex-shrink-0" style={{ color: '#10b981' }} />
+                            <span className="text-white/70 leading-relaxed">{item}</span>
                           </div>
                         ))}
                       </div>
@@ -605,12 +624,12 @@ export default function CourseDetailPage({ params }: { params: Promise<{ id: str
 
                   {activeTab === "outcomes" && (
                     <div>
-                      <h3 className="text-xl font-semibold mb-4">What You'll Learn</h3>
-                      <div className="space-y-3">
+                      <h3 className="text-xl font-semibold mb-6 text-white">What You'll Learn</h3>
+                      <div className="space-y-4">
                         {courseData.outcomes.map((item, index) => (
                           <div key={index} className="flex items-start space-x-3">
-                            <CheckCircle size={20} className="text-green-400 mt-0.5" />
-                            <span className="text-gray-300">{item}</span>
+                            <CheckCircle size={20} className="mt-0.5 flex-shrink-0" style={{ color: '#10b981' }} />
+                            <span className="text-white/70 leading-relaxed">{item}</span>
                           </div>
                         ))}
                       </div>
@@ -622,8 +641,8 @@ export default function CourseDetailPage({ params }: { params: Promise<{ id: str
 
             {/* Sidebar */}
             <div className="lg:col-span-1">
-              <div className="bg-gray-800 border border-gray-700 rounded-lg p-6 sticky top-24">
-                <div className="aspect-video rounded-lg overflow-hidden mb-6">
+              <div className="slide-up rounded-2xl p-6 backdrop-blur-xl border sticky top-24 transition-all duration-300" style={{ backgroundColor: 'rgba(0,0,0,0.4)', borderColor: 'rgba(168,85,247,0.25)', transitionDelay: '0.9s' }} onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 20px rgba(196,181,253,0.5), 0 0 40px rgba(196,181,253,0.3)'} onMouseLeave={(e) => e.currentTarget.style.boxShadow = 'none'}>
+                <div className="aspect-video rounded-xl overflow-hidden mb-6 border" style={{ borderColor: 'rgba(168,85,247,0.25)' }}>
                   <img
                     src={courseData.image}
                     alt={courseData.title}
@@ -631,40 +650,49 @@ export default function CourseDetailPage({ params }: { params: Promise<{ id: str
                   />
                 </div>
 
-                <div className="text-3xl font-bold text-purple-400 mb-6">
+                <div className="text-3xl font-bold mb-6 bg-gradient-to-r from-purple-300 to-purple-400 bg-clip-text text-transparent">
                   {courseData.price}
                 </div>
 
                 <Link
                   href={`/enroll/${resolvedParams.id}`}
-                  className="w-full bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-200 mb-4 block text-center"
+                  className="w-full px-4 py-2 rounded-xl font-semibold transition-all duration-300 hover:opacity-90 backdrop-blur-sm border border-purple-400/40 mb-4 block text-center text-sm"
+                  style={{ background: 'linear-gradient(to right, #a78bfa, #c084fc, #a78bfa)', color: '#ffffff', boxShadow: '0 0 20px rgba(196,181,253,0.4), 0 0 40px rgba(196,181,253,0.2)' }}
+                  onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 25px rgba(196,181,253,0.6), 0 0 50px rgba(196,181,253,0.4)'}
+                  onMouseLeave={(e) => e.currentTarget.style.boxShadow = '0 0 20px rgba(196,181,253,0.4), 0 0 40px rgba(196,181,253,0.2)'}
                 >
                   Enroll Now
                 </Link>
 
-                <button className="w-full bg-gray-700 hover:bg-gray-600 text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-200 mb-6">
+                <button className="w-full px-4 py-2 rounded-xl font-semibold transition-all duration-300 mb-6 border backdrop-blur-sm text-sm"                 style={{ backgroundColor: 'rgba(0,0,0,0.4)', borderColor: 'rgba(168,85,247,0.3)', color: '#ffffff' }} onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = 'rgba(0,0,0,0.6)'
+                  e.currentTarget.style.borderColor = 'rgba(168,85,247,0.5)'
+                }} onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = 'rgba(0,0,0,0.4)'
+                  e.currentTarget.style.borderColor = 'rgba(168,85,247,0.3)'
+                }}>
                   Add to Wishlist
                 </button>
 
-                <div className="space-y-4 text-sm">
+                <div className="space-y-4 text-sm pt-4 border-t" style={{ borderColor: 'rgba(168,85,247,0.2)' }}>
                   <div className="flex items-center justify-between">
-                    <span className="text-gray-400">Duration:</span>
-                    <span>{courseData.duration}</span>
+                    <span className="text-white/70">Duration:</span>
+                    <span className="text-white">{courseData.duration}</span>
                   </div>
                   <div className="flex items-center justify-between">
-                    <span className="text-gray-400">Students:</span>
-                    <span>{courseData.students}</span>
+                    <span className="text-white/70">Students:</span>
+                    <span className="text-white">{courseData.students}</span>
                   </div>
                   <div className="flex items-center justify-between">
-                    <span className="text-gray-400">Rating:</span>
-                    <span className="flex items-center">
-                      <Star size={16} className="text-yellow-400 mr-1" />
+                    <span className="text-white/70">Rating:</span>
+                    <span className="flex items-center text-white">
+                      <Star size={16} className="mr-1" style={{ color: '#fbbf24' }} />
                       {courseData.rating}
                     </span>
                   </div>
                   <div className="flex items-center justify-between">
-                    <span className="text-gray-400">Type:</span>
-                    <span>{courseData.type}</span>
+                    <span className="text-white/70">Type:</span>
+                    <span className="text-white">{courseData.type}</span>
                   </div>
                 </div>
               </div>

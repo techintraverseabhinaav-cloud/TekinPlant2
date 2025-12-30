@@ -8,7 +8,7 @@ const AboutPage = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
-              <h1 className="text-5xl font-bold mb-6">About TRAININ</h1>
+              <h1 className="text-5xl font-bold mb-6">About TEKINPLANT</h1>
               <p className="text-xl text-gray-300 leading-relaxed mb-8">
                 We are a premier industrial training institute dedicated to bridging the gap between academic knowledge
                 and industry requirements. Our mission is to empower individuals with practical skills and hands-on
@@ -252,7 +252,7 @@ const AboutPage = () => {
               rel="noopener noreferrer"
               className="border border-gray-600 hover:border-gray-500 text-gray-300 hover:text-white px-8 py-3 rounded-lg font-medium transition-colors duration-200"
             >
-              Visit: WWW.TRAININ.COM
+              Visit: WWW.TEKINPLANT.COM
             </a>
           </div>
         </div>

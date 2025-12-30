@@ -95,7 +95,7 @@ export default function SignUpPage() {
           {/* Logo for mobile */}
           <div className="lg:hidden mb-8">
             <h1 className="text-3xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
-              TRAININ
+              TEKINPLANT
             </h1>
           </div>
 

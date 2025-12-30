@@ -1,7 +1,7 @@
 "use client"
 
-import { useState } from "react"
-import { Mail, Phone, MapPin, Clock, Send } from "lucide-react"
+import { useState, useEffect } from "react"
+import { Send, ChevronDown, MessageCircle, Lock, Linkedin, Youtube, Instagram } from "lucide-react"
 import Navbar from "../../src/components/Navbar"
 
 export default function ContactPage() {
@@ -12,9 +12,25 @@ export default function ContactPage() {
     message: ""
   })
 
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          if (entry.target.classList.contains('slide-up')) {
+            entry.target.classList.add('slide-up-visible')
+          }
+        }
+      })
+    }, { threshold: 0.1 })
+    
+    const elements = document.querySelectorAll('.slide-up')
+    elements.forEach(el => observer.observe(el))
+    
+    return () => observer.disconnect()
+  }, [])
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    // Handle form submission here
     console.log("Form submitted:", formData)
     alert("Thank you for your message! We'll get back to you soon.")
     setFormData({ name: "", email: "", subject: "", message: "" })
@@ -27,28 +43,52 @@ export default function ContactPage() {
     })
   }
 
+  const faqs = [
+    {
+      question: "How do I enroll in a training program?",
+      answer: "You can enroll directly through our website by selecting your desired course and following the enrollment process. You can also contact us for personalized assistance."
+    },
+    {
+      question: "What payment options do you accept?",
+      answer: "We accept all major credit cards, debit cards, and online banking transfers. We also offer flexible payment plans for longer programs."
+    },
+    {
+      question: "Do you provide certificates upon completion?",
+      answer: "Yes, all our training programs provide industry-recognized certificates upon successful completion. These certificates are widely accepted by employers."
+    },
+    {
+      question: "Can I get a refund if I'm not satisfied?",
+      answer: "We offer a 30-day money-back guarantee for all our training programs. If you're not satisfied with the course, you can request a full refund."
+    }
+  ]
+
   return (
-    <div className="min-h-screen bg-gray-900 text-white">
+    <div className="min-h-screen relative" style={{ backgroundColor: '#000000' }}>
       <Navbar />
       
       {/* Header */}
-      <section className="py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="relative py-24 overflow-hidden">
+        <div className="absolute inset-0 backdrop-blur-[1px]" style={{ background: 'linear-gradient(180deg, #0a0a0a 0%, #1a1a1a 50%, #000000 100%)' }}></div>
+        <div className="slide-up relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
           <div className="text-center mb-16">
-            <h1 className="text-5xl font-bold mb-6">Contact Us</h1>
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+            <div className="slide-up inline-flex items-center gap-2 rounded-full px-4 py-1.5 mb-8 backdrop-blur-sm border border-purple-500/20" style={{ backgroundColor: 'rgba(0,0,0,0.4)', transitionDelay: '0.1s' }}>
+              <span className="text-xs font-medium text-white/70 tracking-wide uppercase">Get in Touch</span>
+            </div>
+            <h1 className="slide-up text-5xl sm:text-6xl lg:text-7xl font-light mb-6 leading-tight tracking-tight" style={{ transitionDelay: '0.2s' }}>
+              <span className="text-white">Contact</span> <span className="bg-gradient-to-r from-purple-300 via-purple-200 to-purple-300 bg-clip-text text-transparent">Us</span>
+            </h1>
+            <p className="slide-up text-lg sm:text-xl text-white/50 max-w-3xl mx-auto mb-16 font-light leading-relaxed" style={{ transitionDelay: '0.3s' }}>
               Have questions about our training programs? We're here to help! Get in touch with our team for personalized assistance.
             </p>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-12">
-            {/* Contact Form */}
-            <div className="bg-gray-800 border border-gray-700 rounded-2xl p-8">
-              <h2 className="text-2xl font-bold mb-6">Send us a Message</h2>
+          {/* Contact Form */}
+          <div className="slide-up max-w-2xl mx-auto" style={{ transitionDelay: '0.4s' }}>
+            <div className="rounded-2xl p-8 lg:p-10 backdrop-blur-xl border border-purple-500/20" style={{ backgroundColor: 'rgba(0,0,0,0.3)' }}>
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
-                    <label htmlFor="name" className="block text-sm font-medium mb-2">
+                    <label htmlFor="name" className="block text-xs font-medium mb-2 text-white/60 uppercase tracking-wide">
                       Full Name
                     </label>
                     <input
@@ -58,12 +98,24 @@ export default function ContactPage() {
                       value={formData.name}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-3 bg-gray-900 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-purple-500 transition-colors"
+                      className="w-full px-5 py-3.5 rounded-xl text-white placeholder-white/30 focus:outline-none transition-all duration-300 backdrop-blur-sm border font-light"
+                      style={{ 
+                        backgroundColor: 'rgba(0,0,0,0.4)',
+                        borderColor: 'rgba(168,85,247,0.2)'
+                      }}
+                      onFocus={(e) => {
+                        e.currentTarget.style.borderColor = 'rgba(168,85,247,0.6)'
+                        e.currentTarget.style.boxShadow = '0 0 0 2px rgba(168,85,247,0.2)'
+                      }}
+                      onBlur={(e) => {
+                        e.currentTarget.style.borderColor = 'rgba(168,85,247,0.2)'
+                        e.currentTarget.style.boxShadow = 'none'
+                      }}
                       placeholder="Enter your full name"
                     />
                   </div>
                   <div>
-                    <label htmlFor="email" className="block text-sm font-medium mb-2">
+                    <label htmlFor="email" className="block text-xs font-medium mb-2 text-white/60 uppercase tracking-wide">
                       Email Address
                     </label>
                     <input
@@ -73,33 +125,68 @@ export default function ContactPage() {
                       value={formData.email}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-3 bg-gray-900 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-purple-500 transition-colors"
+                      className="w-full px-5 py-3.5 rounded-xl text-white placeholder-white/30 focus:outline-none transition-all duration-300 backdrop-blur-sm border font-light"
+                      style={{ 
+                        backgroundColor: 'rgba(0,0,0,0.4)',
+                        borderColor: 'rgba(168,85,247,0.2)'
+                      }}
+                      onFocus={(e) => {
+                        e.currentTarget.style.borderColor = 'rgba(168,85,247,0.6)'
+                        e.currentTarget.style.boxShadow = '0 0 0 2px rgba(168,85,247,0.2)'
+                      }}
+                      onBlur={(e) => {
+                        e.currentTarget.style.borderColor = 'rgba(168,85,247,0.2)'
+                        e.currentTarget.style.boxShadow = 'none'
+                      }}
                       placeholder="Enter your email"
                     />
                   </div>
                 </div>
                 <div>
-                  <label htmlFor="subject" className="block text-sm font-medium mb-2">
+                  <label htmlFor="subject" className="block text-xs font-medium mb-2 text-white/60 uppercase tracking-wide">
                     Subject
                   </label>
-                  <select
-                    id="subject"
-                    name="subject"
-                    value={formData.subject}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-3 bg-gray-900 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-purple-500 transition-colors"
-                  >
-                    <option value="">Select a subject</option>
-                    <option value="Course Inquiry">Course Inquiry</option>
-                    <option value="Enrollment">Enrollment</option>
-                    <option value="Technical Support">Technical Support</option>
-                    <option value="Partnership">Partnership</option>
-                    <option value="General">General</option>
-                  </select>
+                  <div className="relative">
+                    <select
+                      id="subject"
+                      name="subject"
+                      value={formData.subject}
+                      onChange={handleChange}
+                      required
+                      className="w-full px-5 py-3.5 pr-10 rounded-xl text-white focus:outline-none transition-all duration-300 backdrop-blur-xl border appearance-none cursor-pointer font-light"
+                      style={{ 
+                        backgroundColor: 'rgba(0,0,0,0.4)',
+                        borderColor: 'rgba(168,85,247,0.2)'
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.borderColor = 'rgba(168,85,247,0.4)'
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.borderColor = 'rgba(168,85,247,0.2)'
+                      }}
+                      onFocus={(e) => {
+                        e.currentTarget.style.borderColor = 'rgba(168,85,247,0.6)'
+                        e.currentTarget.style.boxShadow = '0 0 0 2px rgba(168,85,247,0.2)'
+                      }}
+                      onBlur={(e) => {
+                        e.currentTarget.style.borderColor = 'rgba(168,85,247,0.2)'
+                        e.currentTarget.style.boxShadow = 'none'
+                      }}
+                    >
+                      <option value="" style={{ backgroundColor: '#0a0a0a', color: '#ffffff' }}>Select a subject</option>
+                      <option value="Course Inquiry" style={{ backgroundColor: '#0a0a0a', color: '#ffffff' }}>Course Inquiry</option>
+                      <option value="Enrollment" style={{ backgroundColor: '#0a0a0a', color: '#ffffff' }}>Enrollment</option>
+                      <option value="Technical Support" style={{ backgroundColor: '#0a0a0a', color: '#ffffff' }}>Technical Support</option>
+                      <option value="Partnership" style={{ backgroundColor: '#0a0a0a', color: '#ffffff' }}>Partnership</option>
+                      <option value="General" style={{ backgroundColor: '#0a0a0a', color: '#ffffff' }}>General</option>
+                    </select>
+                    <div className="absolute right-4 top-1/2 transform -translate-y-1/2 pointer-events-none">
+                      <ChevronDown className="w-4 h-4" style={{ color: '#c084fc' }} />
+                    </div>
+                  </div>
                 </div>
                 <div>
-                  <label htmlFor="message" className="block text-sm font-medium mb-2">
+                  <label htmlFor="message" className="block text-xs font-medium mb-2 text-white/60 uppercase tracking-wide">
                     Message
                   </label>
                   <textarea
@@ -109,139 +196,176 @@ export default function ContactPage() {
                     onChange={handleChange}
                     required
                     rows={6}
-                    className="w-full px-4 py-3 bg-gray-900 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-purple-500 transition-colors resize-none"
+                    className="w-full px-5 py-3.5 rounded-xl text-white placeholder-white/30 focus:outline-none transition-all duration-300 resize-none backdrop-blur-sm border font-light"
+                    style={{ 
+                      backgroundColor: 'rgba(0,0,0,0.4)',
+                      borderColor: 'rgba(168,85,247,0.2)'
+                    }}
+                    onFocus={(e) => {
+                      e.currentTarget.style.borderColor = 'rgba(168,85,247,0.6)'
+                      e.currentTarget.style.boxShadow = '0 0 0 2px rgba(168,85,247,0.2)'
+                    }}
+                    onBlur={(e) => {
+                      e.currentTarget.style.borderColor = 'rgba(168,85,247,0.2)'
+                      e.currentTarget.style.boxShadow = 'none'
+                    }}
                     placeholder="Tell us how we can help you..."
                   />
                 </div>
                 <button
                   type="submit"
-                  className="w-full bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-200 flex items-center justify-center"
+                  className="w-full px-6 py-3.5 rounded-xl font-medium transition-all duration-300 flex items-center justify-center gap-2 backdrop-blur-sm border border-purple-400/40"
+                  style={{ 
+                    background: 'linear-gradient(to right, #a78bfa, #c084fc, #a78bfa)', 
+                    color: '#ffffff'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = 'scale(1.02)'
+                    e.currentTarget.style.boxShadow = '0 4px 12px rgba(196,181,253,0.4)'
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = 'scale(1)'
+                    e.currentTarget.style.boxShadow = 'none'
+                  }}
                 >
-                  <Send size={20} className="mr-2" />
+                  <Send size={18} />
                   Send Message
                 </button>
               </form>
             </div>
+          </div>
+        </div>
+      </section>
 
-            {/* Contact Information */}
-            <div className="space-y-8">
-              <div>
-                <h2 className="text-2xl font-bold mb-6">Get in Touch</h2>
-                <p className="text-gray-300 leading-relaxed mb-8">
-                  We're here to help you find the perfect training program for your career goals. 
-                  Reach out to us through any of the channels below.
-                </p>
-              </div>
-
-              <div className="space-y-6">
-                <div className="flex items-start space-x-4">
-                  <div className="flex-shrink-0">
-                    <Phone className="w-6 h-6 text-purple-500" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold mb-1">Phone</h3>
-                    <p className="text-gray-300">+91 9860970798</p>
-                    <p className="text-gray-400 text-sm">Monday - Friday, 9:00 AM - 6:00 PM</p>
-                  </div>
-                </div>
-
-                <div className="flex items-start space-x-4">
-                  <div className="flex-shrink-0">
-                    <Mail className="w-6 h-6 text-purple-500" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold mb-1">Email</h3>
-                    <p className="text-gray-300">info@trainin.com</p>
-                    <p className="text-gray-400 text-sm">We'll respond within 24 hours</p>
-                  </div>
-                </div>
-
-                <div className="flex items-start space-x-4">
-                  <div className="flex-shrink-0">
-                    <MapPin className="w-6 h-6 text-purple-500" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold mb-1">Address</h3>
-                    <p className="text-gray-300">
-                      TRAININ Headquarters<br />
-                      Tech Park, Building A<br />
-                      Bangalore, Karnataka 560001<br />
-                      India
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-start space-x-4">
-                  <div className="flex-shrink-0">
-                    <Clock className="w-6 h-6 text-purple-500" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold mb-1">Business Hours</h3>
-                    <p className="text-gray-300">
-                      Monday - Friday: 9:00 AM - 6:00 PM<br />
-                      Saturday: 10:00 AM - 4:00 PM<br />
-                      Sunday: Closed
-                    </p>
-                  </div>
+      {/* Contact Information */}
+      <section className="py-24 relative overflow-hidden">
+        <div className="absolute inset-0 backdrop-blur-[1px]" style={{ background: 'linear-gradient(180deg, #000000 0%, #0a0a0a 50%, #1a1a1a 100%)' }}></div>
+        <div className="slide-up relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
+          <div className="grid md:grid-cols-3 gap-8 lg:gap-12">
+            <div className="text-center">
+              <div className="w-16 h-16 p-0.5 rounded-xl flex items-center justify-center mx-auto mb-6" style={{ backgroundColor: 'rgba(0,0,0,0.5)', borderColor: 'rgba(168,85,247,0.25)', borderWidth: '1px' }}>
+                <div className="w-full h-full rounded-lg flex items-center justify-center overflow-hidden" style={{ borderColor: 'rgba(168,85,247,0.25)', borderWidth: '1px', backgroundColor: '#ffffff' }}>
+                  <img src="/Icons/email.png" alt="Email" className="w-full h-full object-cover scale-150" />
                 </div>
               </div>
-
-              {/* Quick Links */}
-              <div className="bg-gray-800 border border-gray-700 rounded-xl p-6">
-                <h3 className="font-semibold mb-4">Quick Links</h3>
-                <div className="space-y-2">
-                  <a href="/courses" className="block text-purple-400 hover:text-purple-300 transition-colors">
-                    Browse Training Courses
-                  </a>
-                  <a href="/about" className="block text-purple-400 hover:text-purple-300 transition-colors">
-                    Learn About Us
-                  </a>
-                  <a href="/login" className="block text-purple-400 hover:text-purple-300 transition-colors">
-                    Student Login
-                  </a>
-                  <a href="https://www.trainin.com" className="block text-purple-400 hover:text-purple-300 transition-colors">
-                    Visit Our Website
-                  </a>
+              <h3 className="text-lg font-light mb-2 text-white">Email</h3>
+              <p className="text-white/50 font-light">contact@tekinplant.com</p>
+            </div>
+            <div className="text-center">
+              <div className="w-16 h-16 p-0.5 rounded-xl flex items-center justify-center mx-auto mb-6" style={{ backgroundColor: 'rgba(0,0,0,0.5)', borderColor: 'rgba(168,85,247,0.25)', borderWidth: '1px' }}>
+                <div className="w-full h-full rounded-lg flex items-center justify-center overflow-hidden" style={{ borderColor: 'rgba(168,85,247,0.25)', borderWidth: '1px', backgroundColor: '#ffffff' }}>
+                  <img src="/Icons/phone.png" alt="Phone" className="w-full h-full object-cover scale-150" />
                 </div>
               </div>
+              <h3 className="text-lg font-light mb-2 text-white">Phone</h3>
+              <p className="text-white/50 font-light">+91 9860970798</p>
+            </div>
+            <div className="text-center">
+              <div className="w-16 h-16 p-0.5 rounded-xl flex items-center justify-center mx-auto mb-6" style={{ backgroundColor: 'rgba(0,0,0,0.5)', borderColor: 'rgba(168,85,247,0.25)', borderWidth: '1px' }}>
+                <div className="w-full h-full rounded-lg flex items-center justify-center overflow-hidden" style={{ borderColor: 'rgba(168,85,247,0.25)', borderWidth: '1px', backgroundColor: '#ffffff' }}>
+                  <img src="/Icons/location.png" alt="Location" className="w-full h-full object-cover scale-150" />
+                </div>
+              </div>
+              <h3 className="text-lg font-light mb-2 text-white">Location</h3>
+              <p className="text-white/50 font-light">Bangalore, India</p>
             </div>
           </div>
         </div>
       </section>
 
       {/* FAQ Section */}
-      <section className="py-20 bg-gray-800">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-center mb-12">Frequently Asked Questions</h2>
-          <div className="space-y-6">
-            <div className="bg-gray-900 border border-gray-700 rounded-xl p-6">
-              <h3 className="font-semibold mb-2">How do I enroll in a training program?</h3>
-              <p className="text-gray-300">
-                You can enroll directly through our website by selecting your desired course and following the enrollment process. 
-                You can also contact us for personalized assistance.
-              </p>
+      <section className="py-24 relative overflow-hidden">
+        <div className="absolute inset-0 backdrop-blur-[1px]" style={{ background: 'linear-gradient(180deg, #1a1a1a 0%, #0a0a0a 50%, #000000 100%)' }}></div>
+        <div className="slide-up relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
+          <div className="text-center mb-16">
+            <div className="slide-up inline-flex items-center gap-2 rounded-full px-4 py-1.5 mb-6 backdrop-blur-sm border border-purple-500/20" style={{ backgroundColor: 'rgba(0,0,0,0.4)', transitionDelay: '0.1s' }}>
+              <MessageCircle className="w-3.5 h-3.5" style={{ color: '#a855f7' }} />
+              <span className="text-xs font-medium text-white/70 tracking-wide uppercase">Common Questions</span>
             </div>
-            <div className="bg-gray-900 border border-gray-700 rounded-xl p-6">
-              <h3 className="font-semibold mb-2">What payment options do you accept?</h3>
-              <p className="text-gray-300">
-                We accept all major credit cards, debit cards, and online banking transfers. 
-                We also offer flexible payment plans for longer programs.
-              </p>
-            </div>
-            <div className="bg-gray-900 border border-gray-700 rounded-xl p-6">
-              <h3 className="font-semibold mb-2">Do you provide certificates upon completion?</h3>
-              <p className="text-gray-300">
-                Yes, all our training programs provide industry-recognized certificates upon successful completion. 
-                These certificates are widely accepted by employers.
-              </p>
-            </div>
-            <div className="bg-gray-900 border border-gray-700 rounded-xl p-6">
-              <h3 className="font-semibold mb-2">Can I get a refund if I'm not satisfied?</h3>
-              <p className="text-gray-300">
-                We offer a 30-day money-back guarantee for all our training programs. 
-                If you're not satisfied with the course, you can request a full refund.
-              </p>
-            </div>
+            <h2 className="slide-up text-4xl lg:text-5xl font-light mb-6 leading-tight tracking-tight" style={{ transitionDelay: '0.2s' }}>
+              <span className="text-white">Frequently Asked</span> <span className="bg-gradient-to-r from-purple-300 to-purple-400 bg-clip-text text-transparent">Questions</span>
+            </h2>
+          </div>
+          
+          <div className="space-y-4">
+            {faqs.map((faq, index) => (
+              <div 
+                key={index} 
+                className="slide-up p-6 rounded-xl border border-purple-500/20 transition-all duration-500" 
+                style={{ 
+                  backgroundColor: 'rgba(0,0,0,0.2)',
+                  transitionDelay: `${0.3 + index * 0.1}s`
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = 'rgba(0,0,0,0.3)'
+                  e.currentTarget.style.borderColor = 'rgba(168,85,247,0.3)'
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = 'rgba(0,0,0,0.2)'
+                  e.currentTarget.style.borderColor = 'rgba(168,85,247,0.2)'
+                }}
+              >
+                <h3 className="text-lg font-light mb-3 text-white">{faq.question}</h3>
+                <p className="text-white/50 leading-relaxed font-light">{faq.answer}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Social Media */}
+      <section className="py-16 relative overflow-hidden">
+        <div className="absolute inset-0 backdrop-blur-[1px]" style={{ background: 'linear-gradient(180deg, #000000 0%, #0a0a0a 50%, #1a1a1a 100%)' }}></div>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
+          <div className="flex justify-center items-center gap-6">
+            <a
+              href="#"
+              className="w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-300 border border-purple-500/20"
+              style={{ backgroundColor: 'rgba(0,0,0,0.3)' }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'translateY(-4px)'
+                e.currentTarget.style.borderColor = 'rgba(168,85,247,0.4)'
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'translateY(0)'
+                e.currentTarget.style.borderColor = 'rgba(168,85,247,0.2)'
+              }}
+              aria-label="LinkedIn"
+            >
+              <Linkedin className="w-5 h-5 text-white/60" />
+            </a>
+            <a
+              href="#"
+              className="w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-300 border border-purple-500/20"
+              style={{ backgroundColor: 'rgba(0,0,0,0.3)' }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'translateY(-4px)'
+                e.currentTarget.style.borderColor = 'rgba(168,85,247,0.4)'
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'translateY(0)'
+                e.currentTarget.style.borderColor = 'rgba(168,85,247,0.2)'
+              }}
+              aria-label="YouTube"
+            >
+              <Youtube className="w-5 h-5 text-white/60" />
+            </a>
+            <a
+              href="#"
+              className="w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-300 border border-purple-500/20"
+              style={{ backgroundColor: 'rgba(0,0,0,0.3)' }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'translateY(-4px)'
+                e.currentTarget.style.borderColor = 'rgba(168,85,247,0.4)'
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'translateY(0)'
+                e.currentTarget.style.borderColor = 'rgba(168,85,247,0.2)'
+              }}
+              aria-label="Instagram"
+            >
+              <Instagram className="w-5 h-5 text-white/60" />
+            </a>
           </div>
         </div>
       </section>

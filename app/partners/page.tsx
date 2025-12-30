@@ -1,12 +1,82 @@
 "use client"
 
-import { useState } from "react"
-import { Search, MapPin, Building, Users, Calendar, ExternalLink, Mail, Phone, TrendingUp, Star } from "lucide-react"
+import { useState, useEffect } from "react"
+import { Search, MapPin, Building, Users, Calendar, ExternalLink, Mail, Phone, TrendingUp, Star, ChevronDown } from "lucide-react"
 import Navbar from "../../src/components/Navbar"
 import Link from "next/link"
 import { industryPartners, industryStats, industryInsights } from "../../lib/industry-data"
 
+// Helper function to get logo path from company name
+const getCompanyLogo = (companyName: string): string | null => {
+  const logoMap: { [key: string]: string } = {
+    "Siemens": "siemens.png",
+    "ABB": "abb.png",
+    "Rockwell Automation": "rockwell.png",
+    "Emerson": "emerson.png",
+    "Schneider Electric": "schneider.png",
+    "Honeywell": "honeywell.png",
+    "Yokogawa": "yokogawa.png",
+    "FANUC": "fanuc.png",
+    "Bosch": "bosch.png",
+    "Danfoss": "danfoss.png",
+    "Cisco": "cisco.png",
+    "SAP": "SAP.png",
+    "Google Cloud": "googlecloud.png",
+    "Microsoft": "microsoft.png",
+    "Fortinet": "fortinet.png",
+    "TATA Consultancy Services": "tataconsultancyservices.png",
+    "Infosys": "Infosys.png",
+    "Wipro": "wipro.png",
+    "L&T": "L&T.png",
+    "Suzlon": "Suzlon.png",
+    "BHEL": "BHEL.png",
+    "TATA Motors": "tata.png",
+    "Mahindra & Mahindra": "mahindra&mahindra.png",
+    "Maruti Suzuki": "marutisuzuki.png",
+    "Ashok Leyland": "ashokleyland.png"
+  }
+  
+  return logoMap[companyName] || null
+}
+
+// Component for company logo with fallback
+const CompanyLogo = ({ companyName }: { companyName: string }) => {
+  const [imageError, setImageError] = useState(false)
+  const logoPath = getCompanyLogo(companyName)
+  
+  if (!logoPath || imageError) {
+    return (
+      <span className="text-white font-bold text-lg">{companyName.charAt(0)}</span>
+    )
+  }
+  
+  return (
+    <img
+      src={`/leading-company-logos/${logoPath}`}
+      alt={companyName}
+      className="w-full h-full object-cover"
+      onError={() => setImageError(true)}
+    />
+  )
+}
+
 export default function PartnersPage() {
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          if (entry.target.classList.contains('slide-up')) {
+            entry.target.classList.add('slide-up-visible')
+          }
+        }
+      })
+    }, { threshold: 0.1 })
+    
+    const elements = document.querySelectorAll('.slide-up')
+    elements.forEach(el => observer.observe(el))
+    
+    return () => observer.disconnect()
+  }, [])
   const [searchTerm, setSearchTerm] = useState("")
   const [industry, setIndustry] = useState("All Industries")
   const [location, setLocation] = useState("All Locations")
@@ -27,186 +97,227 @@ export default function PartnersPage() {
   })
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white">
+    <div className="min-h-screen relative" style={{ backgroundColor: '#000000' }}>
       <Navbar />
       
       {/* Header */}
-      <section className="relative py-32 overflow-hidden">
-        {/* Background Elements */}
-        <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 via-blue-900/20 to-indigo-900/20"></div>
-        <div className="absolute top-20 left-10 w-72 h-72 bg-purple-500/10 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
+      <section className="relative py-24 overflow-hidden">
+        <div className="absolute inset-0 backdrop-blur-[1px]" style={{ background: 'linear-gradient(180deg, #0a0a0a 0%, #1a1a1a 50%, #000000 100%)' }}></div>
         
-        {/* Floating Elements */}
-        <div className="absolute top-40 right-20 w-4 h-4 bg-yellow-400 rounded-full animate-bounce opacity-60"></div>
-        <div className="absolute bottom-40 left-20 w-6 h-6 bg-cyan-400 rounded-full animate-bounce opacity-60" style={{ animationDelay: '-1s' }}></div>
-        <div className="absolute top-1/2 left-1/4 w-2 h-2 bg-pink-400 rounded-full animate-bounce opacity-60" style={{ animationDelay: '-0.5s' }}></div>
-        
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center animate-fade-in-up">
-            <div className="inline-flex items-center gap-2 bg-gradient-to-r from-purple-600/20 to-blue-600/20 border border-purple-500/30 rounded-full px-4 py-2 mb-6">
-              <Building className="w-4 h-4 text-purple-400" />
-              <span className="text-sm font-medium text-purple-300">Industry Partners</span>
+        <div className="slide-up relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
+          <div className="text-center mb-16">
+            <div className="slide-up inline-flex items-center gap-2 rounded-full px-4 py-1.5 mb-8 backdrop-blur-sm border border-purple-500/20" style={{ backgroundColor: 'rgba(0,0,0,0.4)', transitionDelay: '0.1s' }}>
+              <Building className="w-3.5 h-3.5" style={{ color: '#a855f7' }} />
+              <span className="text-xs font-medium text-white/70 tracking-wide uppercase">Industry Partners</span>
             </div>
-            <h1 className="text-5xl lg:text-6xl font-bold mb-6">
-              Our <span className="text-gradient">Industry Partners</span>
+            <h1 className="slide-up text-5xl sm:text-6xl lg:text-7xl font-light mb-6 leading-tight tracking-tight" style={{ transitionDelay: '0.2s' }}>
+              <span className="text-white">Our</span> <span className="bg-gradient-to-r from-purple-300 via-purple-200 to-purple-300 bg-clip-text text-transparent">Industry Partners</span>
             </h1>
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-12">
+            <p className="slide-up text-lg sm:text-xl text-white/50 max-w-3xl mx-auto mb-16 font-light leading-relaxed" style={{ transitionDelay: '0.3s' }}>
               Connect with leading companies and access world-class training programs designed by industry experts
             </p>
 
             {/* Statistics */}
-            <div className="grid md:grid-cols-4 gap-6 mb-12">
-              <div className="elegant-card text-center hover-lift">
-                <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-blue-600 rounded-xl flex items-center justify-center mx-auto mb-3">
-                  <Building className="w-6 h-6 text-white" />
+            <div className="grid md:grid-cols-4 gap-6 lg:gap-8 mb-16">
+              {[
+                { icon: "/Icons/building.png", value: industryStats.totalPartners, label: "Partner Companies", border: 'rgba(168,85,247,0.25)' },
+                { icon: "/Icons/students.png", value: industryStats.totalStudents, label: "Students Trained", border: 'rgba(168,85,247,0.25)' },
+                { icon: "/Icons/growth.png", value: industryStats.totalCourses, label: "Training Programs", border: 'rgba(168,85,247,0.25)' },
+                { icon: "/Icons/rating.png", value: industryStats.averageRating, label: "Average Rating", border: 'rgba(168,85,247,0.25)' },
+              ].map((stat, index) => (
+                <div 
+                  key={index} 
+                  className="slide-up text-center p-8 rounded-2xl transition-all duration-500" 
+                  style={{ 
+                    backgroundColor: 'rgba(0,0,0,0.3)', 
+                    borderColor: stat.border, 
+                    borderWidth: '1px',
+                    transitionDelay: `${0.4 + index * 0.1}s`
+                  }} 
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = 'translateY(-4px)'
+                    e.currentTarget.style.boxShadow = '0 12px 24px rgba(0,0,0,0.4), 0 0 20px rgba(196,181,253,0.2)'
+                  }} 
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = 'translateY(0)'
+                    e.currentTarget.style.boxShadow = 'none'
+                  }}
+                >
+                  <div className="w-16 h-16 p-0.5 rounded-xl flex items-center justify-center mx-auto mb-6" style={{ backgroundColor: 'rgba(0,0,0,0.5)', borderColor: stat.border, borderWidth: '1px' }}>
+                    <div className="w-full h-full rounded-lg flex items-center justify-center overflow-hidden" style={{ borderColor: stat.border, borderWidth: '1px', backgroundColor: '#ffffff' }}>
+                      <img src={stat.icon} alt={stat.label} className="w-full h-full object-cover scale-125" />
+                    </div>
+                  </div>
+                  <h3 className="text-3xl lg:text-4xl font-light mb-2 tracking-tight bg-gradient-to-r from-purple-300 to-purple-400 bg-clip-text text-transparent">{stat.value}</h3>
+                  <p className="text-sm text-white/50 font-light tracking-wide uppercase">{stat.label}</p>
                 </div>
-                <h3 className="text-2xl font-bold text-gradient mb-1">{industryStats.totalPartners}</h3>
-                <p className="text-gray-400 text-sm">Partner Companies</p>
-              </div>
-              <div className="elegant-card text-center hover-lift">
-                <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-teal-600 rounded-xl flex items-center justify-center mx-auto mb-3">
-                  <Users className="w-6 h-6 text-white" />
-                </div>
-                <h3 className="text-2xl font-bold text-gradient mb-1">{industryStats.totalStudents}</h3>
-                <p className="text-gray-400 text-sm">Students Trained</p>
-              </div>
-              <div className="elegant-card text-center hover-lift">
-                <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-red-600 rounded-xl flex items-center justify-center mx-auto mb-3">
-                  <TrendingUp className="w-6 h-6 text-white" />
-                </div>
-                <h3 className="text-2xl font-bold text-gradient mb-1">{industryStats.totalCourses}</h3>
-                <p className="text-gray-400 text-sm">Training Programs</p>
-              </div>
-              <div className="elegant-card text-center hover-lift">
-                <div className="w-12 h-12 bg-gradient-to-br from-pink-500 to-purple-600 rounded-xl flex items-center justify-center mx-auto mb-3">
-                  <Star className="w-6 h-6 text-white" />
-                </div>
-                <h3 className="text-2xl font-bold text-gradient mb-1">{industryStats.averageRating}</h3>
-                <p className="text-gray-400 text-sm">Average Rating</p>
-              </div>
+              ))}
             </div>
 
             {/* Search and Filters */}
-            <div className="glass-card rounded-2xl p-6 border border-white/10 mb-8">
+            <div className="slide-up rounded-2xl p-8 mb-8 backdrop-blur-xl border border-purple-500/20" style={{ backgroundColor: 'rgba(0,0,0,0.3)', transitionDelay: '0.8s' }}>
               <div className="grid md:grid-cols-3 gap-4">
                 <div className="md:col-span-2">
                   <div className="relative">
-                    <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
+                    <Search className="absolute left-5 top-1/2 transform -translate-y-1/2 text-white/40" size={18} />
                     <input
                       type="text"
                       placeholder="Search companies, industries, or locations..."
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
-                      className="w-full pl-12 pr-4 py-3 elegant-input"
+                      className="w-full pl-14 pr-6 py-3.5 rounded-xl backdrop-blur-sm border transition-all duration-300 text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-purple-500/50 font-light"
+                      style={{ 
+                        backgroundColor: 'rgba(0,0,0,0.4)',
+                        borderColor: 'rgba(168,85,247,0.2)'
+                      }}
                     />
                   </div>
                 </div>
-                <select
-                  value={industry}
-                  onChange={(e) => setIndustry(e.target.value)}
-                  className="elegant-input"
-                >
-                  {industries.map((ind) => (
-                    <option key={ind} value={ind}>{ind}</option>
-                  ))}
-                </select>
+                <div className="relative">
+                  <select
+                    value={industry}
+                    onChange={(e) => setIndustry(e.target.value)}
+                    className="w-full px-5 py-3.5 pr-10 rounded-xl text-white focus:outline-none transition-all duration-300 backdrop-blur-xl border appearance-none cursor-pointer font-light"
+                    style={{ 
+                      backgroundColor: 'rgba(0,0,0,0.4)',
+                      borderColor: 'rgba(168,85,247,0.2)'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.borderColor = 'rgba(168,85,247,0.4)'
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.borderColor = 'rgba(168,85,247,0.2)'
+                    }}
+                    onFocus={(e) => {
+                      e.currentTarget.style.borderColor = 'rgba(168,85,247,0.6)'
+                      e.currentTarget.style.boxShadow = '0 0 0 2px rgba(168,85,247,0.2)'
+                    }}
+                    onBlur={(e) => {
+                      e.currentTarget.style.borderColor = 'rgba(168,85,247,0.2)'
+                      e.currentTarget.style.boxShadow = 'none'
+                    }}
+                  >
+                    {industries.map((ind) => (
+                      <option key={ind} value={ind} style={{ backgroundColor: '#0a0a0a', color: '#ffffff' }}>{ind}</option>
+                    ))}
+                  </select>
+                  <div className="absolute right-4 top-1/2 transform -translate-y-1/2 pointer-events-none">
+                    <ChevronDown className="w-4 h-4" style={{ color: '#c084fc' }} />
+                  </div>
+                </div>
               </div>
             </div>
 
             {/* Results Count */}
-            <div className="mb-8">
-              <p className="text-gray-400">
+            <div className="slide-up mb-8" style={{ transitionDelay: '0.9s' }}>
+              <p className="text-sm text-white/40 font-light">
                 {searchTerm && (
-                  <span className="text-purple-400">
+                  <span style={{ color: '#c084fc' }}>
                     Search results for "{searchTerm}":{" "}
                   </span>
                 )}
-                Showing {filteredPartners.length} of {industryPartners.length} partner companies
+                Showing <span className="text-white/60">{filteredPartners.length}</span> of <span className="text-white/60">{industryPartners.length}</span> partner companies
               </p>
             </div>
           </div>
         </div>
       </section>
 
-          {/* Partners Grid */}
+      {/* Partners Grid */}
+      <section className="pt-8 pb-24 relative overflow-hidden">
+        <div className="absolute inset-0 backdrop-blur-[1px]" style={{ background: 'linear-gradient(180deg, #000000 0%, #0a0a0a 50%, #1a1a1a 100%)' }}></div>
+        <div className="slide-up relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredPartners.map((partner, index) => (
               <Link
                 key={partner.id}
                 href={`/partners/${partner.id}`}
-                className="elegant-card hover-lift animate-fade-in-scale group"
-                style={{ animationDelay: `${index * 0.1}s` }}
+                className="group border border-purple-500/20 rounded-2xl overflow-hidden transition-all duration-500"
+                style={{ 
+                  backgroundColor: 'rgba(0,0,0,0.2)',
+                  transitionDelay: `${0.1 + (index % 6) * 0.1}s`
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'translateY(-4px)'
+                  e.currentTarget.style.boxShadow = '0 12px 24px rgba(0,0,0,0.4), 0 0 20px rgba(196,181,253,0.2)'
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'translateY(0)'
+                  e.currentTarget.style.boxShadow = 'none'
+                }}
               >
-                <div className="p-6">
-                  <div className="flex items-center gap-4 mb-4">
-                    <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-blue-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                      <span className="text-white font-bold text-lg">{partner.name.charAt(0)}</span>
+                <div className="p-6 space-y-5">
+                  <div className="flex items-start gap-4">
+                    <div className="w-16 h-16 p-0.5 flex-shrink-0 rounded-xl flex items-center justify-center group-hover:scale-105 transition-transform duration-300" style={{ backgroundColor: 'rgba(0,0,0,0.4)', borderColor: 'rgba(168,85,247,0.25)', borderWidth: '1px' }}>
+                      <div className="w-full h-full rounded-lg flex items-center justify-center overflow-hidden" style={{ borderColor: 'rgba(168,85,247,0.25)', borderWidth: '1px', backgroundColor: '#ffffff' }}>
+                        <CompanyLogo companyName={partner.name} />
+                      </div>
                     </div>
-                    <div>
-                      <h3 className="text-xl font-semibold text-white mb-1 group-hover:text-purple-300 transition-colors">
+                    <div className="flex-1 min-w-0">
+                      <h3 className="text-xl font-light text-white mb-2 leading-tight">
                         {partner.name}
                       </h3>
-                      <p className="text-gray-400 text-sm flex items-center">
-                        <Building size={14} className="mr-1" />
-                        {partner.industry}
-                      </p>
-                      <p className="text-gray-400 text-sm flex items-center">
-                        <MapPin size={14} className="mr-1" />
-                        {partner.location}
-                      </p>
+                      <div className="space-y-1">
+                        <p className="text-sm text-white/50 flex items-center font-light">
+                          <Building size={12} className="mr-1.5" />
+                          {partner.industry}
+                        </p>
+                        <p className="text-sm text-white/50 flex items-center font-light">
+                          <MapPin size={12} className="mr-1.5" />
+                          {partner.location}
+                        </p>
+                      </div>
                     </div>
                   </div>
 
-                  <p className="text-gray-300 text-sm line-clamp-3">
+                  <p className="text-sm text-white/50 line-clamp-2 leading-relaxed font-light">
                     {partner.description}
                   </p>
 
-                  <div className="space-y-3">
-                    <div className="flex items-center justify-between text-sm">
-                      {partner.employeeCount && (
-                        <span className="flex items-center text-gray-400">
-                          <Users size={16} className="mr-1" />
-                          {partner.employeeCount.toLocaleString()} employees
+                  <div className="flex items-center gap-4 text-xs text-white/40 pt-3 border-t border-white/5">
+                    {partner.employeeCount && (
+                      <span className="flex items-center gap-1.5">
+                        <Users size={12} />
+                        <span>{partner.employeeCount.toLocaleString()}</span>
+                      </span>
+                    )}
+                    {partner.founded && (
+                      <span className="flex items-center gap-1.5">
+                        <Calendar size={12} />
+                        <span>{partner.founded}</span>
+                      </span>
+                    )}
+                  </div>
+
+                  <div className="space-y-3 pt-2">
+                    <h4 className="text-xs font-medium text-white/60 uppercase tracking-wide">Training Programs</h4>
+                    <div className="flex flex-wrap gap-2">
+                      {partner.trainingPrograms.slice(0, 3).map((program, index) => (
+                        <span
+                          key={index}
+                          className="px-3 py-1 rounded-full text-xs border border-purple-500/20 font-light"
+                          style={{ backgroundColor: 'rgba(0,0,0,0.3)', color: '#ffffff' }}
+                        >
+                          {program}
+                        </span>
+                      ))}
+                      {partner.trainingPrograms.length > 3 && (
+                        <span className="px-3 py-1 rounded-full text-xs font-light" style={{ backgroundColor: 'rgba(0,0,0,0.4)', color: '#c084fc' }}>
+                          +{partner.trainingPrograms.length - 3} more
                         </span>
                       )}
-                      {partner.founded && (
-                        <span className="flex items-center text-gray-400">
-                          <Calendar size={16} className="mr-1" />
-                          Founded {partner.founded}
-                        </span>
-                      )}
                     </div>
+                  </div>
 
-                    <div className="space-y-2">
-                      <h4 className="text-sm font-medium text-gray-300">Training Programs:</h4>
-                      <div className="flex flex-wrap gap-2">
-                        {partner.trainingPrograms.slice(0, 3).map((program, index) => (
-                          <span
-                            key={index}
-                            className="px-3 py-1 bg-gray-900 text-gray-300 rounded-full text-sm border border-gray-600"
-                          >
-                            {program}
-                          </span>
-                        ))}
-                        {partner.trainingPrograms.length > 3 && (
-                          <span className="px-3 py-1 bg-purple-900 text-purple-300 rounded-full text-sm">
-                            +{partner.trainingPrograms.length - 3} more
-                          </span>
-                        )}
-                      </div>
-                    </div>
-
-                    <div className="flex items-center space-x-4 pt-4 border-t border-gray-700">
-                      <span className="flex items-center text-gray-400">
-                        <Mail size={16} className="mr-1" />
-                        Contact
-                      </span>
-                      <span className="flex items-center text-gray-400">
-                        <ExternalLink size={16} className="mr-1" />
-                        Website
-                      </span>
-                    </div>
+                  <div className="flex items-center gap-6 pt-4 border-t border-white/5">
+                    <span className="flex items-center gap-1.5 text-xs text-white/40 font-light">
+                      <Mail size={12} />
+                      Contact
+                    </span>
+                    <span className="flex items-center gap-1.5 text-xs text-white/40 font-light">
+                      <ExternalLink size={12} />
+                      Website
+                    </span>
                   </div>
                 </div>
               </Link>
@@ -214,48 +325,101 @@ export default function PartnersPage() {
           </div>
 
           {filteredPartners.length === 0 && (
-            <div className="text-center py-12">
-              <p className="text-gray-400 text-lg">No partners found matching your criteria.</p>
+            <div className="text-center py-24">
+              <div className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-8 backdrop-blur-sm border border-purple-500/20" style={{ backgroundColor: 'rgba(0,0,0,0.3)' }}>
+                <Search className="w-10 h-10 text-white/40" />
+              </div>
+              <h3 className="text-2xl font-light text-white mb-4">
+                No partners found matching your criteria
+              </h3>
+              <p className="text-white/50 mb-10 font-light">
+                Try adjusting your search terms or filters
+              </p>
               <button
                 onClick={() => {
                   setSearchTerm("")
                   setIndustry("All Industries")
                   setLocation("All Locations")
                 }}
-                className="mt-4 bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded-lg transition-colors duration-200"
+                className="px-6 py-3 rounded-xl transition-all duration-300 backdrop-blur-sm border border-purple-400/40 font-medium"
+                style={{ 
+                  background: 'linear-gradient(to right, #a78bfa, #c084fc, #a78bfa)', 
+                  color: '#ffffff'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'scale(1.02)'
+                  e.currentTarget.style.boxShadow = '0 4px 12px rgba(196,181,253,0.4)'
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'scale(1)'
+                  e.currentTarget.style.boxShadow = 'none'
+                }}
               >
                 Clear Filters
               </button>
             </div>
           )}
+        </div>
+      </section>
 
       {/* Industry Insights */}
-      <section className="py-20 bg-gray-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold mb-12 text-center">Industry Insights</h2>
+      <section className="py-24 relative overflow-hidden">
+        <div className="absolute inset-0 backdrop-blur-[1px]" style={{ background: 'linear-gradient(180deg, #1a1a1a 0%, #0a0a0a 50%, #000000 100%)' }}></div>
+        <div className="slide-up relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
+          <div className="text-center mb-16">
+            <div className="slide-up inline-flex items-center gap-2 rounded-full px-4 py-1.5 mb-6 backdrop-blur-sm border border-purple-500/20" style={{ backgroundColor: 'rgba(0,0,0,0.4)', transitionDelay: '0.1s' }}>
+              <TrendingUp className="w-3.5 h-3.5" style={{ color: '#a855f7' }} />
+              <span className="text-xs font-medium text-white/70 tracking-wide uppercase">Industry Analytics</span>
+            </div>
+            <h2 className="slide-up text-4xl lg:text-5xl font-light mb-6 leading-tight tracking-tight" style={{ transitionDelay: '0.2s' }}>
+              <span className="text-white">Industry</span> <span className="bg-gradient-to-r from-purple-300 to-purple-400 bg-clip-text text-transparent">Insights</span>
+            </h2>
+          </div>
           
-          <div className="grid md:grid-cols-2 gap-12">
+          <div className="grid md:grid-cols-2 gap-8 mb-16">
             {/* Top Industries */}
-            <div className="bg-gray-900 p-6 rounded-xl">
-              <h3 className="text-xl font-semibold mb-4">Top Industries</h3>
-              <div className="space-y-3">
+            <div 
+              className="slide-up p-8 rounded-2xl backdrop-blur-xl border border-purple-500/20 transition-all duration-500" 
+              style={{ backgroundColor: 'rgba(0,0,0,0.3)', transitionDelay: '0.3s' }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'translateY(-4px)'
+                e.currentTarget.style.boxShadow = '0 12px 24px rgba(0,0,0,0.4), 0 0 20px rgba(196,181,253,0.2)'
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'translateY(0)'
+                e.currentTarget.style.boxShadow = 'none'
+              }}
+            >
+              <h3 className="text-lg font-medium mb-6 text-white">Top Industries</h3>
+              <div className="space-y-4">
                 {industryInsights.topIndustries.map((industry, index) => (
-                  <div key={index} className="flex items-center justify-between">
-                    <span className="text-gray-300">{industry.name}</span>
-                    <span className="text-purple-400 font-semibold">{industry.count} companies</span>
+                  <div key={index} className="flex items-center justify-between py-2 border-b border-white/5 last:border-0">
+                    <span className="text-white/60 font-light">{industry.name}</span>
+                    <span className="font-medium" style={{ color: '#c084fc' }}>{industry.count} companies</span>
                   </div>
                 ))}
               </div>
             </div>
 
             {/* Popular Locations */}
-            <div className="bg-gray-900 p-6 rounded-xl">
-              <h3 className="text-xl font-semibold mb-4">Popular Locations</h3>
-              <div className="space-y-3">
+            <div 
+              className="slide-up p-8 rounded-2xl backdrop-blur-xl border border-purple-500/20 transition-all duration-500" 
+              style={{ backgroundColor: 'rgba(0,0,0,0.3)', transitionDelay: '0.4s' }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'translateY(-4px)'
+                e.currentTarget.style.boxShadow = '0 12px 24px rgba(0,0,0,0.4), 0 0 20px rgba(196,181,253,0.2)'
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'translateY(0)'
+                e.currentTarget.style.boxShadow = 'none'
+              }}
+            >
+              <h3 className="text-lg font-medium mb-6 text-white">Popular Locations</h3>
+              <div className="space-y-4">
                 {industryInsights.popularLocations.map((location, index) => (
-                  <div key={index} className="flex items-center justify-between">
-                    <span className="text-gray-300">{location.name}</span>
-                    <span className="text-purple-400 font-semibold">{location.count} companies</span>
+                  <div key={index} className="flex items-center justify-between py-2 border-b border-white/5 last:border-0">
+                    <span className="text-white/60 font-light">{location.name}</span>
+                    <span className="font-medium" style={{ color: '#c084fc' }}>{location.count} companies</span>
                   </div>
                 ))}
               </div>
@@ -263,23 +427,34 @@ export default function PartnersPage() {
           </div>
 
           {/* Additional Stats */}
-          <div className="grid md:grid-cols-4 gap-6 mt-12">
-            <div className="bg-gray-900 p-6 rounded-xl text-center">
-              <h3 className="text-2xl font-bold text-purple-400">{industryInsights.averageCoursePrice}</h3>
-              <p className="text-gray-400">Average Course Price</p>
-            </div>
-            <div className="bg-gray-900 p-6 rounded-xl text-center">
-              <h3 className="text-2xl font-bold text-purple-400">{industryInsights.averageDuration}</h3>
-              <p className="text-gray-400">Average Duration</p>
-            </div>
-            <div className="bg-gray-900 p-6 rounded-xl text-center">
-              <h3 className="text-2xl font-bold text-purple-400">{industryInsights.successRate}</h3>
-              <p className="text-gray-400">Success Rate</p>
-            </div>
-            <div className="bg-gray-900 p-6 rounded-xl text-center">
-              <h3 className="text-2xl font-bold text-purple-400">{industryInsights.placementRate}</h3>
-              <p className="text-gray-400">Placement Rate</p>
-            </div>
+          <div className="grid md:grid-cols-4 gap-6 lg:gap-8">
+            {[
+              { value: industryInsights.averageCoursePrice, label: "Average Course Price", border: 'rgba(168,85,247,0.25)' },
+              { value: industryInsights.averageDuration, label: "Average Duration", border: 'rgba(168,85,247,0.25)' },
+              { value: industryInsights.successRate, label: "Success Rate", border: 'rgba(168,85,247,0.25)' },
+              { value: industryInsights.placementRate, label: "Placement Rate", border: 'rgba(168,85,247,0.25)' },
+            ].map((stat, index) => (
+              <div 
+                key={index} 
+                className="slide-up p-8 rounded-2xl text-center transition-all duration-500 backdrop-blur-xl border" 
+                style={{ 
+                  backgroundColor: 'rgba(0,0,0,0.3)', 
+                  borderColor: stat.border,
+                  transitionDelay: `${0.5 + index * 0.1}s`
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'translateY(-4px)'
+                  e.currentTarget.style.boxShadow = '0 12px 24px rgba(0,0,0,0.4), 0 0 20px rgba(196,181,253,0.2)'
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'translateY(0)'
+                  e.currentTarget.style.boxShadow = 'none'
+                }}
+              >
+                <h3 className="text-3xl font-light mb-2 tracking-tight bg-gradient-to-r from-purple-300 to-purple-400 bg-clip-text text-transparent">{stat.value}</h3>
+                <p className="text-sm text-white/50 font-light tracking-wide uppercase">{stat.label}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>

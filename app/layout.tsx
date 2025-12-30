@@ -7,7 +7,7 @@ import SyncUserToSupabase from '../components/SyncUserToSupabase'
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "TRAININ - Industry Training Portal",
+  title: "TEKINPLANT - Industry Training Portal",
   description: "Connect with leading companies, master cutting-edge technologies, and accelerate your professional growth with our comprehensive training programs.",
 }
 

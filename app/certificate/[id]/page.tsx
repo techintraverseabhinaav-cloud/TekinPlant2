@@ -96,7 +96,7 @@ export default function CertificatePage({ params }: { params: Promise<{ id: stri
                 <div className="mb-8">
                   <div className="flex items-center justify-center space-x-2 mb-4">
                     <Award size={32} className="text-purple-400" />
-                    <h2 className="text-2xl font-bold text-purple-400">TRAININ</h2>
+                    <h2 className="text-2xl font-bold text-purple-400">TEKINPLANT</h2>
                   </div>
                   <h3 className="text-lg text-gray-400 uppercase tracking-wider">Certificate of Completion</h3>
                 </div>

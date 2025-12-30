@@ -17,7 +17,8 @@ import {
   Award,
   MessageSquare,
   ArrowLeft,
-  LogOut
+  LogOut,
+  GraduationCap
 } from "lucide-react"
 import { industryCourses } from "../../lib/industry-data"
 
@@ -116,7 +117,7 @@ export default function TrainerDashboard() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Welcome Section */}
         <div className="mb-8">
-          <h2 className="text-3xl font-bold mb-2">Welcome back, {user?.fullName || user?.firstName || 'Trainer'}! 🎓</h2>
+          <h2 className="text-3xl font-bold mb-2 flex items-center gap-2">Welcome back, {user?.fullName || user?.firstName || 'Trainer'}! <GraduationCap className="w-7 h-7" style={{ color: '#c084fc' }} /></h2>
           <p className="text-gray-400">Manage your training programs and track student progress.</p>
         </div>
 
