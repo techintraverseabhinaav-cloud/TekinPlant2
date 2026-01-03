@@ -5,6 +5,8 @@ import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useProtectedRoute } from "../../lib/clerk-helpers"
 import { useClerk } from "@clerk/nextjs"
+import { useTheme } from "next-themes"
+import { useThemeStyles } from "../../lib/theme-styles"
 import { 
   Users, 
   BookOpen, 
@@ -36,6 +38,9 @@ export default function AdminDashboard() {
   const { user, isLoading } = useProtectedRoute("admin")
   const { signOut } = useClerk()
   const router = useRouter()
+  const { theme } = useTheme()
+  const themeStyles = useThemeStyles()
+  const isDark = theme === 'dark'
   const [activeTab, setActiveTab] = useState("overview")
   const [systemStats, setSystemStats] = useState<any>({
     totalStudents: 0,
@@ -111,12 +116,12 @@ export default function AdminDashboard() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen relative" style={{ backgroundColor: '#000000' }}>
-        <div className="absolute inset-0 backdrop-blur-[1px]" style={{ background: 'linear-gradient(180deg, #0a0a0a 0%, #1a1a1a 50%, #000000 100%)' }}></div>
+      <div className="min-h-screen relative" style={{ backgroundColor: themeStyles.pageBg }}>
+        <div className="absolute inset-0 backdrop-blur-[1px]" style={{ background: themeStyles.pageBgGradient }}></div>
         <div className="relative flex items-center justify-center min-h-screen">
           <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-500 mx-auto mb-4"></div>
-            <p className="text-white/70">Loading admin dashboard...</p>
+            <div className={`animate-spin rounded-full h-12 w-12 border-b-2 mx-auto mb-4 ${isDark ? 'border-red-500' : 'border-red-600'}`}></div>
+            <p className={isDark ? 'text-white/70' : 'text-amber-900/70'}>Loading admin dashboard...</p>
           </div>
         </div>
       </div>
@@ -140,36 +145,47 @@ export default function AdminDashboard() {
   )
 
   return (
-    <div className="min-h-screen relative" style={{ backgroundColor: '#000000' }}>
-      <div className="absolute inset-0 backdrop-blur-[1px]" style={{ background: 'linear-gradient(180deg, #0a0a0a 0%, #1a1a1a 50%, #000000 100%)' }}></div>
+    <div className="min-h-screen relative" style={{ backgroundColor: themeStyles.pageBg }}>
+      <div className="absolute inset-0 backdrop-blur-[1px]" style={{ background: themeStyles.pageBgGradient }}></div>
       
       {/* Header */}
-      <header className="slide-up relative border-b backdrop-blur-xl" style={{ borderColor: 'rgba(239,68,68,0.2)', backgroundColor: 'rgba(0,0,0,0.4)' }}>
+      <header className="slide-up relative border-b backdrop-blur-xl" style={{ 
+        borderColor: isDark ? 'rgba(239,68,68,0.2)' : 'rgba(239,68,68,0.3)',
+        backgroundColor: isDark ? 'rgba(0,0,0,0.4)' : 'rgba(255,255,255,0.7)'
+      }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
             <div className="flex items-center space-x-4">
               <Link 
                 href="/"
-                className="flex items-center space-x-2 px-4 py-2 text-white/70 hover:text-white transition-all duration-300 rounded-xl hover:bg-white/10 backdrop-blur-sm border border-red-500/20"
-                style={{ backgroundColor: 'rgba(239,68,68,0.08)' }}
-                onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 15px rgba(239,68,68,0.3)'}
+                className={`flex items-center space-x-2 px-4 py-2 transition-all duration-300 rounded-xl backdrop-blur-sm border ${
+                  isDark ? 'text-white/70 hover:text-white hover:bg-white/10 border-red-500/20' : 'text-amber-900/80 hover:text-amber-900 hover:bg-red-50/50 border-red-600/30'
+                }`}
+                style={{ backgroundColor: isDark ? 'rgba(239,68,68,0.08)' : 'rgba(239,68,68,0.1)' }}
+                onMouseEnter={(e) => e.currentTarget.style.boxShadow = isDark ? '0 0 15px rgba(239,68,68,0.3)' : '0 0 15px rgba(239,68,68,0.25)'}
                 onMouseLeave={(e) => e.currentTarget.style.boxShadow = 'none'}
               >
                 <ArrowLeft size={18} />
                 <span className="text-sm font-medium">Back to Home</span>
               </Link>
-              <div className="h-6 w-px" style={{ backgroundColor: 'rgba(239,68,68,0.3)' }}></div>
+              <div className="h-6 w-px" style={{ backgroundColor: isDark ? 'rgba(239,68,68,0.3)' : 'rgba(239,68,68,0.4)' }}></div>
               <div className="flex items-center space-x-2">
-                <Shield className="w-5 h-5" style={{ color: '#ef4444' }} />
-                <h1 className="text-xl font-semibold bg-gradient-to-r from-red-300 to-red-400 bg-clip-text text-transparent">Admin Dashboard</h1>
+                <Shield className="w-5 h-5" style={{ color: isDark ? '#ef4444' : '#dc2626' }} />
+                <h1 className={`text-xl font-semibold bg-clip-text text-transparent ${
+                  isDark 
+                    ? 'bg-gradient-to-r from-red-300 to-red-400' 
+                    : 'bg-gradient-to-r from-red-700 to-red-800'
+                }`}>Admin Dashboard</h1>
               </div>
             </div>
             <div className="flex items-center space-x-4">
               <Link 
                 href="/profile"
-                className="flex items-center space-x-2 px-4 py-2 text-white/70 hover:text-white transition-all duration-300 rounded-xl hover:bg-white/10 backdrop-blur-sm border border-red-500/20"
-                style={{ backgroundColor: 'rgba(239,68,68,0.08)' }}
-                onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 15px rgba(239,68,68,0.3)'}
+                className={`flex items-center space-x-2 px-4 py-2 transition-all duration-300 rounded-xl backdrop-blur-sm border ${
+                  isDark ? 'text-white/70 hover:text-white hover:bg-white/10 border-red-500/20' : 'text-amber-900/80 hover:text-amber-900 hover:bg-red-50/50 border-red-600/30'
+                }`}
+                style={{ backgroundColor: isDark ? 'rgba(239,68,68,0.08)' : 'rgba(239,68,68,0.1)' }}
+                onMouseEnter={(e) => e.currentTarget.style.boxShadow = isDark ? '0 0 15px rgba(239,68,68,0.3)' : '0 0 15px rgba(239,68,68,0.25)'}
                 onMouseLeave={(e) => e.currentTarget.style.boxShadow = 'none'}
               >
                 <User size={18} />
@@ -177,9 +193,11 @@ export default function AdminDashboard() {
               </Link>
               <button 
                 onClick={handleSignOut}
-                className="flex items-center space-x-2 px-4 py-2 text-red-400 hover:text-red-300 transition-all duration-300 rounded-xl hover:bg-red-500/10 backdrop-blur-sm border border-red-500/20"
-                style={{ backgroundColor: 'rgba(239,68,68,0.08)' }}
-                onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 15px rgba(239,68,68,0.3)'}
+                className={`flex items-center space-x-2 px-4 py-2 transition-all duration-300 rounded-xl backdrop-blur-sm border ${
+                  isDark ? 'text-red-400 hover:text-red-300 hover:bg-red-500/10 border-red-500/20' : 'text-red-600 hover:text-red-700 hover:bg-red-50/50 border-red-600/30'
+                }`}
+                style={{ backgroundColor: isDark ? 'rgba(239,68,68,0.08)' : 'rgba(239,68,68,0.1)' }}
+                onMouseEnter={(e) => e.currentTarget.style.boxShadow = isDark ? '0 0 15px rgba(239,68,68,0.3)' : '0 0 15px rgba(239,68,68,0.25)'}
                 onMouseLeave={(e) => e.currentTarget.style.boxShadow = 'none'}
               >
                 <LogOut size={18} />
@@ -193,18 +211,34 @@ export default function AdminDashboard() {
       <main className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Welcome Section */}
         <div className="slide-up mb-12 rounded-2xl p-8 backdrop-blur-xl border transition-all duration-300" style={{ 
-          background: 'linear-gradient(135deg, rgba(239,68,68,0.15) 0%, rgba(220,38,38,0.15) 100%)',
-          borderColor: 'rgba(239,68,68,0.25)',
-          boxShadow: '0 8px 32px rgba(0,0,0,0.3), 0 0 20px rgba(239,68,68,0.2)'
+          background: isDark 
+            ? 'linear-gradient(135deg, rgba(239,68,68,0.15) 0%, rgba(220,38,38,0.15) 100%)'
+            : 'linear-gradient(135deg, rgba(239,68,68,0.2) 0%, rgba(220,38,38,0.2) 100%)',
+          borderColor: isDark ? 'rgba(239,68,68,0.25)' : 'rgba(239,68,68,0.3)',
+          boxShadow: isDark 
+            ? '0 8px 32px rgba(0,0,0,0.3), 0 0 20px rgba(239,68,68,0.2)'
+            : '0 8px 32px rgba(58,46,31,0.2), 0 0 20px rgba(239,68,68,0.25)'
         }}>
           <h2 className="text-4xl font-normal mb-3">
-            <span className="text-white" style={{ textShadow: '0 0 20px rgba(255,255,255,0.3)' }}>Welcome, Admin </span>
-            <span className="bg-gradient-to-r from-red-300 to-red-400 bg-clip-text text-transparent" style={{ textShadow: '0 0 30px rgba(239,68,68,0.5)' }}>
+            <span style={{ 
+              color: themeStyles.textPrimary,
+              textShadow: isDark ? '0 0 20px rgba(255,255,255,0.3)' : 'none'
+            }}>Welcome, Admin </span>
+            <span className={`bg-clip-text text-transparent ${
+              isDark 
+                ? 'bg-gradient-to-r from-red-300 to-red-400' 
+                : 'bg-gradient-to-r from-red-700 to-red-800'
+            }`} style={{ 
+              textShadow: isDark ? '0 0 30px rgba(239,68,68,0.5)' : 'none'
+            }}>
               {user.firstName || user.emailAddresses[0]?.emailAddress}
             </span>
-            <span className="text-white" style={{ textShadow: '0 0 20px rgba(255,255,255,0.3)' }}>! 🔧</span>
+            <span style={{ 
+              color: themeStyles.textPrimary,
+              textShadow: isDark ? '0 0 20px rgba(255,255,255,0.3)' : 'none'
+            }}>! 🔧</span>
           </h2>
-          <p className="text-lg text-white/70">Manage your TekinPlant platform.</p>
+          <p className={`text-lg ${isDark ? 'text-white/70' : 'text-amber-900/80'}`}>Manage your TekinPlant platform.</p>
         </div>
 
         {/* Stats Grid */}
@@ -259,41 +293,58 @@ export default function AdminDashboard() {
               iconColor: '#fbbf24', 
               change: undefined 
             },
-          ].map((stat, index) => (
+          ].map((stat, index) => {
+            // Keep admin-specific colors but make them theme-aware
+            const statBg = isDark ? stat.color : stat.color.replace('0.12', '0.18')
+            const statBorder = isDark ? stat.border : stat.border.replace('0.25', '0.35')
+            const hoverShadow = isDark
+              ? '0 0 25px rgba(239,68,68,0.4), 0 0 50px rgba(239,68,68,0.2)'
+              : '0 0 25px rgba(239,68,68,0.3), 0 0 50px rgba(239,68,68,0.2)'
+            
+            return (
             <div 
               key={index} 
               className="slide-up hover-lift rounded-2xl p-6 transition-all duration-300" 
               style={{ 
-                backgroundColor: stat.color, 
-                borderColor: stat.border, 
+                backgroundColor: statBg, 
+                borderColor: statBorder, 
                 borderWidth: '1px',
                 animationDelay: `${index * 0.1}s`
               }}
-              onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 25px rgba(239,68,68,0.4), 0 0 50px rgba(239,68,68,0.2)'}
+              onMouseEnter={(e) => e.currentTarget.style.boxShadow = hoverShadow}
               onMouseLeave={(e) => e.currentTarget.style.boxShadow = 'none'}
             >
               <div className="flex items-center space-x-4">
-                <div className="w-14 h-14 rounded-xl flex items-center justify-center" style={{ backgroundColor: stat.color.replace('0.12', '0.22'), borderColor: stat.border, borderWidth: '1px' }}>
+                <div className="w-14 h-14 rounded-xl flex items-center justify-center" style={{ 
+                  backgroundColor: isDark ? stat.color.replace('0.12', '0.22') : stat.color.replace('0.12', '0.25'), 
+                  borderColor: statBorder, 
+                  borderWidth: '1px' 
+                }}>
                   <stat.icon className="w-7 h-7" style={{ color: stat.iconColor }} />
                 </div>
                 <div>
-                  <p className="text-white/60 text-sm mb-1">{stat.label}</p>
-                  <p className="text-2xl font-bold bg-gradient-to-r from-red-300 to-red-400 bg-clip-text text-transparent">
+                  <p className={`text-sm mb-1 ${isDark ? 'text-white/60' : 'text-amber-900/70'}`}>{stat.label}</p>
+                  <p className={`text-2xl font-bold bg-clip-text text-transparent ${
+                    isDark 
+                      ? 'bg-gradient-to-r from-red-300 to-red-400' 
+                      : 'bg-gradient-to-r from-red-700 to-red-800'
+                  }`}>
                     {dataLoading ? "..." : stat.value}
                   </p>
                   {stat.change && (
-                    <p className="text-xs text-green-400 mt-1">{stat.change}</p>
+                    <p className={`text-xs mt-1 ${isDark ? 'text-green-400' : 'text-green-700'}`}>{stat.change}</p>
                   )}
                 </div>
               </div>
             </div>
-          ))}
+            )
+          })}
         </div>
 
         {/* Tabs */}
         <div className="flex space-x-2 mb-8 backdrop-blur-xl rounded-xl p-1 border" style={{ 
-          backgroundColor: 'rgba(239,68,68,0.05)',
-          borderColor: 'rgba(239,68,68,0.25)'
+          backgroundColor: isDark ? 'rgba(239,68,68,0.05)' : 'rgba(239,68,68,0.08)',
+          borderColor: isDark ? 'rgba(239,68,68,0.25)' : 'rgba(239,68,68,0.3)'
         }}>
           {[
             { id: "overview", label: "Overview", icon: BarChart3 },
@@ -306,13 +357,13 @@ export default function AdminDashboard() {
               onClick={() => setActiveTab(tab.id)}
               className={`flex items-center px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
                 activeTab === tab.id
-                  ? "text-white backdrop-blur-sm border"
-                  : "text-white/60 hover:text-white hover:bg-white/5"
+                  ? isDark ? "text-white backdrop-blur-sm border" : "text-white backdrop-blur-sm border"
+                  : isDark ? "text-white/60 hover:text-white hover:bg-white/5" : "text-amber-900/70 hover:text-amber-900 hover:bg-red-50/50"
               }`}
               style={activeTab === tab.id ? {
                 background: 'linear-gradient(to right, #ef4444, #dc2626, #ef4444)',
-                borderColor: 'rgba(239,68,68,0.4)',
-                boxShadow: '0 0 15px rgba(239,68,68,0.4)'
+                borderColor: isDark ? 'rgba(239,68,68,0.4)' : 'rgba(239,68,68,0.5)',
+                boxShadow: isDark ? '0 0 15px rgba(239,68,68,0.4)' : '0 0 15px rgba(239,68,68,0.3)'
               } : {}}
             >
               <tab.icon size={16} className="mr-2" />
@@ -327,10 +378,10 @@ export default function AdminDashboard() {
             {/* System Alerts */}
             <div className="lg:col-span-3">
               <div className="slide-up rounded-2xl p-6 backdrop-blur-xl border" style={{ 
-                backgroundColor: 'rgba(239,68,68,0.05)',
-                borderColor: 'rgba(239,68,68,0.25)'
+                backgroundColor: isDark ? 'rgba(239,68,68,0.05)' : 'rgba(239,68,68,0.08)',
+                borderColor: isDark ? 'rgba(239,68,68,0.25)' : 'rgba(239,68,68,0.3)'
               }}>
-                <h3 className="text-xl font-semibold mb-6 text-white">System Alerts</h3>
+                <h3 className={`text-xl font-semibold mb-6 ${isDark ? 'text-white' : 'text-amber-900'}`}>System Alerts</h3>
                 <div className="space-y-4">
                   {systemAlerts.length > 0 ? (
                     systemAlerts.map((alert) => (
@@ -349,17 +400,17 @@ export default function AdminDashboard() {
                             'bg-green-400'
                           }`}></div>
                           <div>
-                            <p className="text-sm font-medium text-white">{alert.message}</p>
-                            <p className="text-xs text-white/50">{alert.time}</p>
+                            <p className={`text-sm font-medium ${isDark ? 'text-white' : 'text-amber-900'}`}>{alert.message}</p>
+                            <p className={`text-xs ${isDark ? 'text-white/50' : 'text-amber-900/60'}`}>{alert.time}</p>
                           </div>
                         </div>
-                        <button className="text-white/40 hover:text-white transition-colors">
+                        <button className={`${isDark ? 'text-white/40 hover:text-white' : 'text-amber-900/50 hover:text-amber-900'} transition-colors`}>
                           <Eye size={16} />
                         </button>
                       </div>
                     ))
                   ) : (
-                    <p className="text-white/50 text-center py-8">No new system alerts.</p>
+                    <p className={`${isDark ? 'text-white/50' : 'text-amber-900/60'} text-center py-8`}>No new system alerts.</p>
                   )}
                 </div>
               </div>
@@ -369,26 +420,26 @@ export default function AdminDashboard() {
 
         {activeTab === "users" && (
           <div className="slide-up rounded-2xl p-6 backdrop-blur-xl border" style={{ 
-            backgroundColor: 'rgba(239,68,68,0.05)',
-            borderColor: 'rgba(239,68,68,0.25)'
+            backgroundColor: isDark ? 'rgba(239,68,68,0.05)' : 'rgba(239,68,68,0.08)',
+            borderColor: isDark ? 'rgba(239,68,68,0.25)' : 'rgba(239,68,68,0.3)'
           }}>
             <div className="flex items-center justify-between mb-6">
-              <h3 className="text-xl font-semibold text-white">User Management</h3>
+              <h3 className={`text-xl font-semibold ${isDark ? 'text-white' : 'text-amber-900'}`}>User Management</h3>
               <div className="flex items-center space-x-4">
                 <div className="relative">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white/40" size={18} />
+                  <Search className={`absolute left-3 top-1/2 transform -translate-y-1/2 ${isDark ? 'text-white/40' : 'text-amber-900/50'}`} size={18} />
                   <input
                     type="text"
                     placeholder="Search users..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="pl-10 pr-4 py-2.5 rounded-xl text-white placeholder-white/40 focus:outline-none focus:ring-2 transition-all duration-300 backdrop-blur-sm border"
+                    className={`pl-10 pr-4 py-2.5 rounded-xl ${isDark ? 'text-white placeholder-white/40' : 'text-amber-900 placeholder-amber-900/50'} focus:outline-none focus:ring-2 transition-all duration-300 backdrop-blur-sm border`}
                     style={{ 
-                      backgroundColor: 'rgba(0,0,0,0.3)',
-                      borderColor: 'rgba(239,68,68,0.3)'
+                      backgroundColor: isDark ? 'rgba(0,0,0,0.3)' : 'rgba(255,255,255,0.6)',
+                      borderColor: isDark ? 'rgba(239,68,68,0.3)' : 'rgba(239,68,68,0.4)'
                     }}
                     onFocus={(e) => e.currentTarget.style.borderColor = 'rgba(239,68,68,0.5)'}
-                    onBlur={(e) => e.currentTarget.style.borderColor = 'rgba(239,68,68,0.3)'}
+                    onBlur={(e) => e.currentTarget.style.borderColor = isDark ? 'rgba(239,68,68,0.3)' : 'rgba(239,68,68,0.4)'}
                   />
                 </div>
                 <button 
@@ -411,13 +462,13 @@ export default function AdminDashboard() {
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead>
-                  <tr className="border-b" style={{ borderColor: 'rgba(239,68,68,0.2)' }}>
-                    <th className="text-left py-3 px-4 font-medium text-white/70 text-sm">Name</th>
-                    <th className="text-left py-3 px-4 font-medium text-white/70 text-sm">Email</th>
-                    <th className="text-left py-3 px-4 font-medium text-white/70 text-sm">Role</th>
-                    <th className="text-left py-3 px-4 font-medium text-white/70 text-sm">Status</th>
-                    <th className="text-left py-3 px-4 font-medium text-white/70 text-sm">Last Active</th>
-                    <th className="text-right py-3 px-4 font-medium text-white/70 text-sm">Actions</th>
+                  <tr className="border-b" style={{ borderColor: isDark ? 'rgba(239,68,68,0.2)' : 'rgba(239,68,68,0.3)' }}>
+                    <th className={`text-left py-3 px-4 font-medium text-sm ${isDark ? 'text-white/70' : 'text-amber-900/70'}`}>Name</th>
+                    <th className={`text-left py-3 px-4 font-medium text-sm ${isDark ? 'text-white/70' : 'text-amber-900/70'}`}>Email</th>
+                    <th className={`text-left py-3 px-4 font-medium text-sm ${isDark ? 'text-white/70' : 'text-amber-900/70'}`}>Role</th>
+                    <th className={`text-left py-3 px-4 font-medium text-sm ${isDark ? 'text-white/70' : 'text-amber-900/70'}`}>Status</th>
+                    <th className={`text-left py-3 px-4 font-medium text-sm ${isDark ? 'text-white/70' : 'text-amber-900/70'}`}>Last Active</th>
+                    <th className={`text-right py-3 px-4 font-medium text-sm ${isDark ? 'text-white/70' : 'text-amber-900/70'}`}>Actions</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -425,16 +476,16 @@ export default function AdminDashboard() {
                     <tr key={user.id} className="border-b transition-colors hover:bg-white/5" style={{ borderColor: 'rgba(239,68,68,0.1)' }}>
                       <td className="py-4 px-4">
                         <div className="flex items-center space-x-3">
-                          <div className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-medium" style={{ backgroundColor: 'rgba(239,68,68,0.2)' }}>
-                            <span className="text-white">{user.name.charAt(0)}</span>
+                          <div className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-medium" style={{ backgroundColor: isDark ? 'rgba(239,68,68,0.2)' : 'rgba(239,68,68,0.25)' }}>
+                            <span className={isDark ? 'text-white' : 'text-amber-900'}>{user.name.charAt(0)}</span>
                           </div>
                           <div>
-                            <div className="font-medium text-white">{user.name}</div>
-                            <div className="text-sm text-white/50">{user.email}</div>
+                            <div className={`font-medium ${isDark ? 'text-white' : 'text-amber-900'}`}>{user.name}</div>
+                            <div className={`text-sm ${isDark ? 'text-white/50' : 'text-amber-900/60'}`}>{user.email}</div>
                           </div>
                         </div>
                       </td>
-                      <td className="py-4 px-4 text-sm text-white/70">{user.email}</td>
+                      <td className={`py-4 px-4 text-sm ${isDark ? 'text-white/70' : 'text-amber-900/70'}`}>{user.email}</td>
                       <td className="py-4 px-4">
                         <span className={`px-2 py-1 rounded-full text-xs font-medium capitalize ${
                           user.role === 'admin' ? 'bg-red-900/30 text-red-300 border border-red-500/30' :
@@ -452,16 +503,16 @@ export default function AdminDashboard() {
                           {user.status}
                         </span>
                       </td>
-                      <td className="py-4 px-4 text-sm text-white/50">{user.lastActive}</td>
+                      <td className={`py-4 px-4 text-sm ${isDark ? 'text-white/50' : 'text-amber-900/60'}`}>{user.lastActive}</td>
                       <td className="py-4 px-4">
                         <div className="flex space-x-2 justify-end">
-                          <button className="p-1.5 text-white/40 hover:text-white hover:bg-white/10 rounded-lg transition-colors">
+                          <button className={`p-1.5 ${isDark ? 'text-white/40 hover:text-white hover:bg-white/10' : 'text-amber-900/60 hover:text-amber-900 hover:bg-red-50/50'} rounded-lg transition-colors`}>
                             <Eye size={14} />
                           </button>
-                          <button className="p-1.5 text-white/40 hover:text-white hover:bg-white/10 rounded-lg transition-colors">
+                          <button className={`p-1.5 ${isDark ? 'text-white/40 hover:text-white hover:bg-white/10' : 'text-amber-900/60 hover:text-amber-900 hover:bg-red-50/50'} rounded-lg transition-colors`}>
                             <Edit size={14} />
                           </button>
-                          <button className="p-1.5 text-red-400/60 hover:text-red-300 hover:bg-red-500/10 rounded-lg transition-colors">
+                          <button className={`p-1.5 ${isDark ? 'text-red-400/60 hover:text-red-300 hover:bg-red-500/10' : 'text-red-600/70 hover:text-red-700 hover:bg-red-50/50'} rounded-lg transition-colors`}>
                             <Trash2 size={14} />
                           </button>
                         </div>
@@ -476,11 +527,11 @@ export default function AdminDashboard() {
 
         {activeTab === "courses" && (
           <div className="slide-up rounded-2xl p-6 backdrop-blur-xl border" style={{ 
-            backgroundColor: 'rgba(239,68,68,0.05)',
-            borderColor: 'rgba(239,68,68,0.25)'
+            backgroundColor: isDark ? 'rgba(239,68,68,0.05)' : 'rgba(239,68,68,0.08)',
+            borderColor: isDark ? 'rgba(239,68,68,0.25)' : 'rgba(239,68,68,0.3)'
           }}>
             <div className="flex items-center justify-between mb-6">
-              <h3 className="text-xl font-semibold text-white">Course Management</h3>
+              <h3 className={`text-xl font-semibold ${isDark ? 'text-white' : 'text-amber-900'}`}>Course Management</h3>
               <button 
                 className="px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 backdrop-blur-sm border"
                 style={{ 
@@ -494,17 +545,17 @@ export default function AdminDashboard() {
                 Add Course
               </button>
             </div>
-            <p className="text-white/50">Course management features will be implemented here.</p>
+            <p className={isDark ? 'text-white/50' : 'text-amber-900/60'}>Course management features will be implemented here.</p>
           </div>
         )}
 
         {activeTab === "alerts" && (
           <div className="slide-up rounded-2xl p-6 backdrop-blur-xl border" style={{ 
-            backgroundColor: 'rgba(239,68,68,0.05)',
-            borderColor: 'rgba(239,68,68,0.25)'
+            backgroundColor: isDark ? 'rgba(239,68,68,0.05)' : 'rgba(239,68,68,0.08)',
+            borderColor: isDark ? 'rgba(239,68,68,0.25)' : 'rgba(239,68,68,0.3)'
           }}>
-            <h3 className="text-xl font-semibold mb-6 text-white">Alerts & Notifications</h3>
-            <p className="text-white/50">Alerts and notification management will be implemented here.</p>
+            <h3 className={`text-xl font-semibold mb-6 ${isDark ? 'text-white' : 'text-amber-900'}`}>Alerts & Notifications</h3>
+            <p className={isDark ? 'text-white/50' : 'text-amber-900/60'}>Alerts and notification management will be implemented here.</p>
           </div>
         )}
       </main>

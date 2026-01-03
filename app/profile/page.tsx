@@ -5,6 +5,7 @@ import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useUser, useClerk } from "@clerk/nextjs"
 import { useTheme } from "next-themes"
+import { useThemeStyles } from "../../lib/theme-styles"
 import { 
   ArrowLeft, 
   User, 
@@ -216,10 +217,13 @@ export default function ProfilePage() {
     }
   }
 
+  const isDark = theme === 'dark'
+  const themeStyles = useThemeStyles()
+
   if (!isLoaded) {
     return (
-      <div className="min-h-screen bg-gray-900 flex items-center justify-center">
-        <div className="text-white text-xl">Loading...</div>
+      <div className="min-h-screen flex items-center justify-center" style={{ backgroundColor: themeStyles.pageBg }}>
+        <div style={{ color: themeStyles.textPrimary }} className="text-xl">Loading...</div>
       </div>
     )
   }
@@ -233,21 +237,26 @@ export default function ProfilePage() {
   const userName = user.fullName || user.firstName || "User"
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white">
+    <div className="min-h-screen" style={{ backgroundColor: themeStyles.pageBg, color: themeStyles.textPrimary }}>
       {/* Header */}
-      <header className="bg-gray-800 border-b border-gray-700">
+      <header className="border-b" style={{ 
+        backgroundColor: themeStyles.cardBg,
+        borderColor: isDark ? 'rgba(255,255,255,0.1)' : 'rgba(139,90,43,0.2)'
+      }}>
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center space-x-4">
               <Link 
                 href="/"
-                className="flex items-center space-x-2 px-3 py-2 text-gray-400 hover:text-white transition-colors rounded-lg hover:bg-gray-700"
+                className={`flex items-center space-x-2 px-3 py-2 transition-colors rounded-lg ${
+                  isDark ? 'text-gray-400 hover:text-white hover:bg-gray-700' : 'text-amber-900/70 hover:text-amber-900 hover:bg-amber-900/10'
+                }`}
               >
                 <ArrowLeft size={18} />
                 <span className="text-sm font-medium">Back to Home</span>
               </Link>
-              <div className="h-6 w-px bg-gray-600"></div>
-              <h1 className="text-xl font-semibold">Profile Settings</h1>
+              <div className="h-6 w-px" style={{ backgroundColor: isDark ? 'rgba(255,255,255,0.2)' : 'rgba(139,90,43,0.3)' }}></div>
+              <h1 className="text-xl font-semibold" style={{ color: themeStyles.textPrimary }}>Profile Settings</h1>
             </div>
           </div>
         </div>
@@ -255,7 +264,10 @@ export default function ProfilePage() {
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Profile Header */}
-        <div className="bg-gray-800 rounded-xl p-8 border border-gray-700 mb-6">
+        <div className="rounded-xl p-8 border mb-6" style={{ 
+          backgroundColor: themeStyles.cardBg,
+          borderColor: isDark ? 'rgba(255,255,255,0.1)' : 'rgba(139,90,43,0.2)'
+        }}>
           <div className="flex items-center space-x-6">
             <div className="relative">
               <div className="w-24 h-24 bg-gradient-to-br from-purple-600 to-blue-600 rounded-full flex items-center justify-center">
@@ -290,13 +302,13 @@ export default function ProfilePage() {
               )}
             </div>
             <div className="flex-1">
-              <h2 className="text-2xl font-bold mb-1">{userName}</h2>
-              <p className="text-gray-400 mb-2">{formData.email}</p>
+              <h2 className="text-2xl font-bold mb-1" style={{ color: themeStyles.textPrimary }}>{userName}</h2>
+              <p className="mb-2" style={{ color: themeStyles.textSecondary }}>{formData.email}</p>
               <span className={`inline-block px-3 py-1 rounded-full text-xs font-medium ${
-                userRole === 'admin' ? 'bg-red-900/30 text-red-300' :
-                userRole === 'trainer' ? 'bg-green-900/30 text-green-300' :
-                userRole === 'corporate' ? 'bg-blue-900/30 text-blue-300' :
-                'bg-purple-900/30 text-purple-300'
+                userRole === 'admin' ? (isDark ? 'bg-red-900/30 text-red-300' : 'bg-red-200 text-red-800') :
+                userRole === 'trainer' ? (isDark ? 'bg-green-900/30 text-green-300' : 'bg-green-200 text-green-800') :
+                userRole === 'corporate' ? (isDark ? 'bg-blue-900/30 text-blue-300' : 'bg-blue-200 text-blue-800') :
+                (isDark ? 'bg-purple-900/30 text-purple-300' : 'bg-purple-200 text-purple-800')
               }`}>
                 {userRole.charAt(0).toUpperCase() + userRole.slice(1)}
               </span>
@@ -333,13 +345,16 @@ export default function ProfilePage() {
         </div>
 
         {/* Profile Details */}
-        <div className="bg-gray-800 rounded-xl p-6 border border-gray-700">
-          <h3 className="text-xl font-semibold mb-6">Personal Information</h3>
+        <div className="rounded-xl p-6 border" style={{ 
+          backgroundColor: themeStyles.cardBg,
+          borderColor: isDark ? 'rgba(255,255,255,0.1)' : 'rgba(139,90,43,0.2)'
+        }}>
+          <h3 className="text-xl font-semibold mb-6" style={{ color: themeStyles.textPrimary }}>Personal Information</h3>
           
           <div className="space-y-6">
             {/* First Name */}
             <div>
-              <label className="block text-sm font-medium text-gray-400 mb-2">
+              <label className={`block text-sm font-medium mb-2 ${isDark ? 'text-gray-400' : 'text-amber-900/70'}`}>
                 First Name
               </label>
               {isEditing ? (
@@ -348,17 +363,21 @@ export default function ProfilePage() {
                   name="firstName"
                   value={formData.firstName}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-purple-500"
+                  className={`w-full px-4 py-2 border rounded-lg focus:outline-none ${
+                    isDark 
+                      ? 'bg-gray-700 border-gray-600 text-white focus:border-purple-500' 
+                      : 'bg-white border-amber-900/20 text-amber-900 focus:border-amber-800'
+                  }`}
                   placeholder="Enter first name"
                 />
               ) : (
-                <p className="text-white">{formData.firstName || "Not set"}</p>
+                <p style={{ color: themeStyles.textPrimary }}>{formData.firstName || "Not set"}</p>
               )}
             </div>
 
             {/* Last Name */}
             <div>
-              <label className="block text-sm font-medium text-gray-400 mb-2">
+              <label className={`block text-sm font-medium mb-2 ${isDark ? 'text-gray-400' : 'text-amber-900/70'}`}>
                 Last Name
               </label>
               {isEditing ? (
@@ -367,34 +386,38 @@ export default function ProfilePage() {
                   name="lastName"
                   value={formData.lastName}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-purple-500"
+                  className={`w-full px-4 py-2 border rounded-lg focus:outline-none ${
+                    isDark 
+                      ? 'bg-gray-700 border-gray-600 text-white focus:border-purple-500' 
+                      : 'bg-white border-amber-900/20 text-amber-900 focus:border-amber-800'
+                  }`}
                   placeholder="Enter last name"
                 />
               ) : (
-                <p className="text-white">{formData.lastName || "Not set"}</p>
+                <p style={{ color: themeStyles.textPrimary }}>{formData.lastName || "Not set"}</p>
               )}
             </div>
 
             {/* Email */}
             <div>
-              <label className="block text-sm font-medium text-gray-400 mb-2 flex items-center">
+              <label className={`block text-sm font-medium mb-2 flex items-center ${isDark ? 'text-gray-400' : 'text-amber-900/70'}`}>
                 <Mail size={16} className="mr-2" />
                 Email Address
               </label>
-              <p className="text-white">{formData.email}</p>
-              <p className="text-xs text-gray-500 mt-1">
+              <p style={{ color: themeStyles.textPrimary }}>{formData.email}</p>
+              <p className={`text-xs mt-1 ${isDark ? 'text-gray-500' : 'text-amber-900/60'}`}>
                 Email changes require verification. Contact support to change your email.
               </p>
             </div>
 
             {/* Role */}
             <div>
-              <label className="block text-sm font-medium text-gray-400 mb-2 flex items-center">
+              <label className={`block text-sm font-medium mb-2 flex items-center ${isDark ? 'text-gray-400' : 'text-amber-900/70'}`}>
                 <Shield size={16} className="mr-2" />
                 Account Role
               </label>
-              <p className="text-white capitalize">{formData.role}</p>
-              <p className="text-xs text-gray-500 mt-1">
+              <p className="capitalize" style={{ color: themeStyles.textPrimary }}>{formData.role}</p>
+              <p className={`text-xs mt-1 ${isDark ? 'text-gray-500' : 'text-amber-900/60'}`}>
                 Role cannot be changed from this page. Contact an administrator for role changes.
               </p>
             </div>
@@ -402,11 +425,14 @@ export default function ProfilePage() {
         </div>
 
         {/* Appearance Settings */}
-        <div className="bg-gray-800 dark:bg-gray-800 rounded-xl p-6 border border-gray-700 dark:border-gray-700 mt-6">
-          <h3 className="text-xl font-semibold mb-6">Appearance</h3>
+        <div className="rounded-xl p-6 border mt-6" style={{ 
+          backgroundColor: themeStyles.cardBg,
+          borderColor: isDark ? 'rgba(255,255,255,0.1)' : 'rgba(139,90,43,0.2)'
+        }}>
+          <h3 className="text-xl font-semibold mb-6" style={{ color: themeStyles.textPrimary }}>Appearance</h3>
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-400 mb-3">
+              <label className={`block text-sm font-medium mb-3 ${isDark ? 'text-gray-400' : 'text-amber-900/70'}`}>
                 Theme Preference
               </label>
               <div className="grid grid-cols-3 gap-3">
@@ -414,12 +440,12 @@ export default function ProfilePage() {
                   onClick={() => setTheme('light')}
                   className={`flex flex-col items-center justify-center p-4 rounded-lg border-2 transition-all ${
                     theme === 'light'
-                      ? 'border-purple-500 bg-purple-500/10'
-                      : 'border-gray-600 hover:border-gray-500 bg-gray-700/50'
+                      ? (isDark ? 'border-purple-500 bg-purple-500/10' : 'border-amber-700 bg-amber-700/20')
+                      : (isDark ? 'border-gray-600 hover:border-gray-500 bg-gray-700/50' : 'border-amber-900/30 hover:border-amber-800/50 bg-white/50')
                   }`}
                 >
-                  <Sun size={24} className={`mb-2 ${theme === 'light' ? 'text-purple-400' : 'text-gray-400'}`} />
-                  <span className={`text-sm font-medium ${theme === 'light' ? 'text-purple-300' : 'text-gray-400'}`}>
+                  <Sun size={24} className={`mb-2 ${theme === 'light' ? (isDark ? 'text-purple-400' : 'text-amber-800') : (isDark ? 'text-gray-400' : 'text-amber-900/60')}`} />
+                  <span className={`text-sm font-medium ${theme === 'light' ? (isDark ? 'text-purple-300' : 'text-amber-900') : (isDark ? 'text-gray-400' : 'text-amber-900/70')}`}>
                     Light
                   </span>
                 </button>
@@ -427,12 +453,12 @@ export default function ProfilePage() {
                   onClick={() => setTheme('dark')}
                   className={`flex flex-col items-center justify-center p-4 rounded-lg border-2 transition-all ${
                     theme === 'dark'
-                      ? 'border-purple-500 bg-purple-500/10'
-                      : 'border-gray-600 hover:border-gray-500 bg-gray-700/50'
+                      ? (isDark ? 'border-purple-500 bg-purple-500/10' : 'border-amber-700 bg-amber-700/20')
+                      : (isDark ? 'border-gray-600 hover:border-gray-500 bg-gray-700/50' : 'border-amber-900/30 hover:border-amber-800/50 bg-white/50')
                   }`}
                 >
-                  <Moon size={24} className={`mb-2 ${theme === 'dark' ? 'text-purple-400' : 'text-gray-400'}`} />
-                  <span className={`text-sm font-medium ${theme === 'dark' ? 'text-purple-300' : 'text-gray-400'}`}>
+                  <Moon size={24} className={`mb-2 ${theme === 'dark' ? (isDark ? 'text-purple-400' : 'text-amber-800') : (isDark ? 'text-gray-400' : 'text-amber-900/60')}`} />
+                  <span className={`text-sm font-medium ${theme === 'dark' ? (isDark ? 'text-purple-300' : 'text-amber-900') : (isDark ? 'text-gray-400' : 'text-amber-900/70')}`}>
                     Dark
                   </span>
                 </button>
@@ -440,17 +466,17 @@ export default function ProfilePage() {
                   onClick={() => setTheme('system')}
                   className={`flex flex-col items-center justify-center p-4 rounded-lg border-2 transition-all ${
                     theme === 'system'
-                      ? 'border-purple-500 bg-purple-500/10'
-                      : 'border-gray-600 hover:border-gray-500 bg-gray-700/50'
+                      ? (isDark ? 'border-purple-500 bg-purple-500/10' : 'border-amber-700 bg-amber-700/20')
+                      : (isDark ? 'border-gray-600 hover:border-gray-500 bg-gray-700/50' : 'border-amber-900/30 hover:border-amber-800/50 bg-white/50')
                   }`}
                 >
-                  <Monitor size={24} className={`mb-2 ${theme === 'system' ? 'text-purple-400' : 'text-gray-400'}`} />
-                  <span className={`text-sm font-medium ${theme === 'system' ? 'text-purple-300' : 'text-gray-400'}`}>
+                  <Monitor size={24} className={`mb-2 ${theme === 'system' ? (isDark ? 'text-purple-400' : 'text-amber-800') : (isDark ? 'text-gray-400' : 'text-amber-900/60')}`} />
+                  <span className={`text-sm font-medium ${theme === 'system' ? (isDark ? 'text-purple-300' : 'text-amber-900') : (isDark ? 'text-gray-400' : 'text-amber-900/70')}`}>
                     System
                   </span>
                 </button>
               </div>
-              <p className="text-xs text-gray-500 mt-3">
+              <p className={`text-xs mt-3 ${isDark ? 'text-gray-500' : 'text-amber-900/60'}`}>
                 {mounted && (
                   <>
                     {theme === 'system' 
@@ -467,12 +493,21 @@ export default function ProfilePage() {
         </div>
 
         {/* Account Actions */}
-        <div className="bg-gray-800 dark:bg-gray-800 rounded-xl p-6 border border-gray-700 dark:border-gray-700 mt-6">
-          <h3 className="text-xl font-semibold mb-6">Account Actions</h3>
+        <div className="rounded-xl p-6 border mt-6" style={{ 
+          backgroundColor: themeStyles.cardBg,
+          borderColor: isDark ? 'rgba(255,255,255,0.1)' : 'rgba(139,90,43,0.2)'
+        }}>
+          <h3 className="text-xl font-semibold mb-6" style={{ color: themeStyles.textPrimary }}>Account Actions</h3>
           <div className="space-y-4">
             <Link
               href={userRole === 'admin' ? '/admin-dashboard' : '/student-dashboard'}
-              className="block px-4 py-3 bg-purple-600 hover:bg-purple-700 rounded-lg transition-colors text-center"
+              className="block px-4 py-3 rounded-lg transition-colors text-center text-white"
+              style={{ 
+                background: themeStyles.buttonGradient,
+                boxShadow: themeStyles.buttonShadow
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.boxShadow = themeStyles.buttonShadowHover}
+              onMouseLeave={(e) => e.currentTarget.style.boxShadow = themeStyles.buttonShadow}
             >
               Go to Dashboard
             </Link>
@@ -481,7 +516,7 @@ export default function ProfilePage() {
                 await signOut()
                 router.push("/")
               }}
-              className="w-full px-4 py-3 bg-red-600 hover:bg-red-700 rounded-lg transition-colors text-center"
+              className="w-full px-4 py-3 bg-red-600 hover:bg-red-700 rounded-lg transition-colors text-center text-white"
             >
               Sign Out
             </button>

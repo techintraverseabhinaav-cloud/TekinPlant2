@@ -4,8 +4,14 @@ import { useState, useEffect } from "react"
 import { Users, Award, Globe, Target } from "lucide-react"
 import Navbar from "../../src/components/Navbar"
 import Link from "next/link"
+import { useTheme } from "next-themes"
+import { useThemeStyles } from "../../lib/theme-styles"
 
 export default function AboutPage() {
+  const { theme } = useTheme()
+  const themeStyles = useThemeStyles()
+  const isDark = theme === 'dark'
+  
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -57,43 +63,72 @@ export default function AboutPage() {
   ]
 
   return (
-    <div className="min-h-screen relative" style={{ backgroundColor: '#000000' }}>
+    <div className="min-h-screen relative" style={{ backgroundColor: themeStyles.pageBg }}>
       <Navbar />
       
       {/* Hero Section */}
       <section className="relative py-24 overflow-hidden">
-        <div className="absolute inset-0 backdrop-blur-[1px]" style={{ background: 'linear-gradient(180deg, #0a0a0a 0%, #1a1a1a 50%, #000000 100%)' }}></div>
+        <div className="absolute inset-0 backdrop-blur-[1px]" style={{ background: themeStyles.pageBgGradient }}></div>
         <div className="slide-up relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
           <div className="text-center mb-20">
-            <div className="slide-up inline-flex items-center gap-2 rounded-full px-4 py-1.5 mb-8 backdrop-blur-sm border border-purple-500/20" style={{ backgroundColor: 'rgba(0,0,0,0.4)', transitionDelay: '0.1s' }}>
-              <Award className="w-3.5 h-3.5" style={{ color: '#a855f7' }} />
-              <span className="text-xs font-medium text-white/70 tracking-wide uppercase">Who We Are</span>
+            <div className="slide-up inline-flex items-center gap-2 rounded-full px-4 py-1.5 mb-8 backdrop-blur-sm border" style={{ 
+              backgroundColor: isDark ? 'rgba(0,0,0,0.4)' : 'rgba(255,255,255,0.7)',
+              borderColor: isDark ? 'rgba(168,85,247,0.2)' : 'rgba(139,90,43,0.25)',
+              transitionDelay: '0.1s' 
+            }}>
+              <Award className="w-3.5 h-3.5" style={{ color: isDark ? '#a855f7' : '#8b6f47' }} />
+              <span className={`text-xs font-medium tracking-wide uppercase ${isDark ? 'text-white/70' : 'text-amber-900/80'}`}>Who We Are</span>
             </div>
             <h1 className="slide-up text-5xl sm:text-6xl lg:text-7xl font-light mb-6 leading-tight tracking-tight" style={{ transitionDelay: '0.2s' }}>
-              <span className="text-white">About</span> <span className="bg-gradient-to-r from-purple-300 via-purple-200 to-purple-300 bg-clip-text text-transparent">TEKINPLANT</span>
+              <span style={{ color: themeStyles.textPrimary }}>About</span> <span className={`bg-clip-text text-transparent ${
+                isDark 
+                  ? 'bg-gradient-to-r from-purple-300 via-purple-200 to-purple-300' 
+                  : 'bg-gradient-to-r from-amber-800 via-amber-700 to-amber-800'
+              }`}>TEKINPLANT</span>
             </h1>
-            <p className="slide-up text-lg sm:text-xl text-white/50 max-w-4xl mx-auto mb-16 font-light leading-relaxed" style={{ transitionDelay: '0.3s' }}>
+            <p className="slide-up text-lg sm:text-xl max-w-4xl mx-auto mb-16 font-light leading-relaxed" style={{ 
+              transitionDelay: '0.3s',
+              color: themeStyles.textSecondary,
+              opacity: isDark ? 0.5 : 0.8
+            }}>
               We are a leading industrial training platform dedicated to bridging the gap between academic knowledge and industry requirements. 
               Our mission is to empower professionals with practical skills and hands-on experience.
             </p>
 
             {/* Stats */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 lg:gap-8">
-              {stats.map((stat, index) => (
+              {stats.map((stat, index) => {
+                const statBorder = isDark ? 'rgba(168,85,247,0.25)' : 'rgba(139,90,43,0.3)'
+                const statBg = isDark ? 'rgba(0,0,0,0.5)' : 'rgba(255,255,255,0.9)'
+                
+                return (
                 <div 
                   key={index} 
                   className="slide-up text-center transition-all duration-500" 
                   style={{ transitionDelay: `${0.4 + index * 0.1}s` }}
                 >
-                  <div className="w-16 h-16 p-0.5 rounded-xl flex items-center justify-center mx-auto mb-6" style={{ backgroundColor: 'rgba(0,0,0,0.5)', borderColor: 'rgba(168,85,247,0.25)', borderWidth: '1px' }}>
-                    <div className="w-full h-full rounded-lg flex items-center justify-center overflow-hidden" style={{ borderColor: 'rgba(168,85,247,0.25)', borderWidth: '1px', backgroundColor: '#ffffff' }}>
+                  <div className="w-16 h-16 p-0.5 rounded-xl flex items-center justify-center mx-auto mb-6" style={{ 
+                    backgroundColor: statBg, 
+                    borderColor: statBorder, 
+                    borderWidth: '1px' 
+                  }}>
+                    <div className="w-full h-full rounded-lg flex items-center justify-center overflow-hidden" style={{ 
+                      borderColor: statBorder, 
+                      borderWidth: '1px', 
+                      backgroundColor: '#ffffff' 
+                    }}>
                       <img src={stat.icon} alt={stat.label} className="w-full h-full object-cover scale-125" />
                     </div>
                   </div>
-                  <div className="text-4xl font-light mb-2 tracking-tight bg-gradient-to-r from-purple-300 to-purple-400 bg-clip-text text-transparent">{stat.number}</div>
-                  <div className="text-sm text-white/50 font-light tracking-wide uppercase">{stat.label}</div>
+                  <div className={`text-4xl font-light mb-2 tracking-tight bg-clip-text text-transparent ${
+                    isDark 
+                      ? 'bg-gradient-to-r from-purple-300 to-purple-400' 
+                      : 'bg-gradient-to-r from-amber-800 to-amber-700'
+                  }`}>{stat.number}</div>
+                  <div className={`text-sm font-light tracking-wide uppercase ${isDark ? 'text-white/50' : 'text-amber-900/70'}`}>{stat.label}</div>
                 </div>
-              ))}
+                )
+              })}
             </div>
           </div>
         </div>
@@ -101,12 +136,16 @@ export default function AboutPage() {
 
       {/* Mission & Vision */}
       <section className="py-24 relative overflow-hidden">
-        <div className="absolute inset-0 backdrop-blur-[1px]" style={{ background: 'linear-gradient(180deg, #000000 0%, #0a0a0a 50%, #1a1a1a 100%)' }}></div>
+        <div className="absolute inset-0 backdrop-blur-[1px]" style={{ background: themeStyles.pageBgGradient }}></div>
         <div className="slide-up relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
           <div className="text-center mb-16">
-            <div className="slide-up inline-flex items-center gap-2 rounded-full px-4 py-1.5 mb-6 backdrop-blur-sm border border-purple-500/20" style={{ backgroundColor: 'rgba(0,0,0,0.4)', transitionDelay: '0.1s' }}>
-              <Target className="w-3.5 h-3.5" style={{ color: '#a855f7' }} />
-              <span className="text-xs font-medium text-white/70 tracking-wide uppercase">Our Purpose</span>
+            <div className="slide-up inline-flex items-center gap-2 rounded-full px-4 py-1.5 mb-6 backdrop-blur-sm border" style={{ 
+              backgroundColor: isDark ? 'rgba(0,0,0,0.4)' : 'rgba(255,255,255,0.7)',
+              borderColor: isDark ? 'rgba(168,85,247,0.2)' : 'rgba(139,90,43,0.25)',
+              transitionDelay: '0.1s' 
+            }}>
+              <Target className="w-3.5 h-3.5" style={{ color: isDark ? '#a855f7' : '#8b6f47' }} />
+              <span className={`text-xs font-medium tracking-wide uppercase ${isDark ? 'text-white/70' : 'text-amber-900/80'}`}>Our Purpose</span>
             </div>
           </div>
           
@@ -114,29 +153,49 @@ export default function AboutPage() {
             {/* Mission */}
             <div className="slide-up" style={{ transitionDelay: '0.2s' }}>
               <h2 className="text-3xl lg:text-4xl font-light mb-6 leading-tight tracking-tight">
-                <span className="text-white">Our</span> <span className="bg-gradient-to-r from-purple-300 to-purple-400 bg-clip-text text-transparent">Mission</span>
+                <span style={{ color: themeStyles.textPrimary }}>Our</span> <span className={`bg-clip-text text-transparent ${
+                  isDark 
+                    ? 'bg-gradient-to-r from-purple-300 to-purple-400' 
+                    : 'bg-gradient-to-r from-amber-800 to-amber-700'
+                }`}>Mission</span>
               </h2>
               <div className="space-y-4">
-                <p className="text-lg text-white/60 leading-relaxed font-light">
+                <p className="text-lg leading-relaxed font-light" style={{ 
+                  color: themeStyles.textSecondary,
+                  opacity: isDark ? 0.6 : 0.8
+                }}>
                   To provide industry-relevant training programs that equip professionals with the practical skills and knowledge needed to excel in their careers. 
                   We believe in learning by doing and connecting theory with real-world applications.
                 </p>
-                <p className="text-lg text-white/60 leading-relaxed font-light">
+                <p className="text-lg leading-relaxed font-light" style={{ 
+                  color: themeStyles.textSecondary,
+                  opacity: isDark ? 0.6 : 0.8
+                }}>
                   Our comprehensive approach combines theoretical knowledge with hands-on projects, industry mentorship, and practical case studies to ensure our students are job-ready.
                 </p>
               </div>
             </div>
 
             {/* Vision */}
-            <div className="slide-up pt-20 border-t border-white/5" style={{ transitionDelay: '0.3s' }}>
+            <div className={`slide-up pt-20 border-t ${isDark ? 'border-white/5' : 'border-amber-900/10'}`} style={{ transitionDelay: '0.3s' }}>
               <h2 className="text-3xl lg:text-4xl font-light mb-6 leading-tight tracking-tight">
-                <span className="text-white">Our</span> <span className="bg-gradient-to-r from-purple-300 to-purple-400 bg-clip-text text-transparent">Vision</span>
+                <span style={{ color: themeStyles.textPrimary }}>Our</span> <span className={`bg-clip-text text-transparent ${
+                  isDark 
+                    ? 'bg-gradient-to-r from-purple-300 to-purple-400' 
+                    : 'bg-gradient-to-r from-amber-800 to-amber-700'
+                }`}>Vision</span>
               </h2>
               <div className="space-y-4">
-                <p className="text-lg text-white/60 leading-relaxed font-light">
+                <p className="text-lg leading-relaxed font-light" style={{ 
+                  color: themeStyles.textSecondary,
+                  opacity: isDark ? 0.6 : 0.8
+                }}>
                   To become the most trusted platform for industrial training, recognized for our commitment to quality education, industry partnerships, and student success.
                 </p>
-                <p className="text-lg text-white/60 leading-relaxed font-light">
+                <p className="text-lg leading-relaxed font-light" style={{ 
+                  color: themeStyles.textSecondary,
+                  opacity: isDark ? 0.6 : 0.8
+                }}>
                   We envision a future where every professional has access to high-quality, industry-aligned training that accelerates their career growth and contributes to organizational success.
                 </p>
               </div>
@@ -147,20 +206,32 @@ export default function AboutPage() {
 
       {/* Values */}
       <section className="py-24 relative overflow-hidden">
-        <div className="absolute inset-0 backdrop-blur-[1px]" style={{ background: 'linear-gradient(180deg, #1a1a1a 0%, #0a0a0a 50%, #000000 100%)' }}></div>
+        <div className="absolute inset-0 backdrop-blur-[1px]" style={{ background: themeStyles.pageBgGradient }}></div>
         <div className="slide-up relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
           <div className="text-center mb-16">
-            <div className="slide-up inline-flex items-center gap-2 rounded-full px-4 py-1.5 mb-6 backdrop-blur-sm border border-purple-500/20" style={{ backgroundColor: 'rgba(0,0,0,0.4)', transitionDelay: '0.1s' }}>
-              <Award className="w-3.5 h-3.5" style={{ color: '#a855f7' }} />
-              <span className="text-xs font-medium text-white/70 tracking-wide uppercase">What We Stand For</span>
+            <div className="slide-up inline-flex items-center gap-2 rounded-full px-4 py-1.5 mb-6 backdrop-blur-sm border" style={{ 
+              backgroundColor: isDark ? 'rgba(0,0,0,0.4)' : 'rgba(255,255,255,0.7)',
+              borderColor: isDark ? 'rgba(168,85,247,0.2)' : 'rgba(139,90,43,0.25)',
+              transitionDelay: '0.1s' 
+            }}>
+              <Award className="w-3.5 h-3.5" style={{ color: isDark ? '#a855f7' : '#8b6f47' }} />
+              <span className={`text-xs font-medium tracking-wide uppercase ${isDark ? 'text-white/70' : 'text-amber-900/80'}`}>What We Stand For</span>
             </div>
             <h2 className="slide-up text-4xl lg:text-5xl font-light mb-6 leading-tight tracking-tight" style={{ transitionDelay: '0.2s' }}>
-              <span className="text-white">Our</span> <span className="bg-gradient-to-r from-purple-300 to-purple-400 bg-clip-text text-transparent">Values</span>
+              <span style={{ color: themeStyles.textPrimary }}>Our</span> <span className={`bg-clip-text text-transparent ${
+                isDark 
+                  ? 'bg-gradient-to-r from-purple-300 to-purple-400' 
+                  : 'bg-gradient-to-r from-amber-800 to-amber-700'
+              }`}>Values</span>
             </h2>
           </div>
           
           <div className="grid md:grid-cols-3 gap-12 lg:gap-16">
-            {values.map((value, index) => (
+            {values.map((value, index) => {
+              const valueBorder = isDark ? 'rgba(168,85,247,0.25)' : 'rgba(139,90,43,0.3)'
+              const valueBg = isDark ? 'rgba(0,0,0,0.5)' : 'rgba(255,255,255,0.9)'
+              
+              return (
               <div 
                 key={index} 
                 className="slide-up text-center transition-all duration-500" 
@@ -172,32 +243,49 @@ export default function AboutPage() {
                   e.currentTarget.style.transform = 'translateY(0)'
                 }}
               >
-                <div className="w-16 h-16 p-0.5 rounded-xl flex items-center justify-center mx-auto mb-6" style={{ backgroundColor: 'rgba(0,0,0,0.5)', borderColor: 'rgba(168,85,247,0.25)', borderWidth: '1px' }}>
-                  <div className="w-full h-full rounded-lg flex items-center justify-center overflow-hidden" style={{ borderColor: 'rgba(168,85,247,0.25)', borderWidth: '1px', backgroundColor: '#ffffff' }}>
+                <div className="w-16 h-16 p-0.5 rounded-xl flex items-center justify-center mx-auto mb-6" style={{ 
+                  backgroundColor: valueBg, 
+                  borderColor: valueBorder, 
+                  borderWidth: '1px' 
+                }}>
+                  <div className="w-full h-full rounded-lg flex items-center justify-center overflow-hidden" style={{ 
+                    borderColor: valueBorder, 
+                    borderWidth: '1px', 
+                    backgroundColor: '#ffffff' 
+                  }}>
                     <img src={value.icon} alt={value.title} className="w-full h-full object-cover scale-150" />
                   </div>
                 </div>
-                <h3 className="text-xl font-light mb-4 text-white">{value.title}</h3>
-                <p className="text-white/50 leading-relaxed font-light">
+                <h3 className={`text-xl font-light mb-4 ${isDark ? 'text-white' : 'text-amber-900'}`}>{value.title}</h3>
+                <p className={`leading-relaxed font-light ${isDark ? 'text-white/50' : 'text-amber-900/70'}`}>
                   {value.description}
                 </p>
               </div>
-            ))}
+              )
+            })}
           </div>
         </div>
       </section>
 
       {/* Team */}
       <section className="py-24 relative overflow-hidden">
-        <div className="absolute inset-0 backdrop-blur-[1px]" style={{ background: 'linear-gradient(180deg, #000000 0%, #0a0a0a 50%, #1a1a1a 100%)' }}></div>
+        <div className="absolute inset-0 backdrop-blur-[1px]" style={{ background: themeStyles.pageBgGradient }}></div>
         <div className="slide-up relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
           <div className="text-center mb-16">
-            <div className="slide-up inline-flex items-center gap-2 rounded-full px-4 py-1.5 mb-6 backdrop-blur-sm border border-purple-500/20" style={{ backgroundColor: 'rgba(0,0,0,0.4)', transitionDelay: '0.1s' }}>
-              <Users className="w-3.5 h-3.5" style={{ color: '#a855f7' }} />
-              <span className="text-xs font-medium text-white/70 tracking-wide uppercase">Our Founder</span>
+            <div className="slide-up inline-flex items-center gap-2 rounded-full px-4 py-1.5 mb-6 backdrop-blur-sm border" style={{ 
+              backgroundColor: isDark ? 'rgba(0,0,0,0.4)' : 'rgba(255,255,255,0.7)',
+              borderColor: isDark ? 'rgba(168,85,247,0.2)' : 'rgba(139,90,43,0.25)',
+              transitionDelay: '0.1s' 
+            }}>
+              <Users className="w-3.5 h-3.5" style={{ color: isDark ? '#a855f7' : '#8b6f47' }} />
+              <span className={`text-xs font-medium tracking-wide uppercase ${isDark ? 'text-white/70' : 'text-amber-900/80'}`}>Our Founder</span>
             </div>
             <h2 className="slide-up text-4xl lg:text-5xl font-light mb-6 leading-tight tracking-tight" style={{ transitionDelay: '0.2s' }}>
-              <span className="text-white">Founder &</span> <span className="bg-gradient-to-r from-purple-300 to-purple-400 bg-clip-text text-transparent">CEO</span>
+              <span style={{ color: themeStyles.textPrimary }}>Founder &</span> <span className={`bg-clip-text text-transparent ${
+                isDark 
+                  ? 'bg-gradient-to-r from-purple-300 to-purple-400' 
+                  : 'bg-gradient-to-r from-amber-800 to-amber-700'
+              }`}>CEO</span>
             </h2>
           </div>
           
@@ -214,16 +302,19 @@ export default function AboutPage() {
                   e.currentTarget.style.transform = 'translateY(0)'
                 }}
               >
-                <div className="w-32 h-32 mx-auto mb-6 rounded-full overflow-hidden border border-purple-500/20" style={{ backgroundColor: 'rgba(0,0,0,0.3)' }}>
+                <div className="w-32 h-32 mx-auto mb-6 rounded-full overflow-hidden border" style={{ 
+                  backgroundColor: isDark ? 'rgba(0,0,0,0.3)' : 'rgba(255,255,255,0.7)',
+                  borderColor: isDark ? 'rgba(168,85,247,0.2)' : 'rgba(139,90,43,0.3)'
+                }}>
                   <img
                     src={member.image}
                     alt={member.name}
                     className="w-full h-full object-cover"
                   />
                 </div>
-                <h3 className="text-2xl font-light mb-2 text-white">{member.name}</h3>
-                <p className="text-sm mb-4 font-light" style={{ color: '#c084fc' }}>{member.role}</p>
-                <p className="text-white/50 leading-relaxed font-light">{member.bio}</p>
+                <h3 className={`text-2xl font-light mb-2 ${isDark ? 'text-white' : 'text-amber-900'}`}>{member.name}</h3>
+                <p className={`text-sm mb-4 font-light ${isDark ? 'text-purple-400' : 'text-amber-800'}`}>{member.role}</p>
+                <p className={`leading-relaxed font-light ${isDark ? 'text-white/50' : 'text-amber-900/70'}`}>{member.bio}</p>
               </div>
             ))}
           </div>
