@@ -240,10 +240,14 @@ export default function CourseDetailPage({ params }: { params: Promise<{ id: str
   const courseWebsite = courseData.website || "#"
 
   return (
-    <div className="min-h-screen relative" style={{ backgroundColor: themeStyles.pageBg }}>
-      <div className="course-detail-navbar-wrapper">
-        <Navbar />
-      </div>
+    <div className="min-h-screen relative" style={{ 
+      backgroundColor: themeStyles.pageBg,
+      paddingTop: 0,
+      marginTop: 0,
+      border: 'none',
+      borderTop: 'none'
+    }}>
+      <Navbar />
       
       {/* Course Header */}
       <section className="py-24 relative overflow-hidden">

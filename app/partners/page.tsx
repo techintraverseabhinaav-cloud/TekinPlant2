@@ -48,7 +48,7 @@ const CompanyLogo = ({ companyName, isDark }: { companyName: string; isDark: boo
   
   if (!logoPath || imageError) {
     return (
-      <span className={`font-bold text-lg ${isDark ? 'text-white' : 'text-amber-900'}`}>{companyName.charAt(0)}</span>
+      <span className={`font-bold text-lg ${isDark ? 'text-white' : 'text-purple-900'}`}>{companyName.charAt(0)}</span>
     )
   }
   
@@ -67,7 +67,7 @@ export default function PartnersPage() {
   const themeStyles = useThemeStyles()
   
   // Read initial theme from data-theme attribute (set by theme script before React)
-  // Returns: true for dark mode (purple), false for light mode (amber)
+  // Returns: true for dark mode (purple), false for light mode (purple)
   const [isDark, setIsDark] = useState(() => {
     // First, try to read from data-theme attribute (set by theme script before React)
     // This works in both client and SSR if document is available
@@ -167,7 +167,13 @@ export default function PartnersPage() {
   })
 
   return (
-    <div className="min-h-screen relative" suppressHydrationWarning style={{ backgroundColor: themeStyles.pageBg }}>
+    <div className="min-h-screen relative" suppressHydrationWarning style={{ 
+      backgroundColor: themeStyles.pageBg,
+      paddingTop: 0,
+      marginTop: 0,
+      border: 'none',
+      borderTop: 'none'
+    }}>
       <Navbar />
       
       {/* Header */}
@@ -181,14 +187,14 @@ export default function PartnersPage() {
               borderColor: isDark ? 'rgba(168,85,247,0.2)' : 'rgba(139,90,43,0.25)',
               transitionDelay: '0.1s' 
             }}>
-              <Building className="w-3.5 h-3.5" suppressHydrationWarning style={{ color: isDark ? '#a855f7' : '#8b6f47' }} />
-              <span className={`text-xs font-medium tracking-wide uppercase ${isDark ? 'text-white/70' : 'text-amber-900/80'}`}>Industry Partners</span>
+              <Building className="w-3.5 h-3.5" suppressHydrationWarning style={{ color: isDark ? '#a855f7' : '#a78bfa' }} />
+              <span className={`text-xs font-medium tracking-wide uppercase ${isDark ? 'text-white/70' : 'text-purple-900/80'}`}>Industry Partners</span>
             </div>
             <h1 className="slide-up text-5xl sm:text-6xl lg:text-7xl font-light mb-6 leading-tight tracking-tight" style={{ transitionDelay: '0.2s' }}>
               <span style={{ color: themeStyles.textPrimary }}>Our</span> <span className={`bg-clip-text text-transparent ${
                 isDark 
                   ? 'bg-gradient-to-r from-purple-300 via-purple-200 to-purple-300' 
-                  : 'bg-gradient-to-r from-amber-800 via-amber-700 to-amber-800'
+                  : 'bg-gradient-to-r from-purple-800 via-purple-700 to-purple-800'
               }`}>Industry Partners</span>
             </h1>
             <p className="slide-up text-lg sm:text-xl max-w-3xl mx-auto mb-16 font-light leading-relaxed" style={{ 
@@ -207,68 +213,92 @@ export default function PartnersPage() {
                 { icon: "/Icons/growth.png", value: industryStats.totalCourses, label: "Training Programs" },
                 { icon: "/Icons/rating.png", value: industryStats.averageRating, label: "Average Rating" },
               ].map((stat, index) => {
-                const statBorder = isDark ? 'rgba(168,85,247,0.25)' : 'rgba(139,90,43,0.3)'
-                const statBg = isDark ? 'rgba(0,0,0,0.3)' : 'rgba(255,255,255,0.7)'
-                const statIconBg = isDark ? 'rgba(0,0,0,0.5)' : 'rgba(255,255,255,0.9)'
-                const hoverShadow = isDark
-                  ? '0 12px 24px rgba(0,0,0,0.4), 0 0 20px rgba(196,181,253,0.2)'
-                  : '0 12px 24px rgba(58,46,31,0.2), 0 0 20px rgba(139,90,43,0.25)'
+                const bg = isDark
+                  ? 'rgba(124,58,237,0.10)'
+                  : 'transparent'
+
+                const border = isDark
+                  ? 'rgba(124,58,237,0.25)'
+                  : 'rgba(124,58,237,0.25)'
+
+                const textColor = isDark ? 'text-white/70' : 'text-black'
+                const valueGradient = isDark
+                  ? 'bg-gradient-to-r from-purple-600 to-purple-500'
+                  : 'bg-gradient-to-r from-purple-700 to-purple-600'
                 
                 return (
                 <div 
                   key={index} 
-                  className="slide-up text-center p-8 rounded-2xl transition-all duration-500" 
-                  style={{ 
-                    backgroundColor: statBg, 
-                    borderColor: statBorder, 
-                    borderWidth: '1px',
-                    transitionDelay: `${0.4 + index * 0.1}s`
-                  }} 
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = 'translateY(-4px)'
-                    e.currentTarget.style.boxShadow = hoverShadow
-                  }} 
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = 'translateY(0)'
-                    e.currentTarget.style.boxShadow = 'none'
-                  }}
+                  className="flash-card-container"
                 >
-                  <div className="w-16 h-16 p-0.5 rounded-xl flex items-center justify-center mx-auto mb-6" style={{ 
-                    backgroundColor: statIconBg, 
-                    borderColor: statBorder, 
-                    borderWidth: '1px' 
-                  }}>
-                    <div className="w-full h-full rounded-lg flex items-center justify-center overflow-hidden relative" style={{ 
-                      borderColor: statBorder, 
-                      borderWidth: '1px', 
-                      backgroundColor: '#ffffff' 
-                    }}>
+                  <div
+                    className="flash-card-inner"
+                  >
+                    {/* Front of card - Icon only */}
+                    <div
+                      className="flash-card-face flash-card-front rounded-2xl"
+                      style={{
+                        padding: '2rem',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        backgroundColor: bg,
+                        border: `1px solid ${border}`,
+                        boxShadow: isDark
+                          ? '0 8px 24px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.05)'
+                          : '0 8px 24px rgba(30,41,59,0.15), inset 0 1px 0 rgba(255,255,255,0.1)',
+                      }}
+                    >
                       <div 
-                        className="absolute inset-0 rounded-lg"
+                        className="w-16 h-16 flex items-center justify-center overflow-hidden"
                         style={{
-                          background: isDark ? 'transparent' : 'linear-gradient(135deg, rgba(217,119,6,0.5) 0%, rgba(251,191,36,0.4) 100%)',
-                          mixBlendMode: isDark ? 'normal' : 'color',
-                          pointerEvents: 'none',
-                          zIndex: 1
+                          backgroundColor: isDark ? 'rgba(0,0,0,0.01)' : 'rgba(255,255,255,0.01)',
                         }}
-                      />
-                      <img 
-                        src={stat.icon} 
-                        alt={stat.label} 
-                        className="w-full h-full object-cover scale-125 relative z-0" 
-                        style={{ 
-                          filter: isDark ? 'none' : 'hue-rotate(90deg) saturate(3) brightness(1.6) contrast(1.2)',
-                          WebkitFilter: isDark ? 'none' : 'hue-rotate(90deg) saturate(3) brightness(1.6) contrast(1.2)'
-                        }}
-                      />
+                      >
+                        <img 
+                          src={stat.icon} 
+                          alt={stat.label} 
+                          className="w-full h-full object-contain" 
+                          style={{
+                            mixBlendMode: isDark ? 'screen' : 'multiply',
+                            transform: 'scale(1.8)',
+                          }}
+                        />
+                      </div>
+                    </div>
+
+                    {/* Back of card - Stats */}
+                    <div
+                      className="flash-card-face flash-card-back rounded-2xl"
+                      style={{
+                        padding: '2rem',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        backgroundColor: isDark ? 'rgba(124,58,237,0.10)' : 'transparent',
+                        border: `1px solid ${border}`,
+                        boxShadow: isDark
+                          ? '0 16px 40px rgba(0,0,0,0.35), 0 0 30px rgba(124,58,237,0.35)'
+                          : '0 16px 40px rgba(30,41,59,0.25), 0 0 30px rgba(124,58,237,0.25)',
+                      }}
+                    >
+                      {/* Value */}
+                      <div
+                        className={`text-3xl sm:text-4xl font-semibold text-center mb-3 bg-clip-text text-transparent ${valueGradient}`}
+                      >
+                        {stat.value}
+                      </div>
+
+                      {/* Label */}
+                      <p
+                        className={`text-sm sm:text-base text-center font-light ${textColor}`}
+                        style={{ lineHeight: '1.6' }}
+                      >
+                        {stat.label}
+                      </p>
                     </div>
                   </div>
-                  <h3 className={`text-3xl lg:text-4xl font-light mb-2 tracking-tight bg-clip-text text-transparent ${
-                    isDark 
-                      ? 'bg-gradient-to-r from-purple-300 to-purple-400' 
-                      : 'bg-gradient-to-r from-amber-800 to-amber-700'
-                  }`}>{stat.value}</h3>
-                  <p className={`text-sm font-light tracking-wide uppercase ${isDark ? 'text-white/50' : 'text-amber-900/70'}`}>{stat.label}</p>
                 </div>
                 )
               })}
@@ -283,7 +313,7 @@ export default function PartnersPage() {
               <div className="grid md:grid-cols-3 gap-4">
                 <div className="md:col-span-2">
                   <div className="relative">
-                    <Search className={`absolute left-5 top-1/2 transform -translate-y-1/2 ${isDark ? 'text-white/40' : 'text-amber-900/50'}`} size={18} />
+                    <Search className={`absolute left-5 top-1/2 transform -translate-y-1/2 ${isDark ? 'text-white/40' : 'text-purple-900/50'}`} size={18} />
                     <input
                       type="text"
                       placeholder="Search companies, industries, or locations..."
@@ -291,7 +321,7 @@ export default function PartnersPage() {
                       onChange={(e) => setSearchTerm(e.target.value)}
                       suppressHydrationWarning
                       className={`w-full pl-14 pr-6 py-3.5 rounded-xl backdrop-blur-sm border transition-all duration-300 focus:outline-none focus:ring-2 font-light ${
-                        isDark ? 'text-white placeholder-white/30 focus:ring-purple-500/50' : 'text-amber-900 placeholder-amber-900/50 focus:ring-amber-800/50'
+                        isDark ? 'text-white placeholder-white/30 focus:ring-purple-500/50' : 'text-purple-900 placeholder-purple-900/50 focus:ring-purple-800/50'
                       }`}
                       style={{ 
                         backgroundColor: isDark ? 'rgba(0,0,0,0.4)' : 'rgba(255,255,255,0.9)',
@@ -306,7 +336,7 @@ export default function PartnersPage() {
                     onChange={(e) => setIndustry(e.target.value)}
                     suppressHydrationWarning
                     className={`w-full px-5 py-3.5 pr-10 rounded-xl focus:outline-none transition-all duration-300 backdrop-blur-xl border appearance-none cursor-pointer font-light ${
-                      isDark ? 'text-white' : 'text-amber-900'
+                      isDark ? 'text-white' : 'text-purple-900'
                     }`}
                     style={{ 
                       backgroundColor: isDark ? 'rgba(0,0,0,0.4)' : 'rgba(255,255,255,0.9)',
@@ -335,7 +365,7 @@ export default function PartnersPage() {
                     ))}
                   </select>
                   <div className="absolute right-4 top-1/2 transform -translate-y-1/2 pointer-events-none">
-                    <ChevronDown className="w-4 h-4" suppressHydrationWarning style={{ color: isDark ? '#c084fc' : '#8b6f47' }} />
+                    <ChevronDown className="w-4 h-4" suppressHydrationWarning style={{ color: isDark ? '#c084fc' : '#a78bfa' }} />
                   </div>
                 </div>
               </div>
@@ -343,13 +373,13 @@ export default function PartnersPage() {
 
             {/* Results Count */}
             <div className="slide-up mb-8" suppressHydrationWarning style={{ transitionDelay: '0.9s' }}>
-              <p className={`text-sm font-light ${isDark ? 'text-white/40' : 'text-amber-900/60'}`}>
+              <p className={`text-sm font-light ${isDark ? 'text-white/40' : 'text-purple-900/60'}`}>
                 {searchTerm && (
-                  <span suppressHydrationWarning style={{ color: isDark ? '#c084fc' : '#8b6f47' }}>
+                  <span suppressHydrationWarning style={{ color: isDark ? '#c084fc' : '#a78bfa' }}>
                     Search results for "{searchTerm}":{" "}
                   </span>
                 )}
-                Showing <span className={isDark ? 'text-white/60' : 'text-amber-900/70'}>{filteredPartners.length}</span> of <span className={isDark ? 'text-white/60' : 'text-amber-900/70'}>{industryPartners.length}</span> partner companies
+                Showing <span className={isDark ? 'text-white/60' : 'text-purple-900/70'}>{filteredPartners.length}</span> of <span className={isDark ? 'text-white/60' : 'text-purple-900/70'}>{industryPartners.length}</span> partner companies
               </p>
             </div>
           </div>
@@ -405,15 +435,15 @@ export default function PartnersPage() {
                       </div>
                     </div>
                     <div className="flex-1 min-w-0">
-                      <h3 className={`text-xl font-light mb-2 leading-tight ${isDark ? 'text-white' : 'text-amber-900'}`}>
+                      <h3 className={`text-xl font-light mb-2 leading-tight ${isDark ? 'text-white' : 'text-purple-900'}`}>
                         {partner.name}
                       </h3>
                       <div className="space-y-1">
-                        <p className={`text-sm flex items-center font-light ${isDark ? 'text-white/50' : 'text-amber-900/70'}`}>
+                        <p className={`text-sm flex items-center font-light ${isDark ? 'text-white/50' : 'text-purple-900/70'}`}>
                           <Building size={12} className="mr-1.5" />
                           {partner.industry}
                         </p>
-                        <p className={`text-sm flex items-center font-light ${isDark ? 'text-white/50' : 'text-amber-900/70'}`}>
+                        <p className={`text-sm flex items-center font-light ${isDark ? 'text-white/50' : 'text-purple-900/70'}`}>
                           <MapPin size={12} className="mr-1.5" />
                           {partner.location}
                         </p>
@@ -421,11 +451,11 @@ export default function PartnersPage() {
                     </div>
                   </div>
 
-                  <p className={`text-sm line-clamp-2 leading-relaxed font-light ${isDark ? 'text-white/50' : 'text-amber-900/70'}`}>
+                  <p className={`text-sm line-clamp-2 leading-relaxed font-light ${isDark ? 'text-white/50' : 'text-purple-900/70'}`}>
                     {partner.description}
                   </p>
 
-                  <div className={`flex items-center gap-4 text-xs pt-3 border-t ${isDark ? 'text-white/40 border-white/5' : 'text-amber-900/60 border-amber-900/10'}`}>
+                  <div className={`flex items-center gap-4 text-xs pt-3 border-t ${isDark ? 'text-white/40 border-white/5' : 'text-purple-900/60 border-purple-900/10'}`}>
                     {partner.employeeCount && (
                       <span className="flex items-center gap-1.5">
                         <Users size={12} />
@@ -441,7 +471,7 @@ export default function PartnersPage() {
                   </div>
 
                   <div className="space-y-3 pt-2">
-                    <h4 className={`text-xs font-medium uppercase tracking-wide ${isDark ? 'text-white/60' : 'text-amber-900/70'}`}>Training Programs</h4>
+                    <h4 className={`text-xs font-medium uppercase tracking-wide ${isDark ? 'text-white/60' : 'text-purple-900/70'}`}>Training Programs</h4>
                     <div className="flex flex-wrap gap-2">
                       {partner.trainingPrograms.slice(0, 3).map((program, index) => (
                         <span
@@ -457,7 +487,7 @@ export default function PartnersPage() {
                         </span>
                       ))}
                       {partner.trainingPrograms.length > 3 && (
-                        <span className={`px-3 py-1 rounded-full text-xs font-light ${isDark ? 'text-purple-400' : 'text-amber-800'}`} style={{ 
+                        <span className={`px-3 py-1 rounded-full text-xs font-light ${isDark ? 'text-purple-400' : 'text-purple-800'}`} style={{ 
                           backgroundColor: isDark ? 'rgba(0,0,0,0.4)' : 'rgba(255,255,255,0.9)' 
                         }}>
                           +{partner.trainingPrograms.length - 3} more
@@ -466,12 +496,12 @@ export default function PartnersPage() {
                     </div>
                   </div>
 
-                  <div className={`flex items-center gap-6 pt-4 border-t ${isDark ? 'border-white/5' : 'border-amber-900/10'}`}>
-                    <span className={`flex items-center gap-1.5 text-xs font-light ${isDark ? 'text-white/40' : 'text-amber-900/60'}`}>
+                  <div className={`flex items-center gap-6 pt-4 border-t ${isDark ? 'border-white/5' : 'border-purple-900/10'}`}>
+                    <span className={`flex items-center gap-1.5 text-xs font-light ${isDark ? 'text-white/40' : 'text-purple-900/60'}`}>
                       <Mail size={12} />
                       Contact
                     </span>
-                    <span className={`flex items-center gap-1.5 text-xs font-light ${isDark ? 'text-white/40' : 'text-amber-900/60'}`}>
+                    <span className={`flex items-center gap-1.5 text-xs font-light ${isDark ? 'text-white/40' : 'text-purple-900/60'}`}>
                       <ExternalLink size={12} />
                       Website
                     </span>
@@ -488,12 +518,12 @@ export default function PartnersPage() {
                 backgroundColor: isDark ? 'rgba(0,0,0,0.3)' : 'rgba(255,255,255,0.7)',
                 borderColor: isDark ? 'rgba(168,85,247,0.2)' : 'rgba(139,90,43,0.3)'
               }}>
-                <Search className={`w-10 h-10 ${isDark ? 'text-white/40' : 'text-amber-900/50'}`} />
+                <Search className={`w-10 h-10 ${isDark ? 'text-white/40' : 'text-purple-900/50'}`} />
               </div>
-              <h3 className={`text-2xl font-light mb-4 ${isDark ? 'text-white' : 'text-amber-900'}`}>
+              <h3 className={`text-2xl font-light mb-4 ${isDark ? 'text-white' : 'text-purple-900'}`}>
                 No partners found matching your criteria
               </h3>
-              <p className={`mb-10 font-light ${isDark ? 'text-white/50' : 'text-amber-900/70'}`}>
+              <p className={`mb-10 font-light ${isDark ? 'text-white/50' : 'text-purple-900/70'}`}>
                 Try adjusting your search terms or filters
               </p>
               <button
@@ -535,14 +565,14 @@ export default function PartnersPage() {
               borderColor: isDark ? 'rgba(168,85,247,0.2)' : 'rgba(139,90,43,0.25)',
               transitionDelay: '0.1s' 
             }}>
-              <TrendingUp className="w-3.5 h-3.5" suppressHydrationWarning style={{ color: isDark ? '#a855f7' : '#8b6f47' }} />
-              <span className={`text-xs font-medium tracking-wide uppercase ${isDark ? 'text-white/70' : 'text-amber-900/80'}`}>Industry Analytics</span>
+              <TrendingUp className="w-3.5 h-3.5" suppressHydrationWarning style={{ color: isDark ? '#a855f7' : '#a78bfa' }} />
+              <span className={`text-xs font-medium tracking-wide uppercase ${isDark ? 'text-white/70' : 'text-purple-900/80'}`}>Industry Analytics</span>
             </div>
             <h2 className="slide-up text-4xl lg:text-5xl font-light mb-6 leading-tight tracking-tight" style={{ transitionDelay: '0.2s' }}>
               <span style={{ color: themeStyles.textPrimary }}>Industry</span> <span className={`bg-clip-text text-transparent ${
                 isDark 
                   ? 'bg-gradient-to-r from-purple-300 to-purple-400' 
-                  : 'bg-gradient-to-r from-amber-800 to-amber-700'
+                  : 'bg-gradient-to-r from-purple-800 to-purple-700'
               }`}>Insights</span>
             </h2>
           </div>
@@ -567,12 +597,12 @@ export default function PartnersPage() {
                 e.currentTarget.style.boxShadow = 'none'
               }}
             >
-              <h3 className={`text-lg font-medium mb-6 ${isDark ? 'text-white' : 'text-amber-900'}`}>Top Industries</h3>
+              <h3 className={`text-lg font-medium mb-6 ${isDark ? 'text-white' : 'text-purple-900'}`}>Top Industries</h3>
               <div className="space-y-4">
                 {industryInsights.topIndustries.map((industry, index) => (
-                  <div key={index} className={`flex items-center justify-between py-2 border-b last:border-0 ${isDark ? 'border-white/5' : 'border-amber-900/10'}`}>
-                    <span className={`font-light ${isDark ? 'text-white/60' : 'text-amber-900/70'}`}>{industry.name}</span>
-                    <span className={`font-medium ${isDark ? 'text-purple-400' : 'text-amber-800'}`}>{industry.count} companies</span>
+                  <div key={index} className={`flex items-center justify-between py-2 border-b last:border-0 ${isDark ? 'border-white/5' : 'border-purple-900/10'}`}>
+                    <span className={`font-light ${isDark ? 'text-white/60' : 'text-purple-900/70'}`}>{industry.name}</span>
+                    <span className={`font-medium ${isDark ? 'text-purple-400' : 'text-purple-800'}`}>{industry.count} companies</span>
                   </div>
                 ))}
               </div>
@@ -597,12 +627,12 @@ export default function PartnersPage() {
                 e.currentTarget.style.boxShadow = 'none'
               }}
             >
-              <h3 className={`text-lg font-medium mb-6 ${isDark ? 'text-white' : 'text-amber-900'}`}>Popular Locations</h3>
+              <h3 className={`text-lg font-medium mb-6 ${isDark ? 'text-white' : 'text-purple-900'}`}>Popular Locations</h3>
               <div className="space-y-4">
                 {industryInsights.popularLocations.map((location, index) => (
-                  <div key={index} className={`flex items-center justify-between py-2 border-b last:border-0 ${isDark ? 'border-white/5' : 'border-amber-900/10'}`}>
-                    <span className={`font-light ${isDark ? 'text-white/60' : 'text-amber-900/70'}`}>{location.name}</span>
-                    <span className={`font-medium ${isDark ? 'text-purple-400' : 'text-amber-800'}`}>{location.count} companies</span>
+                  <div key={index} className={`flex items-center justify-between py-2 border-b last:border-0 ${isDark ? 'border-white/5' : 'border-purple-900/10'}`}>
+                    <span className={`font-light ${isDark ? 'text-white/60' : 'text-purple-900/70'}`}>{location.name}</span>
+                    <span className={`font-medium ${isDark ? 'text-purple-400' : 'text-purple-800'}`}>{location.count} companies</span>
                   </div>
                 ))}
               </div>
@@ -644,9 +674,9 @@ export default function PartnersPage() {
                 <h3 className={`text-3xl font-light mb-2 tracking-tight bg-clip-text text-transparent ${
                   isDark 
                     ? 'bg-gradient-to-r from-purple-300 to-purple-400' 
-                    : 'bg-gradient-to-r from-amber-800 to-amber-700'
+                    : 'bg-gradient-to-r from-purple-800 to-purple-700'
                 }`}>{stat.value}</h3>
-                <p className={`text-sm font-light tracking-wide uppercase ${isDark ? 'text-white/50' : 'text-amber-900/70'}`}>{stat.label}</p>
+                <p className={`text-sm font-light tracking-wide uppercase ${isDark ? 'text-white/50' : 'text-purple-900/70'}`}>{stat.label}</p>
               </div>
               )
             })}

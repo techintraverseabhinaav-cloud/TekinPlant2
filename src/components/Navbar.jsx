@@ -116,13 +116,13 @@ export default function Navbar() {
     <nav className="relative z-50 backdrop-blur-xl mx-auto"
     style={{
       backgroundColor: isDark ? 'rgba(0, 0, 0, 0.7)' : 'rgba(255, 255, 255, 0.8)',
-      borderColor: isDark ? 'rgba(168, 85, 247, 0.2)' : 'rgba(139, 90, 43, 0.25)',
+      borderColor: isDark ? 'rgba(168, 85, 247, 0.2)' : 'rgba(124, 58, 237, 0.25)',
       borderWidth: '1px',
       borderStyle: 'solid',
-      borderTopColor: isDark ? 'rgba(168, 85, 247, 0.2)' : 'rgba(139, 90, 43, 0.25)',
-      borderRightColor: isDark ? 'rgba(168, 85, 247, 0.2)' : 'rgba(139, 90, 43, 0.25)',
-      borderBottomColor: isDark ? 'rgba(168, 85, 247, 0.2)' : 'rgba(139, 90, 43, 0.25)',
-      borderLeftColor: isDark ? 'rgba(168, 85, 247, 0.2)' : 'rgba(139, 90, 43, 0.25)',
+      borderTopColor: isDark ? 'rgba(168, 85, 247, 0.2)' : 'transparent',
+      borderRightColor: isDark ? 'rgba(168, 85, 247, 0.2)' : 'rgba(124, 58, 237, 0.25)',
+      borderBottomColor: isDark ? 'rgba(168, 85, 247, 0.2)' : 'rgba(124, 58, 237, 0.25)',
+      borderLeftColor: isDark ? 'rgba(168, 85, 247, 0.2)' : 'rgba(124, 58, 237, 0.25)',
       borderRadius: '1.5rem',
       width: 'calc(100% - 2rem)',
       maxWidth: 'calc(1280px + 2rem)',
@@ -140,13 +140,13 @@ export default function Navbar() {
               <span className={`text-xl lg:text-2xl font-bold bg-clip-text text-transparent ${
                 isDark 
                   ? 'bg-gradient-to-r from-purple-300 via-purple-200 to-purple-300' 
-                  : 'bg-gradient-to-r from-amber-800 via-amber-700 to-amber-800'
+                  : 'bg-gradient-to-r from-purple-700 via-purple-600 to-purple-700'
               }`} style={{ 
                 textShadow: isDark 
                   ? '0 0 30px rgba(196,181,253,0.5), 0 0 60px rgba(196,181,253,0.3)' 
                   : 'none' 
               }}>TekInPlant</span>
-              <div className={`text-xs -mt-1 ${isDark ? 'text-white/60' : 'text-amber-900/70'}`}>Portal</div>
+              <div className={`text-xs -mt-1 ${isDark ? 'text-white/60' : 'text-gray-700/70'}`}>Portal</div>
             </div>
           </Link>
 
@@ -156,16 +156,16 @@ export default function Navbar() {
             <Link
               href="/"
               className={`text-sm font-medium transition-all duration-300 px-3 py-2 rounded-xl relative group ${
-                isDark ? 'text-white/70 hover:text-white' : 'text-amber-900/80 hover:text-amber-900'
+                isDark ? 'text-white/70 hover:text-white' : 'text-gray-800/80 hover:text-gray-900'
               }`}
               style={{ 
                 backgroundColor: pathname === '/' 
-                  ? (isDark ? 'rgba(168,85,247,0.1)' : 'rgba(139,90,43,0.15)')
+                  ? (isDark ? 'rgba(168,85,247,0.1)' : 'rgba(124,58,237,0.15)')
                   : 'transparent'
               }}
               onMouseEnter={(e) => {
                 if (pathname !== '/') {
-                  e.currentTarget.style.backgroundColor = isDark ? 'rgba(168,85,247,0.08)' : 'rgba(139,90,43,0.1)'
+                  e.currentTarget.style.backgroundColor = isDark ? 'rgba(168,85,247,0.08)' : 'rgba(124,58,237,0.1)'
                 }
               }}
               onMouseLeave={(e) => {
@@ -181,16 +181,16 @@ export default function Navbar() {
             <Link
               href="/courses"
               className={`text-sm font-medium transition-all duration-300 px-3 py-2 rounded-xl ${
-                isDark ? 'text-white/70 hover:text-white' : 'text-amber-900/80 hover:text-amber-900'
+                isDark ? 'text-white/70 hover:text-white' : 'text-gray-800/80 hover:text-gray-900'
               }`}
               style={{ 
                 backgroundColor: pathname?.startsWith('/courses') 
-                  ? (isDark ? 'rgba(168,85,247,0.1)' : 'rgba(139,90,43,0.15)')
+                  ? (isDark ? 'rgba(168,85,247,0.1)' : 'rgba(124,58,237,0.15)')
                   : 'transparent'
               }}
               onMouseEnter={(e) => {
                 if (!pathname?.startsWith('/courses')) {
-                  e.currentTarget.style.backgroundColor = isDark ? 'rgba(168,85,247,0.08)' : 'rgba(139,90,43,0.1)'
+                  e.currentTarget.style.backgroundColor = isDark ? 'rgba(168,85,247,0.08)' : 'rgba(124,58,237,0.1)'
                 }
               }}
               onMouseLeave={(e) => {
@@ -206,16 +206,16 @@ export default function Navbar() {
             <Link
               href="/partners"
               className={`text-sm font-medium transition-all duration-300 px-3 py-2 rounded-xl ${
-                isDark ? 'text-white/70 hover:text-white' : 'text-amber-900/80 hover:text-amber-900'
+                isDark ? 'text-white/70 hover:text-white' : 'text-gray-800/80 hover:text-gray-900'
               }`}
               style={{ 
                 backgroundColor: pathname === '/partners' 
-                  ? (isDark ? 'rgba(168,85,247,0.1)' : 'rgba(139,90,43,0.15)')
+                  ? (isDark ? 'rgba(168,85,247,0.1)' : 'rgba(124,58,237,0.15)')
                   : 'transparent'
               }}
               onMouseEnter={(e) => {
                 if (pathname !== '/partners') {
-                  e.currentTarget.style.backgroundColor = isDark ? 'rgba(168,85,247,0.08)' : 'rgba(139,90,43,0.1)'
+                  e.currentTarget.style.backgroundColor = isDark ? 'rgba(168,85,247,0.08)' : 'rgba(124,58,237,0.1)'
                 }
               }}
               onMouseLeave={(e) => {
@@ -232,16 +232,16 @@ export default function Navbar() {
               <Link
                 href={getDashboardLink()}
                 className={`text-sm font-medium transition-all duration-300 px-3 py-2 rounded-xl ${
-                  isDark ? 'text-white/70 hover:text-white' : 'text-amber-900/80 hover:text-amber-900'
+                  isDark ? 'text-white/70 hover:text-white' : 'text-gray-800/80 hover:text-gray-900'
                 }`}
                 style={{ 
                   backgroundColor: pathname?.startsWith('/student-dashboard') || pathname?.startsWith('/admin-dashboard') || pathname?.startsWith('/trainer-dashboard') || pathname?.startsWith('/corporate-dashboard') 
-                    ? (isDark ? 'rgba(168,85,247,0.1)' : 'rgba(139,90,43,0.15)')
+                    ? (isDark ? 'rgba(168,85,247,0.1)' : 'rgba(124,58,237,0.15)')
                     : 'transparent'
                 }}
                 onMouseEnter={(e) => {
                   if (!pathname?.startsWith('/student-dashboard') && !pathname?.startsWith('/admin-dashboard') && !pathname?.startsWith('/trainer-dashboard') && !pathname?.startsWith('/corporate-dashboard')) {
-                    e.currentTarget.style.backgroundColor = isDark ? 'rgba(168,85,247,0.08)' : 'rgba(139,90,43,0.1)'
+                    e.currentTarget.style.backgroundColor = isDark ? 'rgba(168,85,247,0.08)' : 'rgba(124,58,237,0.1)'
                   }
                 }}
                 onMouseLeave={(e) => {
@@ -258,16 +258,16 @@ export default function Navbar() {
             <Link
               href="/about"
               className={`text-sm font-medium transition-all duration-300 px-3 py-2 rounded-xl ${
-                isDark ? 'text-white/70 hover:text-white' : 'text-amber-900/80 hover:text-amber-900'
+                isDark ? 'text-white/70 hover:text-white' : 'text-gray-800/80 hover:text-gray-900'
               }`}
               style={{ 
                 backgroundColor: pathname === '/about' 
-                  ? (isDark ? 'rgba(168,85,247,0.1)' : 'rgba(139,90,43,0.15)')
+                  ? (isDark ? 'rgba(168,85,247,0.1)' : 'rgba(124,58,237,0.15)')
                   : 'transparent'
               }}
               onMouseEnter={(e) => {
                 if (pathname !== '/about') {
-                  e.currentTarget.style.backgroundColor = isDark ? 'rgba(168,85,247,0.08)' : 'rgba(139,90,43,0.1)'
+                  e.currentTarget.style.backgroundColor = isDark ? 'rgba(168,85,247,0.08)' : 'rgba(124,58,237,0.1)'
                 }
               }}
               onMouseLeave={(e) => {
@@ -281,16 +281,16 @@ export default function Navbar() {
             <Link
               href="/contact"
               className={`text-sm font-medium transition-all duration-300 px-3 py-2 rounded-xl ${
-                isDark ? 'text-white/70 hover:text-white' : 'text-amber-900/80 hover:text-amber-900'
+                isDark ? 'text-white/70 hover:text-white' : 'text-gray-800/80 hover:text-gray-900'
               }`}
               style={{ 
                 backgroundColor: pathname === '/contact' 
-                  ? (isDark ? 'rgba(168,85,247,0.1)' : 'rgba(139,90,43,0.15)')
+                  ? (isDark ? 'rgba(168,85,247,0.1)' : 'rgba(124,58,237,0.15)')
                   : 'transparent'
               }}
               onMouseEnter={(e) => {
                 if (pathname !== '/contact') {
-                  e.currentTarget.style.backgroundColor = isDark ? 'rgba(168,85,247,0.08)' : 'rgba(139,90,43,0.1)'
+                  e.currentTarget.style.backgroundColor = isDark ? 'rgba(168,85,247,0.08)' : 'rgba(124,58,237,0.1)'
                 }
               }}
               onMouseLeave={(e) => {
@@ -307,10 +307,10 @@ export default function Navbar() {
           <div className="hidden lg:flex items-center space-x-4">
             {user && userRole === "admin" && pathname?.startsWith("/admin-dashboard") && (
             <button className={`p-2 transition-all duration-300 rounded-xl relative ${
-              isDark ? 'text-white/70 hover:text-white' : 'text-amber-900/80 hover:text-amber-900'
+              isDark ? 'text-white/70 hover:text-white' : 'text-gray-800/80 hover:text-gray-900'
             }`}
             style={{ backgroundColor: 'transparent' }}
-            onMouseEnter={(e) => e.currentTarget.style.backgroundColor = isDark ? 'rgba(168,85,247,0.1)' : 'rgba(139,90,43,0.1)'}
+            onMouseEnter={(e) => e.currentTarget.style.backgroundColor = isDark ? 'rgba(168,85,247,0.1)' : 'rgba(124,58,237,0.1)'}
             onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
             >
               <Bell size={20} />
@@ -323,10 +323,10 @@ export default function Navbar() {
               <button
                 onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
                 className={`p-2 transition-all duration-300 rounded-xl ${
-                  isDark ? 'text-white/70 hover:text-white' : 'text-amber-900/80 hover:text-amber-900'
+                  isDark ? 'text-white/70 hover:text-white' : 'text-gray-800/80 hover:text-gray-900'
                 }`}
                 style={{ backgroundColor: 'transparent' }}
-                onMouseEnter={(e) => e.currentTarget.style.backgroundColor = isDark ? 'rgba(168,85,247,0.1)' : 'rgba(139,90,43,0.1)'}
+                onMouseEnter={(e) => e.currentTarget.style.backgroundColor = isDark ? 'rgba(168,85,247,0.1)' : 'rgba(124,58,237,0.1)'}
                 onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
                 aria-label="Toggle theme"
               >
@@ -357,10 +357,10 @@ export default function Navbar() {
                 <button
                   onClick={() => setShowUserMenu(!showUserMenu)}
                   className={`flex items-center space-x-2 p-2 transition-all duration-300 rounded-xl ${
-                    isDark ? 'text-white/70 hover:text-white' : 'text-amber-900/80 hover:text-amber-900'
+                    isDark ? 'text-white/70 hover:text-white' : 'text-gray-800/80 hover:text-gray-900'
                   }`}
                   style={{ backgroundColor: 'transparent' }}
-                  onMouseEnter={(e) => e.currentTarget.style.backgroundColor = isDark ? 'rgba(168,85,247,0.1)' : 'rgba(139,90,43,0.1)'}
+                  onMouseEnter={(e) => e.currentTarget.style.backgroundColor = isDark ? 'rgba(168,85,247,0.1)' : 'rgba(124,58,237,0.1)'}
                   onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
                 >
                   <div className="w-8 h-8 rounded-full flex items-center justify-center overflow-hidden relative"
@@ -387,7 +387,7 @@ export default function Navbar() {
                       <span className="text-white text-sm font-medium">{userName.charAt(0).toUpperCase()}</span>
                     )}
                   </div>
-                  <span className={`text-sm font-medium ${isDark ? 'text-white' : 'text-amber-900'}`}>{userName}</span>
+                  <span className={`text-sm font-medium ${isDark ? 'text-white' : 'text-gray-900'}`}>{userName}</span>
                 </button>
                 
                 {showUserMenu && (
@@ -395,7 +395,7 @@ export default function Navbar() {
                     className="absolute right-0 mt-2 w-48 rounded-xl p-2 border backdrop-blur-xl z-50"
                     style={{
                       backgroundColor: isDark ? 'rgba(168,85,247,0.08)' : 'rgba(255,255,255,0.9)',
-                      borderColor: isDark ? 'rgba(168,85,247,0.25)' : 'rgba(139,90,43,0.3)',
+                      borderColor: isDark ? 'rgba(168,85,247,0.25)' : 'rgba(124,58,237,0.3)',
                       boxShadow: isDark 
                         ? '0 0 20px rgba(196,181,253,0.3), 0 0 40px rgba(196,181,253,0.2)'
                         : '0 0 20px rgba(58,46,31,0.15), 0 0 40px rgba(58,46,31,0.1)'
@@ -407,18 +407,18 @@ export default function Navbar() {
                       }
                     }}
                   >
-                    <div className="px-3 py-2 border-b" style={{ borderColor: isDark ? 'rgba(168,85,247,0.2)' : 'rgba(139,90,43,0.25)' }}>
-                      <p className={`text-sm font-medium ${isDark ? 'text-white' : 'text-amber-900'}`}>{userName}</p>
-                      <p className={`text-xs ${isDark ? 'text-white/60' : 'text-amber-900/70'}`}>{userEmail}</p>
-                      <p className={`text-xs capitalize ${isDark ? 'text-purple-400' : 'text-amber-800'}`}>{userRole}</p>
+                    <div className="px-3 py-2 border-b" style={{ borderColor: isDark ? 'rgba(168,85,247,0.2)' : 'rgba(124,58,237,0.25)' }}>
+                      <p className={`text-sm font-medium ${isDark ? 'text-white' : 'text-gray-900'}`}>{userName}</p>
+                      <p className={`text-xs ${isDark ? 'text-white/60' : 'text-gray-900/70'}`}>{userEmail}</p>
+                      <p className={`text-xs capitalize ${isDark ? 'text-purple-400' : 'text-purple-700'}`}>{userRole}</p>
                     </div>
                     <Link
                       href="/profile"
                       className={`flex items-center space-x-2 px-3 py-2 text-sm rounded-lg transition-all duration-200 ${
-                        isDark ? 'text-white/70 hover:text-white' : 'text-amber-900/80 hover:text-amber-900'
+                        isDark ? 'text-white/70 hover:text-white' : 'text-gray-800/80 hover:text-gray-900'
                       }`}
                       style={{ backgroundColor: 'transparent' }}
-                      onMouseEnter={(e) => e.currentTarget.style.backgroundColor = isDark ? 'rgba(168,85,247,0.15)' : 'rgba(139,90,43,0.15)'}
+                      onMouseEnter={(e) => e.currentTarget.style.backgroundColor = isDark ? 'rgba(168,85,247,0.15)' : 'rgba(124,58,237,0.15)'}
                       onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
                       onClick={() => setShowUserMenu(false)}
                     >
@@ -428,10 +428,10 @@ export default function Navbar() {
                     <Link
                       href={getDashboardLink()}
                       className={`flex items-center space-x-2 px-3 py-2 text-sm rounded-lg transition-all duration-200 ${
-                        isDark ? 'text-white/70 hover:text-white' : 'text-amber-900/80 hover:text-amber-900'
+                        isDark ? 'text-white/70 hover:text-white' : 'text-gray-800/80 hover:text-gray-900'
                       }`}
                       style={{ backgroundColor: 'transparent' }}
-                      onMouseEnter={(e) => e.currentTarget.style.backgroundColor = isDark ? 'rgba(168,85,247,0.15)' : 'rgba(139,90,43,0.15)'}
+                      onMouseEnter={(e) => e.currentTarget.style.backgroundColor = isDark ? 'rgba(168,85,247,0.15)' : 'rgba(124,58,237,0.15)'}
                       onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
                       onClick={() => setShowUserMenu(false)}
                     >
@@ -456,7 +456,7 @@ export default function Navbar() {
               style={{ 
                 background: themeStyles.buttonGradient, 
                 color: '#ffffff', 
-                borderColor: isDark ? 'rgba(168,85,247,0.4)' : 'rgba(139,90,43,0.4)',
+                borderColor: isDark ? 'rgba(168,85,247,0.4)' : 'rgba(124,58,237,0.4)',
                 boxShadow: themeStyles.buttonShadow 
               }}
               onMouseEnter={(e) => e.currentTarget.style.boxShadow = themeStyles.buttonShadowHover}
@@ -470,10 +470,10 @@ export default function Navbar() {
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             className={`lg:hidden p-2 transition-all duration-300 rounded-xl ${
-              isDark ? 'text-white/70 hover:text-white' : 'text-amber-900/80 hover:text-amber-900'
+              isDark ? 'text-white/70 hover:text-white' : 'text-gray-800/80 hover:text-gray-900'
             }`}
             style={{ backgroundColor: 'transparent' }}
-            onMouseEnter={(e) => e.currentTarget.style.backgroundColor = isDark ? 'rgba(168,85,247,0.1)' : 'rgba(139,90,43,0.1)'}
+            onMouseEnter={(e) => e.currentTarget.style.backgroundColor = isDark ? 'rgba(168,85,247,0.1)' : 'rgba(124,58,237,0.1)'}
             onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
           >
             {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -485,7 +485,7 @@ export default function Navbar() {
           <div className="lg:hidden rounded-2xl mt-4 p-6 border backdrop-blur-xl"
           style={{
             backgroundColor: isDark ? 'rgba(168,85,247,0.08)' : 'rgba(255,255,255,0.9)',
-            borderColor: isDark ? 'rgba(168,85,247,0.25)' : 'rgba(139,90,43,0.3)',
+            borderColor: isDark ? 'rgba(168,85,247,0.25)' : 'rgba(124,58,237,0.3)',
             boxShadow: isDark 
               ? '0 0 20px rgba(196,181,253,0.3), 0 0 40px rgba(196,181,253,0.2)'
               : '0 0 20px rgba(58,46,31,0.15), 0 0 40px rgba(58,46,31,0.1)'
@@ -494,12 +494,12 @@ export default function Navbar() {
               <Link 
                 href="/" 
                 className={`text-sm font-medium transition-all duration-300 py-2 px-3 rounded-xl ${
-                  isDark ? 'text-white/70 hover:text-white' : 'text-amber-900/80 hover:text-amber-900'
+                  isDark ? 'text-white/70 hover:text-white' : 'text-gray-800/80 hover:text-gray-900'
                 }`}
-                style={{ backgroundColor: pathname === '/' ? (isDark ? 'rgba(168,85,247,0.15)' : 'rgba(139,90,43,0.15)') : 'transparent' }}
+                style={{ backgroundColor: pathname === '/' ? (isDark ? 'rgba(168,85,247,0.15)' : 'rgba(124,58,237,0.15)') : 'transparent' }}
                 onMouseEnter={(e) => {
                   if (pathname !== '/') {
-                    e.currentTarget.style.backgroundColor = isDark ? 'rgba(168,85,247,0.1)' : 'rgba(139,90,43,0.1)'
+                    e.currentTarget.style.backgroundColor = isDark ? 'rgba(168,85,247,0.1)' : 'rgba(124,58,237,0.1)'
                   }
                 }}
                 onMouseLeave={(e) => {
@@ -515,12 +515,12 @@ export default function Navbar() {
               <Link 
                 href="/courses" 
                 className={`text-sm font-medium transition-all duration-300 py-2 px-3 rounded-xl ${
-                  isDark ? 'text-white/70 hover:text-white' : 'text-amber-900/80 hover:text-amber-900'
+                  isDark ? 'text-white/70 hover:text-white' : 'text-gray-800/80 hover:text-gray-900'
                 }`}
-                style={{ backgroundColor: pathname?.startsWith('/courses') ? (isDark ? 'rgba(168,85,247,0.15)' : 'rgba(139,90,43,0.15)') : 'transparent' }}
+                style={{ backgroundColor: pathname?.startsWith('/courses') ? (isDark ? 'rgba(168,85,247,0.15)' : 'rgba(124,58,237,0.15)') : 'transparent' }}
                 onMouseEnter={(e) => {
                   if (!pathname?.startsWith('/courses')) {
-                    e.currentTarget.style.backgroundColor = isDark ? 'rgba(168,85,247,0.1)' : 'rgba(139,90,43,0.1)'
+                    e.currentTarget.style.backgroundColor = isDark ? 'rgba(168,85,247,0.1)' : 'rgba(124,58,237,0.1)'
                   }
                 }}
                 onMouseLeave={(e) => {
@@ -535,12 +535,12 @@ export default function Navbar() {
               <Link 
                 href="/partners" 
                 className={`text-sm font-medium transition-all duration-300 py-2 px-3 rounded-xl ${
-                  isDark ? 'text-white/70 hover:text-white' : 'text-amber-900/80 hover:text-amber-900'
+                  isDark ? 'text-white/70 hover:text-white' : 'text-gray-800/80 hover:text-gray-900'
                 }`}
-                style={{ backgroundColor: pathname === '/partners' ? (isDark ? 'rgba(168,85,247,0.15)' : 'rgba(139,90,43,0.15)') : 'transparent' }}
+                style={{ backgroundColor: pathname === '/partners' ? (isDark ? 'rgba(168,85,247,0.15)' : 'rgba(124,58,237,0.15)') : 'transparent' }}
                 onMouseEnter={(e) => {
                   if (pathname !== '/partners') {
-                    e.currentTarget.style.backgroundColor = isDark ? 'rgba(168,85,247,0.1)' : 'rgba(139,90,43,0.1)'
+                    e.currentTarget.style.backgroundColor = isDark ? 'rgba(168,85,247,0.1)' : 'rgba(124,58,237,0.1)'
                   }
                 }}
                 onMouseLeave={(e) => {
@@ -557,12 +557,12 @@ export default function Navbar() {
                 <Link 
                   href={getDashboardLink()}
                   className={`text-sm font-medium transition-all duration-300 py-2 px-3 rounded-xl ${
-                    isDark ? 'text-white/70 hover:text-white' : 'text-amber-900/80 hover:text-amber-900'
+                    isDark ? 'text-white/70 hover:text-white' : 'text-gray-800/80 hover:text-gray-900'
                   }`}
-                  style={{ backgroundColor: pathname?.startsWith('/student-dashboard') || pathname?.startsWith('/admin-dashboard') || pathname?.startsWith('/trainer-dashboard') || pathname?.startsWith('/corporate-dashboard') ? (isDark ? 'rgba(168,85,247,0.15)' : 'rgba(139,90,43,0.15)') : 'transparent' }}
+                  style={{ backgroundColor: pathname?.startsWith('/student-dashboard') || pathname?.startsWith('/admin-dashboard') || pathname?.startsWith('/trainer-dashboard') || pathname?.startsWith('/corporate-dashboard') ? (isDark ? 'rgba(168,85,247,0.15)' : 'rgba(124,58,237,0.15)') : 'transparent' }}
                   onMouseEnter={(e) => {
                     if (!pathname?.startsWith('/student-dashboard') && !pathname?.startsWith('/admin-dashboard') && !pathname?.startsWith('/trainer-dashboard') && !pathname?.startsWith('/corporate-dashboard')) {
-                      e.currentTarget.style.backgroundColor = isDark ? 'rgba(168,85,247,0.1)' : 'rgba(139,90,43,0.1)'
+                      e.currentTarget.style.backgroundColor = isDark ? 'rgba(168,85,247,0.1)' : 'rgba(124,58,237,0.1)'
                     }
                   }}
                   onMouseLeave={(e) => {
@@ -578,12 +578,12 @@ export default function Navbar() {
               <Link 
                 href="/about" 
                 className={`text-sm font-medium transition-all duration-300 py-2 px-3 rounded-xl ${
-                  isDark ? 'text-white/70 hover:text-white' : 'text-amber-900/80 hover:text-amber-900'
+                  isDark ? 'text-white/70 hover:text-white' : 'text-gray-800/80 hover:text-gray-900'
                 }`}
-                style={{ backgroundColor: pathname === '/about' ? (isDark ? 'rgba(168,85,247,0.15)' : 'rgba(139,90,43,0.15)') : 'transparent' }}
+                style={{ backgroundColor: pathname === '/about' ? (isDark ? 'rgba(168,85,247,0.15)' : 'rgba(124,58,237,0.15)') : 'transparent' }}
                 onMouseEnter={(e) => {
                   if (pathname !== '/about') {
-                    e.currentTarget.style.backgroundColor = isDark ? 'rgba(168,85,247,0.1)' : 'rgba(139,90,43,0.1)'
+                    e.currentTarget.style.backgroundColor = isDark ? 'rgba(168,85,247,0.1)' : 'rgba(124,58,237,0.1)'
                   }
                 }}
                 onMouseLeave={(e) => {
@@ -598,12 +598,12 @@ export default function Navbar() {
               <Link 
                 href="/contact" 
                 className={`text-sm font-medium transition-all duration-300 py-2 px-3 rounded-xl ${
-                  isDark ? 'text-white/70 hover:text-white' : 'text-amber-900/80 hover:text-amber-900'
+                  isDark ? 'text-white/70 hover:text-white' : 'text-gray-800/80 hover:text-gray-900'
                 }`}
-                style={{ backgroundColor: pathname === '/contact' ? (isDark ? 'rgba(168,85,247,0.15)' : 'rgba(139,90,43,0.15)') : 'transparent' }}
+                style={{ backgroundColor: pathname === '/contact' ? (isDark ? 'rgba(168,85,247,0.15)' : 'rgba(124,58,237,0.15)') : 'transparent' }}
                 onMouseEnter={(e) => {
                   if (pathname !== '/contact') {
-                    e.currentTarget.style.backgroundColor = isDark ? 'rgba(168,85,247,0.1)' : 'rgba(139,90,43,0.1)'
+                    e.currentTarget.style.backgroundColor = isDark ? 'rgba(168,85,247,0.1)' : 'rgba(124,58,237,0.1)'
                   }
                 }}
                 onMouseLeave={(e) => {
@@ -616,29 +616,29 @@ export default function Navbar() {
                 Contact
               </Link>
               
-              <div className="pt-4 border-t" style={{ borderColor: isDark ? 'rgba(168,85,247,0.2)' : 'rgba(139,90,43,0.25)' }}>
+              <div className="pt-4 border-t" style={{ borderColor: isDark ? 'rgba(168,85,247,0.2)' : 'rgba(124,58,237,0.25)' }}>
                 <div className="flex items-center space-x-4 mb-4">
                   <div className="relative search-container flex-1">
                     <form onSubmit={handleSearch} className="relative">
-                      <Search className={`absolute left-3 top-1/2 transform -translate-y-1/2 ${isDark ? 'text-white/50' : 'text-amber-900/50'}`} size={18} />
+                      <Search className={`absolute left-3 top-1/2 transform -translate-y-1/2 ${isDark ? 'text-white/50' : 'text-gray-900/50'}`} size={18} />
                       <input
                         type="text"
                         placeholder="Search courses..."
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                         className={`w-full pl-10 pr-4 py-2 rounded-xl focus:outline-none transition-all duration-300 backdrop-blur-sm border text-sm ${
-                          isDark ? 'text-white placeholder-white/40' : 'text-amber-900 placeholder-amber-900/50'
+                          isDark ? 'text-white placeholder-white/40' : 'text-gray-900 placeholder-gray-600/50'
                         }`}
                         style={{
                           backgroundColor: isDark ? 'rgba(168,85,247,0.08)' : 'rgba(255,255,255,0.8)',
-                          borderColor: isDark ? 'rgba(168,85,247,0.3)' : 'rgba(139,90,43,0.3)'
+                          borderColor: isDark ? 'rgba(168,85,247,0.3)' : 'rgba(124,58,237,0.3)'
                         }}
                         onFocus={(e) => {
-                          e.currentTarget.style.borderColor = isDark ? 'rgba(168,85,247,0.6)' : 'rgba(139,90,43,0.6)'
+                          e.currentTarget.style.borderColor = isDark ? 'rgba(168,85,247,0.6)' : 'rgba(124,58,237,0.6)'
                           e.currentTarget.style.backgroundColor = isDark ? 'rgba(168,85,247,0.12)' : 'rgba(255,255,255,0.95)'
                         }}
                         onBlur={(e) => {
-                          e.currentTarget.style.borderColor = isDark ? 'rgba(168,85,247,0.3)' : 'rgba(139,90,43,0.3)'
+                          e.currentTarget.style.borderColor = isDark ? 'rgba(168,85,247,0.3)' : 'rgba(124,58,237,0.3)'
                           e.currentTarget.style.backgroundColor = isDark ? 'rgba(168,85,247,0.08)' : 'rgba(255,255,255,0.8)'
                         }}
                       />
@@ -646,10 +646,10 @@ export default function Navbar() {
                   </div>
                   {user && userRole === "admin" && pathname?.startsWith("/admin-dashboard") && (
                   <button className={`p-2 transition-all duration-300 rounded-xl relative ${
-                    isDark ? 'text-white/70 hover:text-white' : 'text-amber-900/80 hover:text-amber-900'
+                    isDark ? 'text-white/70 hover:text-white' : 'text-gray-800/80 hover:text-gray-900'
                   }`}
                   style={{ backgroundColor: 'transparent' }}
-                  onMouseEnter={(e) => e.currentTarget.style.backgroundColor = isDark ? 'rgba(168,85,247,0.1)' : 'rgba(139,90,43,0.1)'}
+                  onMouseEnter={(e) => e.currentTarget.style.backgroundColor = isDark ? 'rgba(168,85,247,0.1)' : 'rgba(124,58,237,0.1)'}
                   onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
                   >
                     <Bell size={20} />
@@ -665,10 +665,10 @@ export default function Navbar() {
                         setIsMenuOpen(false)
                       }}
                       className={`p-2 transition-all duration-300 rounded-xl ${
-                        isDark ? 'text-white/70 hover:text-white' : 'text-amber-900/80 hover:text-amber-900'
+                        isDark ? 'text-white/70 hover:text-white' : 'text-gray-800/80 hover:text-gray-900'
                       }`}
                       style={{ backgroundColor: 'transparent' }}
-                      onMouseEnter={(e) => e.currentTarget.style.backgroundColor = isDark ? 'rgba(168,85,247,0.1)' : 'rgba(139,90,43,0.1)'}
+                      onMouseEnter={(e) => e.currentTarget.style.backgroundColor = isDark ? 'rgba(168,85,247,0.1)' : 'rgba(124,58,237,0.1)'}
                       onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
                       aria-label="Toggle theme"
                     >
@@ -686,11 +686,11 @@ export default function Navbar() {
                     <div className="px-3 py-2 rounded-lg backdrop-blur-sm border"
                     style={{
                       backgroundColor: isDark ? 'rgba(168,85,247,0.08)' : 'rgba(255,255,255,0.9)',
-                      borderColor: isDark ? 'rgba(168,85,247,0.25)' : 'rgba(139,90,43,0.3)'
+                      borderColor: isDark ? 'rgba(168,85,247,0.25)' : 'rgba(124,58,237,0.3)'
                     }}>
-                      <p className={`text-sm font-medium ${isDark ? 'text-white' : 'text-amber-900'}`}>{userName}</p>
-                      <p className={`text-xs ${isDark ? 'text-white/60' : 'text-amber-900/70'}`}>{userEmail}</p>
-                      <p className={`text-xs capitalize ${isDark ? 'text-purple-400' : 'text-amber-800'}`}>{userRole}</p>
+                      <p className={`text-sm font-medium ${isDark ? 'text-white' : 'text-gray-900'}`}>{userName}</p>
+                      <p className={`text-xs ${isDark ? 'text-white/60' : 'text-gray-900/70'}`}>{userEmail}</p>
+                      <p className={`text-xs capitalize ${isDark ? 'text-purple-400' : 'text-purple-700'}`}>{userRole}</p>
                     </div>
                     <Link 
                       href="/profile"
@@ -698,7 +698,7 @@ export default function Navbar() {
                       style={{ 
                         background: themeStyles.buttonGradient, 
                         color: '#ffffff', 
-                        borderColor: isDark ? 'rgba(168,85,247,0.4)' : 'rgba(139,90,43,0.4)',
+                        borderColor: isDark ? 'rgba(168,85,247,0.4)' : 'rgba(124,58,237,0.4)',
                         boxShadow: themeStyles.buttonShadow 
                       }}
                       onMouseEnter={(e) => e.currentTarget.style.boxShadow = themeStyles.buttonShadowHover}
@@ -713,7 +713,7 @@ export default function Navbar() {
                       style={{ 
                         background: themeStyles.buttonGradient, 
                         color: '#ffffff', 
-                        borderColor: isDark ? 'rgba(168,85,247,0.4)' : 'rgba(139,90,43,0.4)',
+                        borderColor: isDark ? 'rgba(168,85,247,0.4)' : 'rgba(124,58,237,0.4)',
                         boxShadow: themeStyles.buttonShadow 
                       }}
                       onMouseEnter={(e) => e.currentTarget.style.boxShadow = themeStyles.buttonShadowHover}
@@ -748,7 +748,7 @@ export default function Navbar() {
                     style={{ 
                       background: themeStyles.buttonGradient, 
                       color: '#ffffff', 
-                      borderColor: isDark ? 'rgba(168,85,247,0.4)' : 'rgba(139,90,43,0.4)',
+                      borderColor: isDark ? 'rgba(168,85,247,0.4)' : 'rgba(124,58,237,0.4)',
                       boxShadow: themeStyles.buttonShadow 
                     }}
                     onMouseEnter={(e) => e.currentTarget.style.boxShadow = themeStyles.buttonShadowHover}

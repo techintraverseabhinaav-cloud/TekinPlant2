@@ -30,15 +30,67 @@ export default function InsightsPage() {
               { icon: Building, value: industryStats.totalPartners, label: "Partner Companies", color: 'rgba(0,0,0,0.4)', border: 'rgba(99,102,241,0.25)', iconColor: '#818cf8' },
               { icon: Star, value: industryStats.averageRating, label: "Average Rating", color: 'rgba(0,0,0,0.4)', border: 'rgba(236,72,153,0.25)', iconColor: '#f472b6' },
               { icon: Award, value: industryInsights.successRate, label: "Success Rate", color: 'rgba(0,0,0,0.4)', border: 'rgba(139,92,246,0.25)', iconColor: '#a78bfa' },
-            ].map((stat, index) => (
-              <div key={index} className="p-6 rounded-xl text-center transition-all duration-300 backdrop-blur-xl border" style={{ backgroundColor: stat.color, borderColor: stat.border }} onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 20px rgba(196,181,253,0.5), 0 0 40px rgba(196,181,253,0.3)'} onMouseLeave={(e) => e.currentTarget.style.boxShadow = 'none'}>
-              <div className="flex items-center justify-center mb-2">
-                  <stat.icon className="mr-2" size={24} style={{ color: stat.iconColor }} />
+            ].map((stat, index) => {
+              const bg = 'transparent'
+              const border = stat.border
+              const textColor = 'text-white/70'
+              const valueGradient = 'bg-gradient-to-r from-purple-300 to-purple-400'
+              
+              return (
+              <div key={index} className="flash-card-container">
+                <div className="flash-card-inner">
+                  {/* Front of card - Icon only */}
+                  <div
+                    className="flash-card-face flash-card-front rounded-2xl"
+                    style={{
+                      padding: '2rem',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      backgroundColor: bg,
+                      border: `1px solid ${border}`,
+                      boxShadow: '0 8px 24px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.05)',
+                    }}
+                  >
+                    <stat.icon
+                      className="w-24 h-24 transition-transform duration-300"
+                      style={{ color: stat.iconColor }}
+                    />
+                  </div>
+
+                  {/* Back of card - Stats */}
+                  <div
+                    className="flash-card-face flash-card-back rounded-2xl"
+                    style={{
+                      padding: '2rem',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      backgroundColor: 'transparent',
+                      border: `1px solid ${border}`,
+                      boxShadow: '0 16px 40px rgba(0,0,0,0.35), 0 0 30px rgba(124,58,237,0.35)',
+                    }}
+                  >
+                    {/* Value */}
+                    <div
+                      className={`text-3xl sm:text-4xl font-semibold text-center mb-3 bg-clip-text text-transparent ${valueGradient}`}
+                    >
+                      {stat.value}
+                    </div>
+
+                    {/* Label */}
+                    <p
+                      className={`text-sm sm:text-base text-center font-light ${textColor}`}
+                      style={{ lineHeight: '1.6' }}
+                    >
+                      {stat.label}
+                    </p>
+                  </div>
+                </div>
               </div>
-                <h3 className="text-2xl font-bold mb-2 bg-gradient-to-r from-purple-300 to-purple-400 bg-clip-text text-transparent">{stat.value}</h3>
-                <p className="text-white/70">{stat.label}</p>
-              </div>
-            ))}
+              )
+            })}
           </div>
 
           {/* Overview Stats */}

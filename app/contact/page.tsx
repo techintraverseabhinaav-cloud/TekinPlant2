@@ -12,7 +12,7 @@ export default function ContactPage() {
   const themeStyles = useThemeStyles()
   
   // Read initial theme from data-theme attribute (set by theme script before React)
-  // Returns: true for dark mode (purple), false for light mode (amber)
+  // Returns: true for dark mode (purple), false for light mode (purple)
   const [isDark, setIsDark] = useState(() => {
     // First, try to read from data-theme attribute (set by theme script before React)
     // This works in both client and SSR if document is available
@@ -77,6 +77,7 @@ export default function ContactPage() {
     subject: "",
     message: ""
   })
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
@@ -95,14 +96,42 @@ export default function ContactPage() {
     return () => observer.disconnect()
   }, [])
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    console.log("Form submitted:", formData)
-    toast.success("Message sent successfully!", {
-      description: "We'll get back to you soon.",
-      duration: 4000,
-    })
-    setFormData({ name: "", email: "", subject: "", message: "" })
+    setIsSubmitting(true)
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        const errorMessage = data.details || data.error || 'Failed to send message'
+        const errorHint = data.hint ? `\n\n${data.hint}` : ''
+        throw new Error(errorMessage + errorHint)
+      }
+
+      // Success
+      toast.success("Message sent successfully!", {
+        description: "We'll get back to you soon.",
+        duration: 4000,
+      })
+      setFormData({ name: "", email: "", subject: "", message: "" })
+    } catch (error: any) {
+      console.error('Error submitting contact form:', error)
+      toast.error("Failed to send message", {
+        description: error.message || "Please try again later.",
+        duration: 5000,
+      })
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -132,7 +161,13 @@ export default function ContactPage() {
   ]
 
   return (
-    <div className="min-h-screen relative" style={{ backgroundColor: themeStyles.pageBg }}>
+    <div className="min-h-screen relative" style={{ 
+      backgroundColor: themeStyles.pageBg,
+      paddingTop: 0,
+      marginTop: 0,
+      border: 'none',
+      borderTop: 'none'
+    }}>
       <Navbar />
       
       {/* Header */}
@@ -145,13 +180,13 @@ export default function ContactPage() {
               borderColor: isDark ? 'rgba(168,85,247,0.2)' : 'rgba(139,90,43,0.25)',
               transitionDelay: '0.1s' 
             }}>
-              <span className={`text-xs font-medium tracking-wide uppercase ${isDark ? 'text-white/70' : 'text-amber-900/80'}`}>Get in Touch</span>
+              <span className={`text-xs font-medium tracking-wide uppercase ${isDark ? 'text-white/70' : 'text-purple-900/80'}`}>Get in Touch</span>
             </div>
             <h1 className="slide-up text-5xl sm:text-6xl lg:text-7xl font-light mb-6 leading-tight tracking-tight" style={{ transitionDelay: '0.2s' }}>
               <span style={{ color: themeStyles.textPrimary }}>Contact</span> <span className={`bg-clip-text text-transparent ${
                 isDark 
                   ? 'bg-gradient-to-r from-purple-300 via-purple-200 to-purple-300' 
-                  : 'bg-gradient-to-r from-amber-800 via-amber-700 to-amber-800'
+                  : 'bg-gradient-to-r from-purple-800 via-purple-700 to-purple-800'
               }`}>Us</span>
             </h1>
             <p className="slide-up text-lg sm:text-xl max-w-3xl mx-auto mb-16 font-light leading-relaxed" style={{ 
@@ -172,7 +207,7 @@ export default function ContactPage() {
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
-                    <label htmlFor="name" className={`block text-xs font-medium mb-2 uppercase tracking-wide ${isDark ? 'text-white/60' : 'text-amber-900/70'}`}>
+                    <label htmlFor="name" className={`block text-xs font-medium mb-2 uppercase tracking-wide ${isDark ? 'text-white/60' : 'text-purple-900/70'}`}>
                       Full Name
                     </label>
                     <input
@@ -183,7 +218,7 @@ export default function ContactPage() {
                       onChange={handleChange}
                       required
                       className={`w-full px-5 py-3.5 rounded-xl focus:outline-none transition-all duration-300 backdrop-blur-sm border font-light ${
-                        isDark ? 'text-white placeholder-white/30' : 'text-amber-900 placeholder-amber-900/50'
+                        isDark ? 'text-white placeholder-white/30' : 'text-purple-900 placeholder-purple-900/50'
                       }`}
                       style={{ 
                         backgroundColor: isDark ? 'rgba(0,0,0,0.4)' : 'rgba(255,255,255,0.9)',
@@ -201,7 +236,7 @@ export default function ContactPage() {
                     />
                   </div>
                   <div>
-                    <label htmlFor="email" className={`block text-xs font-medium mb-2 uppercase tracking-wide ${isDark ? 'text-white/60' : 'text-amber-900/70'}`}>
+                    <label htmlFor="email" className={`block text-xs font-medium mb-2 uppercase tracking-wide ${isDark ? 'text-white/60' : 'text-purple-900/70'}`}>
                       Email Address
                     </label>
                     <input
@@ -212,7 +247,7 @@ export default function ContactPage() {
                       onChange={handleChange}
                       required
                       className={`w-full px-5 py-3.5 rounded-xl focus:outline-none transition-all duration-300 backdrop-blur-sm border font-light ${
-                        isDark ? 'text-white placeholder-white/30' : 'text-amber-900 placeholder-amber-900/50'
+                        isDark ? 'text-white placeholder-white/30' : 'text-purple-900 placeholder-purple-900/50'
                       }`}
                       style={{ 
                         backgroundColor: isDark ? 'rgba(0,0,0,0.4)' : 'rgba(255,255,255,0.9)',
@@ -231,7 +266,7 @@ export default function ContactPage() {
                   </div>
                 </div>
                 <div>
-                  <label htmlFor="subject" className={`block text-xs font-medium mb-2 uppercase tracking-wide ${isDark ? 'text-white/60' : 'text-amber-900/70'}`}>
+                  <label htmlFor="subject" className={`block text-xs font-medium mb-2 uppercase tracking-wide ${isDark ? 'text-white/60' : 'text-purple-900/70'}`}>
                     Subject
                   </label>
                   <div className="relative">
@@ -242,7 +277,7 @@ export default function ContactPage() {
                       onChange={handleChange}
                       required
                       className={`w-full px-5 py-3.5 pr-10 rounded-xl focus:outline-none transition-all duration-300 backdrop-blur-xl border appearance-none cursor-pointer font-light ${
-                        isDark ? 'text-white' : 'text-amber-900'
+                        isDark ? 'text-white' : 'text-purple-900'
                       }`}
                       style={{ 
                         backgroundColor: isDark ? 'rgba(0,0,0,0.4)' : 'rgba(255,255,255,0.9)',
@@ -271,12 +306,12 @@ export default function ContactPage() {
                       <option value="General" style={{ backgroundColor: isDark ? '#0a0a0a' : '#ffffff', color: isDark ? '#ffffff' : '#3a2e1f' }}>General</option>
                     </select>
                     <div className="absolute right-4 top-1/2 transform -translate-y-1/2 pointer-events-none">
-                      <ChevronDown className="w-4 h-4" style={{ color: isDark ? '#c084fc' : '#8b6f47' }} />
+                      <ChevronDown className="w-4 h-4" style={{ color: isDark ? '#c084fc' : '#a78bfa' }} />
                     </div>
                   </div>
                 </div>
                 <div>
-                  <label htmlFor="message" className={`block text-xs font-medium mb-2 uppercase tracking-wide ${isDark ? 'text-white/60' : 'text-amber-900/70'}`}>
+                  <label htmlFor="message" className={`block text-xs font-medium mb-2 uppercase tracking-wide ${isDark ? 'text-white/60' : 'text-purple-900/70'}`}>
                     Message
                   </label>
                   <textarea
@@ -287,7 +322,7 @@ export default function ContactPage() {
                     required
                     rows={6}
                     className={`w-full px-5 py-3.5 rounded-xl focus:outline-none transition-all duration-300 resize-none backdrop-blur-sm border font-light ${
-                      isDark ? 'text-white placeholder-white/30' : 'text-amber-900 placeholder-amber-900/50'
+                      isDark ? 'text-white placeholder-white/30' : 'text-purple-900 placeholder-purple-900/50'
                     }`}
                     style={{ 
                       backgroundColor: isDark ? 'rgba(0,0,0,0.4)' : 'rgba(255,255,255,0.9)',
@@ -306,24 +341,27 @@ export default function ContactPage() {
                 </div>
                 <button
                   type="submit"
-                  className="w-full px-6 py-3.5 rounded-xl font-medium transition-all duration-300 flex items-center justify-center gap-2 backdrop-blur-sm border"
+                  disabled={isSubmitting}
+                  className="w-full px-6 py-3.5 rounded-xl font-medium transition-all duration-300 flex items-center justify-center gap-2 backdrop-blur-sm border disabled:opacity-50 disabled:cursor-not-allowed"
                   style={{ 
                     background: themeStyles.buttonGradient, 
                     color: '#ffffff',
-                    borderColor: isDark ? 'rgba(168,85,247,0.4)' : 'rgba(139,90,43,0.4)',
+                    borderColor: isDark ? 'rgba(168,85,247,0.4)' : 'rgba(168,85,247,0.4)',
                     boxShadow: themeStyles.buttonShadow
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = 'scale(1.02)'
-                    e.currentTarget.style.boxShadow = themeStyles.buttonShadowHover
+                    if (!isSubmitting) {
+                      e.currentTarget.style.transform = 'scale(1.02)'
+                      e.currentTarget.style.boxShadow = themeStyles.buttonShadowHover
+                    }
                   }}
                   onMouseLeave={(e) => {
                     e.currentTarget.style.transform = 'scale(1)'
                     e.currentTarget.style.boxShadow = themeStyles.buttonShadow
                   }}
                 >
-                  <Send size={18} />
-                  Send Message
+                  <Send size={18} className={isSubmitting ? 'animate-pulse' : ''} />
+                  {isSubmitting ? 'Sending...' : 'Send Message'}
                 </button>
               </form>
             </div>
@@ -359,8 +397,8 @@ export default function ContactPage() {
                       <div 
                         className="absolute inset-0 rounded-lg"
                         style={{
-                          background: isDark ? 'transparent' : 'linear-gradient(135deg, rgba(217,119,6,0.5) 0%, rgba(251,191,36,0.4) 100%)',
-                          mixBlendMode: isDark ? 'normal' : 'color',
+                          background: 'transparent',
+                          mixBlendMode: 'normal',
                           pointerEvents: 'none',
                           zIndex: 1
                         }}
@@ -370,14 +408,14 @@ export default function ContactPage() {
                         alt={item.title} 
                         className="w-full h-full object-cover scale-150 relative z-0" 
                         style={{ 
-                          filter: isDark ? 'none' : 'hue-rotate(90deg) saturate(3) brightness(1.6) contrast(1.2)',
-                          WebkitFilter: isDark ? 'none' : 'hue-rotate(90deg) saturate(3) brightness(1.6) contrast(1.2)'
+                          filter: 'none',
+                          WebkitFilter: 'none'
                         }}
                       />
                     </div>
                   </div>
-                  <h3 className={`text-lg font-light mb-2 ${isDark ? 'text-white' : 'text-amber-900'}`}>{item.title}</h3>
-                  <p className={`font-light ${isDark ? 'text-white/50' : 'text-amber-900/70'}`}>{item.content}</p>
+                  <h3 className={`text-lg font-light mb-2 ${isDark ? 'text-white' : 'text-purple-900'}`}>{item.title}</h3>
+                  <p className={`font-light ${isDark ? 'text-white/50' : 'text-purple-900/70'}`}>{item.content}</p>
                 </div>
               )
             })}
@@ -395,14 +433,14 @@ export default function ContactPage() {
               borderColor: isDark ? 'rgba(168,85,247,0.2)' : 'rgba(139,90,43,0.25)',
               transitionDelay: '0.1s' 
             }}>
-              <MessageCircle className="w-3.5 h-3.5" style={{ color: isDark ? '#a855f7' : '#8b6f47' }} />
-              <span className={`text-xs font-medium tracking-wide uppercase ${isDark ? 'text-white/70' : 'text-amber-900/80'}`}>Common Questions</span>
+              <MessageCircle className="w-3.5 h-3.5" style={{ color: isDark ? '#a855f7' : '#a78bfa' }} />
+              <span className={`text-xs font-medium tracking-wide uppercase ${isDark ? 'text-white/70' : 'text-purple-900/80'}`}>Common Questions</span>
             </div>
             <h2 className="slide-up text-4xl lg:text-5xl font-light mb-6 leading-tight tracking-tight" style={{ transitionDelay: '0.2s' }}>
               <span style={{ color: themeStyles.textPrimary }}>Frequently Asked</span> <span className={`bg-clip-text text-transparent ${
                 isDark 
                   ? 'bg-gradient-to-r from-purple-300 to-purple-400' 
-                  : 'bg-gradient-to-r from-amber-800 to-amber-700'
+                  : 'bg-gradient-to-r from-purple-800 to-purple-700'
               }`}>Questions</span>
             </h2>
           </div>
@@ -430,8 +468,8 @@ export default function ContactPage() {
                   e.currentTarget.style.borderColor = faqBorder
                 }}
               >
-                <h3 className={`text-lg font-light mb-3 ${isDark ? 'text-white' : 'text-amber-900'}`}>{faq.question}</h3>
-                <p className={`leading-relaxed font-light ${isDark ? 'text-white/50' : 'text-amber-900/70'}`}>{faq.answer}</p>
+                <h3 className={`text-lg font-light mb-3 ${isDark ? 'text-white' : 'text-purple-900'}`}>{faq.question}</h3>
+                <p className={`leading-relaxed font-light ${isDark ? 'text-white/50' : 'text-purple-900/70'}`}>{faq.answer}</p>
               </div>
               )
             })}
@@ -461,7 +499,7 @@ export default function ContactPage() {
               }}
               aria-label="LinkedIn"
             >
-              <Linkedin className={`w-5 h-5 ${isDark ? 'text-white/60' : 'text-amber-900/70'}`} />
+              <Linkedin className={`w-5 h-5 ${isDark ? 'text-white/60' : 'text-purple-900/70'}`} />
             </a>
             <a
               href="#"
@@ -480,7 +518,7 @@ export default function ContactPage() {
               }}
               aria-label="YouTube"
             >
-              <Youtube className={`w-5 h-5 ${isDark ? 'text-white/60' : 'text-amber-900/70'}`} />
+              <Youtube className={`w-5 h-5 ${isDark ? 'text-white/60' : 'text-purple-900/70'}`} />
             </a>
             <a
               href="#"
@@ -499,7 +537,7 @@ export default function ContactPage() {
               }}
               aria-label="Instagram"
             >
-              <Instagram className={`w-5 h-5 ${isDark ? 'text-white/60' : 'text-amber-900/70'}`} />
+              <Instagram className={`w-5 h-5 ${isDark ? 'text-white/60' : 'text-purple-900/70'}`} />
             </a>
           </div>
         </div>

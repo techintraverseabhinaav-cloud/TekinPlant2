@@ -157,8 +157,8 @@ export default function StudentDashboard() {
         <div className="absolute inset-0 backdrop-blur-[1px]" style={{ background: themeStyles.pageBgGradient }}></div>
         <div className="relative flex items-center justify-center min-h-screen">
           <div className="text-center">
-            <div className={`animate-spin rounded-full h-12 w-12 border-b-2 mx-auto mb-4 ${isDark ? 'border-purple-500' : 'border-amber-700'}`}></div>
-            <p className={isDark ? 'text-white/70' : 'text-amber-900/70'}>Loading dashboard...</p>
+            <div className={`animate-spin rounded-full h-12 w-12 border-b-2 mx-auto mb-4 ${isDark ? 'border-purple-500' : 'border-purple-700'}`}></div>
+            <p className={isDark ? 'text-white/70' : 'text-gray-700/70'}>Loading dashboard...</p>
           </div>
         </div>
       </div>
@@ -174,7 +174,7 @@ export default function StudentDashboard() {
             backgroundColor: isDark ? 'rgba(239,68,68,0.1)' : 'rgba(239,68,68,0.15)' 
           }}>
             <p>Error: {error}</p>
-            <p className={`text-sm mt-2 ${isDark ? 'text-white/60' : 'text-amber-900/70'}`}>Please try refreshing the page or contact support.</p>
+            <p className={`text-sm mt-2 ${isDark ? 'text-white/60' : 'text-gray-700/70'}`}>Please try refreshing the page or contact support.</p>
           </div>
         </div>
       </div>
@@ -186,7 +186,7 @@ export default function StudentDashboard() {
       <div className="min-h-screen relative" style={{ backgroundColor: themeStyles.pageBg }}>
         <div className="absolute inset-0 backdrop-blur-[1px]" style={{ background: themeStyles.pageBgGradient }}></div>
         <div className="relative flex items-center justify-center min-h-screen">
-          <div className={`text-xl text-center p-4 ${isDark ? 'text-white/70' : 'text-amber-900/80'}`}>No dashboard data available. Please ensure you are logged in and have a profile.</div>
+          <div className={`text-xl text-center p-4 ${isDark ? 'text-white/70' : 'text-gray-800/80'}`}>No dashboard data available. Please ensure you are logged in and have a profile.</div>
         </div>
       </div>
     )
@@ -209,7 +209,7 @@ export default function StudentDashboard() {
               <Link 
                 href="/"
                 className={`flex items-center space-x-2 px-4 py-2 transition-all duration-300 rounded-xl backdrop-blur-sm border ${
-                  isDark ? 'text-white/70 hover:text-white hover:bg-white/10 border-purple-500/20' : 'text-amber-900/80 hover:text-amber-900 hover:bg-amber-50/50 border-amber-800/30'
+                  isDark ? 'text-white/70 hover:text-white hover:bg-white/10 border-purple-500/20' : 'text-gray-800/80 hover:text-gray-900 hover:bg-gray-50/50 border-purple-700/30'
                 }`}
                 style={{ backgroundColor: isDark ? 'rgba(168,85,247,0.08)' : 'rgba(139,90,43,0.1)' }}
                 onMouseEnter={(e) => e.currentTarget.style.boxShadow = isDark ? '0 0 15px rgba(196,181,253,0.3)' : '0 0 15px rgba(139,90,43,0.25)'}
@@ -224,7 +224,7 @@ export default function StudentDashboard() {
                 <h1 className={`text-xl font-semibold bg-clip-text text-transparent ${
                   isDark 
                     ? 'bg-gradient-to-r from-purple-300 to-purple-400' 
-                    : 'bg-gradient-to-r from-amber-800 to-amber-700'
+                    : 'bg-gradient-to-r from-purple-700 to-purple-600'
                 }`}>Student Dashboard</h1>
               </div>
             </div>
@@ -232,7 +232,7 @@ export default function StudentDashboard() {
               <Link 
                 href="/profile"
                 className={`flex items-center space-x-2 px-4 py-2 transition-all duration-300 rounded-xl backdrop-blur-sm border ${
-                  isDark ? 'text-white/70 hover:text-white hover:bg-white/10 border-purple-500/20' : 'text-amber-900/80 hover:text-amber-900 hover:bg-amber-50/50 border-amber-800/30'
+                  isDark ? 'text-white/70 hover:text-white hover:bg-white/10 border-purple-500/20' : 'text-gray-800/80 hover:text-gray-900 hover:bg-gray-50/50 border-purple-700/30'
                 }`}
                 style={{ backgroundColor: isDark ? 'rgba(168,85,247,0.08)' : 'rgba(139,90,43,0.1)' }}
                 onMouseEnter={(e) => e.currentTarget.style.boxShadow = isDark ? '0 0 15px rgba(196,181,253,0.3)' : '0 0 15px rgba(139,90,43,0.25)'}
@@ -277,7 +277,7 @@ export default function StudentDashboard() {
             <span className={`bg-clip-text text-transparent ${
               isDark 
                 ? 'bg-gradient-to-r from-purple-300 to-purple-400' 
-                : 'bg-gradient-to-r from-amber-800 to-amber-700'
+                : 'bg-gradient-to-r from-purple-700 to-purple-600'
             }`} style={{ 
               textShadow: isDark ? '0 0 30px rgba(196,181,253,0.5)' : 'none'
             }}>
@@ -288,7 +288,7 @@ export default function StudentDashboard() {
               textShadow: isDark ? '0 0 20px rgba(255,255,255,0.3)' : 'none'
             }}>! 👋</span>
           </h2>
-          <p className={`text-lg ${isDark ? 'text-white/70' : 'text-amber-900/80'}`}>Your personalized learning journey awaits.</p>
+          <p className={`text-lg ${isDark ? 'text-white/70' : 'text-gray-800/80'}`}>Your personalized learning journey awaits.</p>
         </div>
 
         {/* Stats Grid */}
@@ -299,41 +299,79 @@ export default function StudentDashboard() {
             { icon: Clock, value: stats.totalHours, label: "Total Hours" },
             { icon: TrendingUp, value: stats.averageScore, label: "Average Score" },
           ].map((stat, index) => {
-            const statColor = isDark ? 'rgba(168,85,247,0.12)' : 'rgba(139,90,43,0.15)'
-            const statBorder = isDark ? 'rgba(168,85,247,0.25)' : 'rgba(139,90,43,0.3)'
-            const statIconColor = isDark ? '#a78bfa' : '#8b6f47'
-            const hoverShadow = isDark
-              ? '0 0 25px rgba(196,181,253,0.4), 0 0 50px rgba(196,181,253,0.2)'
-              : '0 0 25px rgba(139,90,43,0.3), 0 0 50px rgba(139,90,43,0.2)'
+            const bg = isDark
+              ? 'rgba(124,58,237,0.10)'
+              : 'transparent'
+
+            const border = isDark
+              ? 'rgba(124,58,237,0.25)'
+              : 'rgba(124,58,237,0.25)'
+
+            const iconColor = isDark ? '#8b5cf6' : '#7c3aed'
+            const textColor = isDark ? 'text-white/70' : 'text-black'
+            const valueGradient = isDark
+              ? 'bg-gradient-to-r from-purple-600 to-purple-500'
+              : 'bg-gradient-to-r from-purple-700 to-purple-600'
             
             return (
             <div 
               key={index} 
-              className="slide-up hover-lift rounded-2xl p-6 transition-all duration-300" 
-              style={{ 
-                backgroundColor: statColor, 
-                borderColor: statBorder, 
-                borderWidth: '1px',
-                animationDelay: `${index * 0.1}s`
-              }}
-              onMouseEnter={(e) => e.currentTarget.style.boxShadow = hoverShadow}
-              onMouseLeave={(e) => e.currentTarget.style.boxShadow = 'none'}
+              className="flash-card-container"
             >
-              <div className="flex items-center space-x-4">
-                <div className="w-14 h-14 rounded-xl flex items-center justify-center" style={{ 
-                  backgroundColor: isDark ? statColor.replace('0.12', '0.22') : statColor.replace('0.15', '0.25'), 
-                  borderColor: statBorder, 
-                  borderWidth: '1px' 
-                }}>
-                  <stat.icon className="w-7 h-7" style={{ color: statIconColor }} />
+              <div
+                className="flash-card-inner"
+              >
+                {/* Front of card - Icon only */}
+                <div
+                  className="flash-card-face flash-card-front rounded-2xl"
+                  style={{
+                    padding: '2rem',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    backgroundColor: bg,
+                    border: `1px solid ${border}`,
+                    boxShadow: isDark
+                      ? '0 8px 24px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.05)'
+                      : '0 8px 24px rgba(30,41,59,0.15), inset 0 1px 0 rgba(255,255,255,0.1)',
+                  }}
+                >
+                  <stat.icon
+                    className="w-24 h-24 transition-transform duration-300"
+                    style={{ color: iconColor }}
+                  />
                 </div>
-                <div>
-                  <p className={`text-sm mb-1 ${isDark ? 'text-white/60' : 'text-amber-900/70'}`}>{stat.label}</p>
-                  <p className={`text-3xl font-bold bg-clip-text text-transparent ${
-                    isDark 
-                      ? 'bg-gradient-to-r from-purple-300 to-purple-400' 
-                      : 'bg-gradient-to-r from-amber-800 to-amber-700'
-                  }`}>{stat.value}</p>
+
+                {/* Back of card - Stats */}
+                <div
+                  className="flash-card-face flash-card-back rounded-2xl"
+                  style={{
+                    padding: '2rem',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    backgroundColor: isDark ? 'rgba(124,58,237,0.10)' : 'transparent',
+                    border: `1px solid ${border}`,
+                    boxShadow: isDark
+                      ? '0 16px 40px rgba(0,0,0,0.35), 0 0 30px rgba(124,58,237,0.35)'
+                      : '0 16px 40px rgba(30,41,59,0.25), 0 0 30px rgba(124,58,237,0.25)',
+                  }}
+                >
+                  {/* Value */}
+                  <div
+                    className={`text-3xl sm:text-4xl font-semibold text-center mb-3 bg-clip-text text-transparent ${valueGradient}`}
+                  >
+                    {stat.value}
+                  </div>
+
+                  {/* Label */}
+                  <p
+                    className={`text-sm sm:text-base text-center font-light ${textColor}`}
+                    style={{ lineHeight: '1.6' }}
+                  >
+                    {stat.label}
+                  </p>
                 </div>
               </div>
             </div>
@@ -344,7 +382,7 @@ export default function StudentDashboard() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Enrolled Courses */}
           <div className="lg:col-span-2">
-            <h3 className={`text-2xl font-normal mb-6 ${isDark ? 'text-white' : 'text-amber-900'}`}>My Enrollments</h3>
+            <h3 className={`text-2xl font-normal mb-6 ${isDark ? 'text-white' : 'text-gray-900'}`}>My Enrollments</h3>
             <div className="space-y-6">
               {enrollments.length > 0 ? (
                 enrollments.map((course: any, index: number) => {
@@ -393,11 +431,11 @@ export default function StudentDashboard() {
                       )}
                     </div>
                     <div className="flex-grow min-w-0">
-                      <h4 className={`text-xl font-semibold mb-2 ${isDark ? 'text-white' : 'text-amber-900'}`}>{course.title}</h4>
-                      <p className={`text-sm mb-3 ${isDark ? 'text-white/60' : 'text-amber-900/70'}`}>{course.company} - {course.duration}</p>
-                      <div className={`flex items-center space-x-4 text-sm mb-3 ${isDark ? 'text-white/70' : 'text-amber-900/80'}`}>
+                      <h4 className={`text-xl font-semibold mb-2 ${isDark ? 'text-white' : 'text-gray-900'}`}>{course.title}</h4>
+                      <p className={`text-sm mb-3 ${isDark ? 'text-white/60' : 'text-gray-700/70'}`}>{course.company} - {course.duration}</p>
+                      <div className={`flex items-center space-x-4 text-sm mb-3 ${isDark ? 'text-white/70' : 'text-gray-800/80'}`}>
                         <span className="flex items-center">
-                          <Star size={16} className="mr-1" style={{ color: '#fbbf24' }} /> 
+                          <Star size={16} className="mr-1" style={{ color: isDark ? '#8b5cf6' : '#7c3aed' }} /> 
                           {course.rating}
                         </span>
                         <span className="flex items-center">
@@ -450,15 +488,15 @@ export default function StudentDashboard() {
                   backgroundColor: isDark ? 'rgba(168,85,247,0.05)' : 'rgba(146,64,14,0.12)',
                   borderColor: isDark ? 'rgba(168,85,247,0.25)' : 'rgba(146,64,14,0.35)'
                 }}>
-                  <BookOpen className={`w-16 h-16 mx-auto mb-4 ${isDark ? 'text-white/40' : 'text-amber-900/40'}`} />
-                  <p className={`mb-4 ${isDark ? 'text-white/70' : 'text-amber-900/80'}`}>You are not enrolled in any courses yet.</p>
+                  <BookOpen className={`w-16 h-16 mx-auto mb-4 ${isDark ? 'text-white/40' : 'text-gray-600/40'}`} />
+                  <p className={`mb-4 ${isDark ? 'text-white/70' : 'text-gray-800/80'}`}>You are not enrolled in any courses yet.</p>
                   <Link 
                     href="/courses" 
-                    className={`inline-block px-6 py-3 rounded-xl text-sm font-medium transition-all duration-300 backdrop-blur-sm border ${isDark ? 'border-purple-400/40' : 'border-amber-800/50'}`}
+                    className={`inline-block px-6 py-3 rounded-xl text-sm font-medium transition-all duration-300 backdrop-blur-sm border ${isDark ? 'border-purple-400/40' : 'border-purple-700/50'}`}
                     style={{ 
-                      background: isDark ? 'linear-gradient(to right, #a78bfa, #c084fc, #a78bfa)' : 'linear-gradient(to right, #92400e, #c2410c, #92400e)', 
+                      background: themeStyles.buttonGradient, 
                       color: '#ffffff',
-                      boxShadow: isDark ? '0 0 15px rgba(196,181,253,0.4)' : '0 0 15px rgba(146,64,14,0.4)'
+                      boxShadow: themeStyles.buttonShadow
                     }}
                   >
                     Browse Courses
@@ -470,7 +508,7 @@ export default function StudentDashboard() {
 
           {/* Recent Activity */}
           <div>
-            <h3 className={`text-2xl font-normal mb-6 ${isDark ? 'text-white' : 'text-amber-900'}`}>Recent Activity</h3>
+            <h3 className={`text-2xl font-normal mb-6 ${isDark ? 'text-white' : 'text-gray-900'}`}>Recent Activity</h3>
             <div className="slide-up rounded-2xl p-6 backdrop-blur-xl border space-y-4" style={{ 
               backgroundColor: isDark ? 'rgba(168,85,247,0.05)' : 'rgba(255,255,255,0.7)',
               borderColor: isDark ? 'rgba(168,85,247,0.25)' : 'rgba(139,90,43,0.3)'
@@ -481,14 +519,14 @@ export default function StudentDashboard() {
                     <li key={index} className="flex items-start space-x-3">
                       <div className="w-2 h-2 mt-2 rounded-full flex-shrink-0" style={{ backgroundColor: isDark ? '#a78bfa' : '#8b6f47' }}></div>
                       <div className="flex-1 min-w-0">
-                        <p className={`text-sm ${isDark ? 'text-white/90' : 'text-amber-900/90'}`}>{activity.title}</p>
-                        <p className={`text-xs mt-1 ${isDark ? 'text-white/50' : 'text-amber-900/70'}`}>{activity.date}</p>
+                        <p className={`text-sm ${isDark ? 'text-white/90' : 'text-gray-900/90'}`}>{activity.title}</p>
+                        <p className={`text-xs mt-1 ${isDark ? 'text-white/50' : 'text-gray-700/70'}`}>{activity.date}</p>
                       </div>
                     </li>
                   ))}
                 </ul>
               ) : (
-                <p className={`text-center py-8 ${isDark ? 'text-white/50' : 'text-amber-900/70'}`}>No recent activity.</p>
+                <p className={`text-center py-8 ${isDark ? 'text-white/50' : 'text-gray-700/70'}`}>No recent activity.</p>
               )}
             </div>
           </div>

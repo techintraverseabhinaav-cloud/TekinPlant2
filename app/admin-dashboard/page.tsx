@@ -354,44 +354,89 @@ export default function AdminDashboard() {
             },
           ].map((stat, index) => {
             // Keep admin-specific colors but make them theme-aware
-            const statBg = isDark ? stat.color : stat.color.replace('0.12', '0.18')
+            const statBg = isDark ? stat.color : 'transparent'
             const statBorder = isDark ? stat.border : stat.border.replace('0.25', '0.35')
-            const hoverShadow = isDark
-              ? '0 0 25px rgba(239,68,68,0.4), 0 0 50px rgba(239,68,68,0.2)'
-              : '0 0 25px rgba(239,68,68,0.3), 0 0 50px rgba(239,68,68,0.2)'
+            const textColor = isDark ? 'text-white/70' : 'text-black'
+            
+            // Determine gradient based on stat color
+            let valueGradient = ''
+            if (stat.color.includes('239,68,68')) {
+              // Red
+              valueGradient = isDark ? 'bg-gradient-to-r from-red-300 to-red-400' : 'bg-gradient-to-r from-red-700 to-red-800'
+            } else if (stat.color.includes('59,130,246')) {
+              // Blue
+              valueGradient = isDark ? 'bg-gradient-to-r from-blue-300 to-blue-400' : 'bg-gradient-to-r from-blue-700 to-blue-800'
+            } else if (stat.color.includes('16,185,129')) {
+              // Green
+              valueGradient = isDark ? 'bg-gradient-to-r from-green-300 to-green-400' : 'bg-gradient-to-r from-green-700 to-green-800'
+            } else if (stat.color.includes('234,179,8')) {
+              // Yellow
+              valueGradient = isDark ? 'bg-gradient-to-r from-yellow-300 to-yellow-400' : 'bg-gradient-to-r from-yellow-700 to-yellow-800'
+            }
             
             return (
             <div 
               key={index} 
-              className="slide-up hover-lift rounded-2xl p-6 transition-all duration-300" 
-              style={{ 
-                backgroundColor: statBg, 
-                borderColor: statBorder, 
-                borderWidth: '1px',
-                animationDelay: `${index * 0.1}s`
-              }}
-              onMouseEnter={(e) => e.currentTarget.style.boxShadow = hoverShadow}
-              onMouseLeave={(e) => e.currentTarget.style.boxShadow = 'none'}
+              className="flash-card-container"
             >
-              <div className="flex items-center space-x-4">
-                <div className="w-14 h-14 rounded-xl flex items-center justify-center" style={{ 
-                  backgroundColor: isDark ? stat.color.replace('0.12', '0.22') : stat.color.replace('0.12', '0.25'), 
-                  borderColor: statBorder, 
-                  borderWidth: '1px' 
-                }}>
-                  <stat.icon className="w-7 h-7" style={{ color: stat.iconColor }} />
+              <div
+                className="flash-card-inner"
+              >
+                {/* Front of card - Icon only */}
+                <div
+                  className="flash-card-face flash-card-front rounded-2xl"
+                  style={{
+                    padding: '2rem',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    backgroundColor: statBg,
+                    border: `1px solid ${statBorder}`,
+                    boxShadow: isDark
+                      ? '0 8px 24px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.05)'
+                      : '0 8px 24px rgba(30,41,59,0.15), inset 0 1px 0 rgba(255,255,255,0.1)',
+                  }}
+                >
+                  <stat.icon
+                    className="w-24 h-24 transition-transform duration-300"
+                    style={{ color: stat.iconColor }}
+                  />
                 </div>
-                <div>
-                  <p className={`text-sm mb-1 ${isDark ? 'text-white/60' : 'text-amber-900/70'}`}>{stat.label}</p>
-                  <p className={`text-2xl font-bold bg-clip-text text-transparent ${
-                    isDark 
-                      ? 'bg-gradient-to-r from-red-300 to-red-400' 
-                      : 'bg-gradient-to-r from-red-700 to-red-800'
-                  }`}>
+
+                {/* Back of card - Stats */}
+                <div
+                  className="flash-card-face flash-card-back rounded-2xl"
+                  style={{
+                    padding: '2rem',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    backgroundColor: isDark ? stat.color : 'transparent',
+                    border: `1px solid ${statBorder}`,
+                    boxShadow: isDark
+                      ? '0 16px 40px rgba(0,0,0,0.35), 0 0 30px rgba(124,58,237,0.35)'
+                      : '0 16px 40px rgba(30,41,59,0.25), 0 0 30px rgba(124,58,237,0.25)',
+                  }}
+                >
+                  {/* Value */}
+                  <div
+                    className={`text-3xl sm:text-4xl font-semibold text-center mb-3 bg-clip-text text-transparent ${valueGradient}`}
+                  >
                     {dataLoading ? "..." : stat.value}
+                  </div>
+
+                  {/* Label */}
+                  <p
+                    className={`text-sm sm:text-base text-center font-light ${textColor}`}
+                    style={{ lineHeight: '1.6' }}
+                  >
+                    {stat.label}
                   </p>
+
+                  {/* Change indicator */}
                   {stat.change && (
-                    <p className={`text-xs mt-1 ${isDark ? 'text-green-400' : 'text-green-700'}`}>{stat.change}</p>
+                    <p className={`text-xs mt-2 ${isDark ? 'text-green-400' : 'text-green-700'}`}>{stat.change}</p>
                   )}
                 </div>
               </div>

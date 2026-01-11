@@ -11,7 +11,7 @@ export default function SignUpPage() {
   const themeStyles = useThemeStyles()
   
   // Read initial theme from data-theme attribute (set by theme script before React)
-  // Returns: true for dark mode (purple), false for light mode (amber)
+  // Returns: true for dark mode (purple), false for light mode (purple)
   const [isDark, setIsDark] = useState(() => {
     // First, try to read from data-theme attribute (set by theme script before React)
     // This works in both client and SSR if document is available
@@ -70,13 +70,13 @@ export default function SignUpPage() {
     }
   }, [resolvedTheme])
   
-  // Golden/amber colors for light mode, purple for dark mode
-  const primaryColor = isDark ? 'rgba(168,85,247' : 'rgba(217,119,6' // purple vs amber-600
-  const primaryColorLight = isDark ? 'rgba(196,181,253' : 'rgba(251,191,36' // purple-300 vs amber-400
-  const borderColor = isDark ? 'rgba(168,85,247' : 'rgba(217,119,6'
-  const gradientFrom = isDark ? 'from-purple-300' : 'from-amber-600'
-  const gradientVia = isDark ? 'via-purple-200' : 'via-amber-500'
-  const gradientTo = isDark ? 'to-purple-300' : 'to-amber-600'
+  // Purple colors for both light and dark mode
+  const primaryColor = isDark ? 'rgba(168,85,247' : 'rgba(168,85,247' // purple for both
+  const primaryColorLight = isDark ? 'rgba(196,181,253' : 'rgba(196,181,253' // purple-300 for both
+  const borderColor = isDark ? 'rgba(168,85,247' : 'rgba(168,85,247' 
+  const gradientFrom = isDark ? 'from-purple-300' : 'from-purple-300'
+  const gradientVia = isDark ? 'via-purple-200' : 'via-purple-200'
+  const gradientTo = isDark ? 'to-purple-300' : 'to-purple-300'
 
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
@@ -98,17 +98,17 @@ export default function SignUpPage() {
   useEffect(() => {
     // Add custom styles for social buttons, sign button, and text colors
     const style = document.createElement('style')
-    const borderColor = isDark ? 'rgba(168, 85, 247, 0.4)' : 'rgba(217, 119, 6, 0.5)'
-    const borderColorHover = isDark ? 'rgba(168, 85, 247, 0.6)' : 'rgba(217, 119, 6, 0.7)'
-    const textColor = isDark ? 'rgba(255, 255, 255, 0.9)' : 'rgba(58, 46, 31, 0.9)'
+    const borderColor = isDark ? 'rgba(168, 85, 247, 0.4)' : 'rgba(168, 85, 247, 0.4)'
+    const borderColorHover = isDark ? 'rgba(168, 85, 247, 0.6)' : 'rgba(168, 85, 247, 0.6)'
+    const textColor = isDark ? 'rgba(255, 255, 255, 0.9)' : 'rgba(30, 41, 59, 0.9)'
     const bgColor = isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(255, 255, 255, 0.8)'
     const bgColorHover = isDark ? 'rgba(255, 255, 255, 0.15)' : 'rgba(255, 255, 255, 0.9)'
     const buttonGradient = isDark 
       ? 'linear-gradient(135deg, #a78bfa 0%, #c084fc 100%)'
-      : 'linear-gradient(135deg, #d97706 0%, #f59e0b 100%)'
+      : 'linear-gradient(135deg, #a78bfa 0%, #c084fc 100%)'
     const buttonGradientHover = isDark
       ? 'linear-gradient(135deg, #8b5cf6 0%, #a78bfa 100%)'
-      : 'linear-gradient(135deg, #b45309 0%, #d97706 100%)'
+      : 'linear-gradient(135deg, #8b5cf6 0%, #a78bfa 100%)'
     
     style.textContent = `
       button[data-provider="google"],
@@ -122,18 +122,18 @@ export default function SignUpPage() {
       .cl-socialButtonsBlockButton:hover {
         background-color: ${bgColorHover} !important;
         border-color: ${borderColorHover} !important;
-        color: ${isDark ? '#ffffff' : '#3a2e1f'} !important;
+          color: ${isDark ? '#ffffff' : '#1e293b'} !important;
         transform: translateY(-1px);
       }
       .cl-formButtonPrimary {
         background: ${buttonGradient} !important;
         border: none !important;
         color: #ffffff !important;
-        box-shadow: ${isDark ? '0 4px 14px rgba(168, 85, 247, 0.4)' : '0 4px 14px rgba(217, 119, 6, 0.4)'} !important;
+        box-shadow: ${isDark ? '0 4px 14px rgba(168, 85, 247, 0.4)' : '0 4px 14px rgba(168, 85, 247, 0.4)'} !important;
       }
       .cl-formButtonPrimary:hover {
         background: ${buttonGradientHover} !important;
-        box-shadow: ${isDark ? '0 6px 20px rgba(168, 85, 247, 0.5)' : '0 6px 20px rgba(217, 119, 6, 0.5)'} !important;
+        box-shadow: ${isDark ? '0 6px 20px rgba(168, 85, 247, 0.5)' : '0 6px 20px rgba(168, 85, 247, 0.5)'} !important;
         transform: translateY(-1px);
       }
       .cl-card,
@@ -152,16 +152,16 @@ export default function SignUpPage() {
         .cl-identityPreviewEditButton,
         .cl-formResendCodeLink,
         .cl-alertText {
-          color: #3a2e1f !important;
+          color: #1e293b !important;
         }
         .cl-headerSubtitle,
         .cl-formFieldLabel,
         .cl-footerActionLink,
         .cl-alertText {
-          color: rgba(58, 46, 31, 0.7) !important;
+          color: rgba(30, 41, 59, 0.7) !important;
         }
         .cl-footerActionLink:hover {
-          color: #d97706 !important;
+          color: #a78bfa !important;
         }
       ` : ''}
     `
@@ -180,18 +180,18 @@ export default function SignUpPage() {
       <div className="hidden lg:flex lg:flex-1 relative overflow-hidden">
         <div className="relative z-10 flex flex-col justify-center p-12 lg:p-16 xl:p-20 text-white w-full">
           <div className="max-w-lg">
-            <div className={`slide-up inline-flex items-center gap-2 rounded-full px-4 py-1.5 mb-8 backdrop-blur-sm border ${isDark ? 'border-purple-500/20' : 'border-amber-600/30'}`} style={{ backgroundColor: isDark ? 'rgba(0,0,0,0.4)' : 'rgba(255,255,255,0.7)', transitionDelay: '0.1s' }}>
-              <span className={`text-xs font-medium tracking-wide uppercase ${isDark ? 'text-white/70' : 'text-amber-900/80'}`}>Get Started</span>
+            <div className={`slide-up inline-flex items-center gap-2 rounded-full px-4 py-1.5 mb-8 backdrop-blur-sm border ${isDark ? 'border-purple-500/20' : 'border-purple-600/30'}`} style={{ backgroundColor: isDark ? 'rgba(0,0,0,0.4)' : 'rgba(255,255,255,0.7)', transitionDelay: '0.1s' }}>
+              <span className={`text-xs font-medium tracking-wide uppercase ${isDark ? 'text-white/70' : 'text-purple-900/80'}`}>Get Started</span>
             </div>
             <h1 className="slide-up text-5xl lg:text-6xl xl:text-7xl font-light mb-6 leading-tight tracking-tight" style={{ transitionDelay: '0.2s' }}>
-              <span className={isDark ? 'text-white' : 'text-amber-900'}>Sign Up for</span> <span className={`bg-gradient-to-r ${gradientFrom} ${gradientVia} ${gradientTo} bg-clip-text text-transparent`}>TEKINPLANT</span>
+              <span className={isDark ? 'text-white' : 'text-purple-900'}>Sign Up for</span> <span className={`bg-gradient-to-r ${gradientFrom} ${gradientVia} ${gradientTo} bg-clip-text text-transparent`}>TEKINPLANT</span>
             </h1>
-            <p className={`slide-up text-lg lg:text-xl font-light leading-relaxed mb-12 ${isDark ? 'text-white/50' : 'text-amber-900/70'}`} style={{ transitionDelay: '0.3s' }}>
+            <p className={`slide-up text-lg lg:text-xl font-light leading-relaxed mb-12 ${isDark ? 'text-white/50' : 'text-purple-900/70'}`} style={{ transitionDelay: '0.3s' }}>
               Start your professional development journey and unlock access to industry-leading training programs.
             </p>
             
             <div className="space-y-4">
-              <div className={`slide-up flex items-start gap-4 rounded-xl p-4 backdrop-blur-xl border ${isDark ? 'border-purple-500/20' : 'border-amber-600/30'} transition-all duration-300`} style={{ backgroundColor: isDark ? 'rgba(0,0,0,0.2)' : 'rgba(255,255,255,0.6)', transitionDelay: '0.4s' }} onMouseEnter={(e) => {
+              <div className={`slide-up flex items-start gap-4 rounded-xl p-4 backdrop-blur-xl border ${isDark ? 'border-purple-500/20' : 'border-purple-600/30'} transition-all duration-300`} style={{ backgroundColor: isDark ? 'rgba(0,0,0,0.2)' : 'rgba(255,255,255,0.6)', transitionDelay: '0.4s' }} onMouseEnter={(e) => {
                 e.currentTarget.style.backgroundColor = isDark ? 'rgba(0,0,0,0.3)' : 'rgba(255,255,255,0.8)'
                 e.currentTarget.style.borderColor = isDark ? 'rgba(168,85,247,0.3)' : 'rgba(217,119,6,0.4)'
               }} onMouseLeave={(e) => {
@@ -203,21 +203,21 @@ export default function SignUpPage() {
                     <div 
                       className="absolute inset-0 rounded-lg"
                       style={{
-                        background: isDark ? 'transparent' : 'linear-gradient(135deg, rgba(217,119,6,0.5) 0%, rgba(251,191,36,0.4) 100%)',
-                        mixBlendMode: isDark ? 'normal' : 'color',
+                        background: 'transparent',
+                        mixBlendMode: 'normal',
                         pointerEvents: 'none',
                         zIndex: 1
                       }}
                     />
-                    <img src="/Icons/badge.png" alt="Badge" className="w-full h-full object-cover scale-150 relative z-0" style={{ filter: isDark ? 'none' : 'hue-rotate(90deg) saturate(3) brightness(1.6) contrast(1.2)', WebkitFilter: isDark ? 'none' : 'hue-rotate(90deg) saturate(3) brightness(1.6) contrast(1.2)' }} />
+                    <img src="/Icons/badge.png" alt="Badge" className="w-full h-full object-cover scale-150 relative z-0" style={{ filter: 'none', WebkitFilter: 'none' }} />
                   </div>
                 </div>
                 <div>
-                  <h3 className={`font-light mb-1 ${isDark ? 'text-white' : 'text-amber-900'}`}>Industry-Leading Courses</h3>
-                  <p className={`text-sm font-light ${isDark ? 'text-white/50' : 'text-amber-900/70'}`}>Learn from top companies</p>
+                  <h3 className={`font-light mb-1 ${isDark ? 'text-white' : 'text-purple-900'}`}>Industry-Leading Courses</h3>
+                  <p className={`text-sm font-light ${isDark ? 'text-white/50' : 'text-purple-900/70'}`}>Learn from top companies</p>
                 </div>
               </div>
-              <div className={`slide-up flex items-start gap-4 rounded-xl p-4 backdrop-blur-xl border ${isDark ? 'border-purple-500/20' : 'border-amber-600/30'} transition-all duration-300`} style={{ backgroundColor: isDark ? 'rgba(0,0,0,0.2)' : 'rgba(255,255,255,0.6)', transitionDelay: '0.5s' }} onMouseEnter={(e) => {
+              <div className={`slide-up flex items-start gap-4 rounded-xl p-4 backdrop-blur-xl border ${isDark ? 'border-purple-500/20' : 'border-purple-600/30'} transition-all duration-300`} style={{ backgroundColor: isDark ? 'rgba(0,0,0,0.2)' : 'rgba(255,255,255,0.6)', transitionDelay: '0.5s' }} onMouseEnter={(e) => {
                 e.currentTarget.style.backgroundColor = isDark ? 'rgba(0,0,0,0.3)' : 'rgba(255,255,255,0.8)'
                 e.currentTarget.style.borderColor = isDark ? 'rgba(168,85,247,0.3)' : 'rgba(217,119,6,0.4)'
               }} onMouseLeave={(e) => {
@@ -229,21 +229,21 @@ export default function SignUpPage() {
                     <div 
                       className="absolute inset-0 rounded-lg"
                       style={{
-                        background: isDark ? 'transparent' : 'linear-gradient(135deg, rgba(217,119,6,0.5) 0%, rgba(251,191,36,0.4) 100%)',
-                        mixBlendMode: isDark ? 'normal' : 'color',
+                        background: 'transparent',
+                        mixBlendMode: 'normal',
                         pointerEvents: 'none',
                         zIndex: 1
                       }}
                     />
-                    <img src="/Icons/students.png" alt="Students" className="w-full h-full object-cover scale-150 relative z-0" style={{ filter: isDark ? 'none' : 'hue-rotate(90deg) saturate(3) brightness(1.6) contrast(1.2)', WebkitFilter: isDark ? 'none' : 'hue-rotate(90deg) saturate(3) brightness(1.6) contrast(1.2)' }} />
+                    <img src="/Icons/students.png" alt="Students" className="w-full h-full object-cover scale-150 relative z-0" style={{ filter: 'none', WebkitFilter: 'none' }} />
                   </div>
                 </div>
                 <div>
-                  <h3 className={`font-light mb-1 ${isDark ? 'text-white' : 'text-amber-900'}`}>Expert Trainers</h3>
-                  <p className={`text-sm font-light ${isDark ? 'text-white/50' : 'text-amber-900/70'}`}>Learn from industry professionals</p>
+                  <h3 className={`font-light mb-1 ${isDark ? 'text-white' : 'text-purple-900'}`}>Expert Trainers</h3>
+                  <p className={`text-sm font-light ${isDark ? 'text-white/50' : 'text-purple-900/70'}`}>Learn from industry professionals</p>
                 </div>
               </div>
-              <div className={`slide-up flex items-start gap-4 rounded-xl p-4 backdrop-blur-xl border ${isDark ? 'border-purple-500/20' : 'border-amber-600/30'} transition-all duration-300`} style={{ backgroundColor: isDark ? 'rgba(0,0,0,0.2)' : 'rgba(255,255,255,0.6)', transitionDelay: '0.6s' }} onMouseEnter={(e) => {
+              <div className={`slide-up flex items-start gap-4 rounded-xl p-4 backdrop-blur-xl border ${isDark ? 'border-purple-500/20' : 'border-purple-600/30'} transition-all duration-300`} style={{ backgroundColor: isDark ? 'rgba(0,0,0,0.2)' : 'rgba(255,255,255,0.6)', transitionDelay: '0.6s' }} onMouseEnter={(e) => {
                 e.currentTarget.style.backgroundColor = isDark ? 'rgba(0,0,0,0.3)' : 'rgba(255,255,255,0.8)'
                 e.currentTarget.style.borderColor = isDark ? 'rgba(168,85,247,0.3)' : 'rgba(217,119,6,0.4)'
               }} onMouseLeave={(e) => {
@@ -255,18 +255,18 @@ export default function SignUpPage() {
                     <div 
                       className="absolute inset-0 rounded-lg"
                       style={{
-                        background: isDark ? 'transparent' : 'linear-gradient(135deg, rgba(217,119,6,0.5) 0%, rgba(251,191,36,0.4) 100%)',
-                        mixBlendMode: isDark ? 'normal' : 'color',
+                        background: 'transparent',
+                        mixBlendMode: 'normal',
                         pointerEvents: 'none',
                         zIndex: 1
                       }}
                     />
-                    <img src="/Icons/growth.png" alt="Growth" className="w-full h-full object-cover scale-150 relative z-0" style={{ filter: isDark ? 'none' : 'hue-rotate(90deg) saturate(3) brightness(1.6) contrast(1.2)', WebkitFilter: isDark ? 'none' : 'hue-rotate(90deg) saturate(3) brightness(1.6) contrast(1.2)' }} />
+                    <img src="/Icons/growth.png" alt="Growth" className="w-full h-full object-cover scale-150 relative z-0" style={{ filter: 'none', WebkitFilter: 'none' }} />
                   </div>
                 </div>
                 <div>
-                  <h3 className={`font-light mb-1 ${isDark ? 'text-white' : 'text-amber-900'}`}>Certified Programs</h3>
-                  <p className={`text-sm font-light ${isDark ? 'text-white/50' : 'text-amber-900/70'}`}>Get recognized certificates</p>
+                  <h3 className={`font-light mb-1 ${isDark ? 'text-white' : 'text-purple-900'}`}>Certified Programs</h3>
+                  <p className={`text-sm font-light ${isDark ? 'text-white/50' : 'text-purple-900/70'}`}>Get recognized certificates</p>
                 </div>
               </div>
             </div>
@@ -283,11 +283,11 @@ export default function SignUpPage() {
         <div className="w-full max-w-md mx-auto">
           {/* Mobile Header */}
           <div className="slide-up lg:hidden mb-8 text-center" style={{ transitionDelay: '0.1s' }}>
-            <div className={`inline-flex items-center gap-2 rounded-full px-4 py-1.5 mb-6 backdrop-blur-sm border ${isDark ? 'border-purple-500/20' : 'border-amber-600/30'}`} style={{ backgroundColor: isDark ? 'rgba(0,0,0,0.4)' : 'rgba(255,255,255,0.7)' }}>
-              <span className={`text-xs font-medium tracking-wide uppercase ${isDark ? 'text-white/70' : 'text-amber-900/80'}`}>Get Started</span>
+            <div className={`inline-flex items-center gap-2 rounded-full px-4 py-1.5 mb-6 backdrop-blur-sm border ${isDark ? 'border-purple-500/20' : 'border-purple-600/30'}`} style={{ backgroundColor: isDark ? 'rgba(0,0,0,0.4)' : 'rgba(255,255,255,0.7)' }}>
+              <span className={`text-xs font-medium tracking-wide uppercase ${isDark ? 'text-white/70' : 'text-purple-900/80'}`}>Get Started</span>
             </div>
             <h1 className="text-4xl font-light mb-4 leading-tight tracking-tight">
-              <span className={isDark ? 'text-white' : 'text-amber-900'}>Sign Up for</span> <span className={`bg-gradient-to-r ${gradientFrom} ${gradientVia} ${gradientTo} bg-clip-text text-transparent`}>TEKINPLANT</span>
+              <span className={isDark ? 'text-white' : 'text-purple-900'}>Sign Up for</span> <span className={`bg-gradient-to-r ${gradientFrom} ${gradientVia} ${gradientTo} bg-clip-text text-transparent`}>TEKINPLANT</span>
             </h1>
           </div>
 
@@ -296,28 +296,28 @@ export default function SignUpPage() {
 
           {/* Clerk Sign Up Component */}
           <div className="slide-up w-full" style={{ transitionDelay: '0.7s' }}>
-            <div className={`rounded-2xl p-12 lg:p-14 backdrop-blur-xl border ${isDark ? 'border-purple-500/20' : 'border-amber-600/30'} w-full`} style={{ backgroundColor: themeStyles.cardBg }}>
+            <div className={`rounded-2xl p-12 lg:p-14 backdrop-blur-xl border ${isDark ? 'border-purple-500/20' : 'border-purple-600/30'} w-full`} style={{ backgroundColor: themeStyles.cardBg }}>
               <SignUp 
                 appearance={{
                   elements: {
                     rootBox: "mx-auto w-full flex flex-col items-center",
                     card: "bg-transparent shadow-none border-none p-0 w-full",
-                    headerTitle: `text-2xl lg:text-3xl font-light mb-2 tracking-tight text-center ${isDark ? 'text-white' : 'text-amber-900'}`,
-                    headerSubtitle: `font-light mb-8 text-center ${isDark ? 'text-white/50' : 'text-amber-900/70'}`,
+                    headerTitle: `text-2xl lg:text-3xl font-light mb-2 tracking-tight text-center ${isDark ? 'text-white' : 'text-purple-900'}`,
+                    headerSubtitle: `font-light mb-8 text-center ${isDark ? 'text-white/50' : 'text-purple-900/70'}`,
                     socialButtonsBlockButton: "rounded-xl border-2 transition-all duration-300 font-light w-full py-3 px-4 backdrop-blur-sm",
-                    formButtonPrimary: `rounded-xl transition-all duration-300 hover:opacity-90 backdrop-blur-sm border ${isDark ? 'border-purple-400/40' : 'border-amber-600/50'} font-medium w-full`,
+                    formButtonPrimary: `rounded-xl transition-all duration-300 hover:opacity-90 backdrop-blur-sm border ${isDark ? 'border-purple-400/40' : 'border-purple-600/50'} font-medium w-full`,
                     footerActionLink: "transition-colors duration-200 font-light",
                     formFieldInput: "rounded-xl backdrop-blur-sm border transition-all duration-300 font-light w-full",
-                    formFieldLabel: `font-medium text-xs uppercase tracking-wide ${isDark ? 'text-white/60' : 'text-amber-900/70'}`,
-                    formFieldInputShowPasswordButton: `${isDark ? 'text-white/50 hover:text-white' : 'text-amber-900/70 hover:text-amber-900'}`,
+                    formFieldLabel: `font-medium text-xs uppercase tracking-wide ${isDark ? 'text-white/60' : 'text-purple-900/70'}`,
+                    formFieldInputShowPasswordButton: `${isDark ? 'text-white/50 hover:text-white' : 'text-purple-900/70 hover:text-purple-900'}`,
                     formResendCodeLink: "transition-colors duration-200 font-light",
-                    identityPreviewEditButton: `${isDark ? 'text-white/50 hover:text-white' : 'text-amber-900/70 hover:text-amber-900'}`,
+                    identityPreviewEditButton: `${isDark ? 'text-white/50 hover:text-white' : 'text-purple-900/70 hover:text-purple-900'}`,
                     formFieldSuccessText: "text-green-400 font-light",
                     formFieldErrorText: "text-red-400 font-light",
-                    alertText: `${isDark ? 'text-white/50' : 'text-amber-900/70'} font-light`,
-                    footer: `border-t ${isDark ? 'border-purple-500/20' : 'border-amber-600/30'} pt-6 mt-6 text-center`,
-                    dividerLine: isDark ? "bg-white/10" : "bg-amber-900/20",
-                    dividerText: `${isDark ? 'text-white/50' : 'text-amber-900/70'} font-light`,
+                    alertText: `${isDark ? 'text-white/50' : 'text-purple-900/70'} font-light`,
+                    footer: `border-t ${isDark ? 'border-purple-500/20' : 'border-purple-600/30'} pt-6 mt-6 text-center`,
+                    dividerLine: isDark ? "bg-white/10" : "bg-purple-900/20",
+                    dividerText: `${isDark ? 'text-white/50' : 'text-purple-900/70'} font-light`,
                     socialButtonsBlockButtonText: "font-light",
                     formButtonReset: "font-light",
                     formButtonResetLink: "font-light",
@@ -331,7 +331,7 @@ export default function SignUpPage() {
                     colorInputText: isDark ? '#ffffff' : '#3a2e1f',
                     colorText: isDark ? '#ffffff' : '#3a2e1f',
                     colorTextSecondary: isDark ? 'rgba(255,255,255,0.5)' : 'rgba(58,46,31,0.7)',
-                    colorPrimary: isDark ? '#a78bfa' : '#d97706',
+                    colorPrimary: isDark ? '#a78bfa' : '#a78bfa',
                     colorDanger: '#ef4444',
                     colorSuccess: '#10b981',
                     borderRadius: '0.75rem',

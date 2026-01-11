@@ -164,8 +164,8 @@ function CoursesContent() {
       badgeBg: 'rgba(255,255,255,0.7)',
       badgeBorder: 'rgba(139,90,43,0.25)',
       iconColor: '#8b6f47',
-      textColor: 'text-amber-900/80',
-      gradientClass: 'bg-gradient-to-r from-amber-800 via-amber-700 to-amber-800',
+      textColor: 'text-gray-800/80',
+      gradientClass: 'bg-gradient-to-r from-purple-700 via-purple-600 to-purple-700',
       statBorder: 'rgba(139,90,43,0.3)',
       statBg: 'rgba(255,255,255,0.7)',
       hoverShadow: '0 12px 24px rgba(58,46,31,0.2), 0 0 20px rgba(139,90,43,0.25)',
@@ -173,9 +173,9 @@ function CoursesContent() {
       searchBorder: 'rgba(139,90,43,0.3)',
       inputBg: 'rgba(255,255,255,0.9)',
       inputBorder: 'rgba(139,90,43,0.3)',
-      inputText: 'text-amber-900',
-      inputPlaceholder: 'placeholder-amber-900/50',
-      inputFocusRing: 'focus:ring-amber-800/50',
+      inputText: 'text-gray-900',
+      inputPlaceholder: 'placeholder-gray-600/50',
+      inputFocusRing: 'focus:ring-purple-700/50',
       chevronColor: '#8b6f47',
       optionBg: '#ffffff',
       optionText: '#3a2e1f'
@@ -234,7 +234,13 @@ function CoursesContent() {
   }, [courses, searchTerm, category, location])
 
   return (
-    <div className="min-h-screen relative" suppressHydrationWarning style={{ backgroundColor: themeStyles.pageBg }}>
+    <div className="min-h-screen relative" suppressHydrationWarning style={{ 
+      backgroundColor: themeStyles.pageBg,
+      paddingTop: 0,
+      marginTop: 0,
+      border: 'none',
+      borderTop: 'none'
+    }}>
       <Navbar />
       
       {/* Header */}
@@ -249,7 +255,7 @@ function CoursesContent() {
             }}>
               <Building className="w-3.5 h-3.5" suppressHydrationWarning style={{ color: isDark ? '#a855f7' : '#8b6f47' }} />
               <span suppressHydrationWarning style={{ 
-                color: isDark ? 'rgba(255,255,255,0.7)' : 'rgba(139,90,43,0.8)'
+                color: isDark ? 'rgba(255,255,255,0.7)' : 'rgba(26, 15, 0, 0.8)'
               }} className="text-xs font-medium tracking-wide uppercase">Industry Training Programs</span>
             </div>
             {(() => {
@@ -260,9 +266,9 @@ function CoursesContent() {
                 industryColor = '#ffffff'
                 trainingGradient = 'bg-gradient-to-r from-purple-300 via-purple-200 to-purple-300'
               } else {
-                // Light mode - Industry in black, Training Programs in golden
+                // Light mode - Industry in black, Training Programs in purple
                 industryColor = '#1a0f00'
-                trainingGradient = 'bg-gradient-to-r from-amber-700 via-amber-600 to-amber-700'
+                trainingGradient = 'bg-gradient-to-r from-purple-700 via-purple-600 to-purple-700'
               }
               return (
                 <h1 className="text-5xl sm:text-6xl lg:text-7xl font-light mb-6 leading-tight tracking-tight" suppressHydrationWarning>
@@ -285,77 +291,105 @@ function CoursesContent() {
                 { icon: "/Icons/students.png", value: industryStats.totalStudents, label: "Students Trained" },
                 { icon: "/Icons/rating.png", value: industryStats.averageRating, label: "Average Rating" },
               ].map((stat, index) => {
+                const bg = isDark
+                  ? 'rgba(124,58,237,0.10)'
+                  : 'transparent'
+
+                const border = isDark
+                  ? 'rgba(124,58,237,0.25)'
+                  : 'rgba(124,58,237,0.25)'
+
+                const textColor = isDark ? 'text-white/70' : 'text-black'
+                const valueGradient = isDark
+                  ? 'bg-gradient-to-r from-purple-600 to-purple-500'
+                  : 'bg-gradient-to-r from-purple-700 to-purple-600'
                 
                 return (
                 <div 
                   key={index} 
-                  className="text-center p-8 rounded-2xl transition-all duration-500"
+                  className="flash-card-container"
                   suppressHydrationWarning
-                  style={{ 
-                    backgroundColor: isDark ? 'rgba(0,0,0,0.3)' : 'rgba(255,255,255,0.7)', 
-                    borderColor: isDark ? 'rgba(168,85,247,0.25)' : 'rgba(139,90,43,0.3)', 
-                    borderWidth: '1px'
-                  }} 
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = 'translateY(-4px)'
-                    e.currentTarget.style.boxShadow = themeColors.hoverShadow
-                  }} 
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = 'translateY(0)'
-                    e.currentTarget.style.boxShadow = 'none'
-                  }}
                 >
-                  {(() => {
-                    return (
-                      <>
-                        <div className="w-16 h-16 p-0.5 rounded-xl flex items-center justify-center mx-auto mb-6" suppressHydrationWarning style={{ 
-                          backgroundColor: isDark ? 'rgba(0,0,0,0.5)' : 'rgba(255,255,255,0.9)', 
-                          borderColor: isDark ? 'rgba(168,85,247,0.25)' : 'rgba(139,90,43,0.3)', 
-                          borderWidth: '1px' 
-                        }}>
-                          <div className="w-full h-full rounded-lg flex items-center justify-center overflow-hidden relative" suppressHydrationWarning style={{ 
-                            borderColor: isDark ? 'rgba(168,85,247,0.25)' : 'rgba(139,90,43,0.3)', 
-                            borderWidth: '1px', 
-                            backgroundColor: '#ffffff' 
-                          }}>
-                            <div 
-                              className="absolute inset-0 rounded-lg"
-                              suppressHydrationWarning
-                              style={{
-                                background: isDark ? 'transparent' : 'linear-gradient(135deg, rgba(217,119,6,0.5) 0%, rgba(251,191,36,0.4) 100%)',
-                                mixBlendMode: isDark ? 'normal' : 'color',
-                                pointerEvents: 'none',
-                                zIndex: 1
-                              }}
-                            />
-                            <img 
-                              src={stat.icon} 
-                              alt={stat.label} 
-                              className="w-full h-full object-cover scale-125 relative z-0" 
-                              suppressHydrationWarning
-                              style={{ 
-                                filter: isDark ? 'none' : 'hue-rotate(90deg) saturate(3) brightness(1.6)',
-                                WebkitFilter: isDark ? 'none' : 'hue-rotate(90deg) saturate(3) brightness(1.6)'
-                              }}
-                            />
-                          </div>
-                        </div>
-                        <h3 className={`text-3xl lg:text-4xl font-light mb-2 tracking-tight bg-clip-text text-transparent ${
-                          isDark ? 'bg-gradient-to-r from-purple-300 to-purple-400' : 'bg-gradient-to-r from-amber-800 to-amber-700'
-                        }`} suppressHydrationWarning>{stat.value}</h3>
-                        <p className="text-sm font-light tracking-wide uppercase" suppressHydrationWarning style={{ 
-                          color: isDark ? 'rgba(255,255,255,0.5)' : 'rgba(139,90,43,0.7)'
-                        }}>{stat.label}</p>
-                      </>
-                    )
-                  })()}
+                  <div
+                    className="flash-card-inner"
+                  >
+                    {/* Front of card - Icon only */}
+                    <div
+                      className="flash-card-face flash-card-front rounded-2xl"
+                      suppressHydrationWarning
+                      style={{
+                        padding: '2rem',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        backgroundColor: bg,
+                        border: `1px solid ${border}`,
+                        boxShadow: isDark
+                          ? '0 8px 24px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.05)'
+                          : '0 8px 24px rgba(30,41,59,0.15), inset 0 1px 0 rgba(255,255,255,0.1)',
+                      }}
+                    >
+                      <div 
+                        className="w-16 h-16 flex items-center justify-center overflow-hidden"
+                        style={{
+                          backgroundColor: isDark ? 'rgba(0,0,0,0.01)' : 'rgba(255,255,255,0.01)',
+                        }}
+                      >
+                        <img 
+                          src={stat.icon} 
+                          alt={stat.label} 
+                          className="w-full h-full object-contain" 
+                          suppressHydrationWarning
+                          style={{
+                            mixBlendMode: isDark ? 'screen' : 'multiply',
+                            transform: 'scale(1.8)',
+                          }}
+                        />
+                      </div>
+                    </div>
+
+                    {/* Back of card - Stats */}
+                    <div
+                      className="flash-card-face flash-card-back rounded-2xl"
+                      suppressHydrationWarning
+                      style={{
+                        padding: '2rem',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        backgroundColor: isDark ? 'rgba(124,58,237,0.10)' : 'transparent',
+                        border: `1px solid ${border}`,
+                        boxShadow: isDark
+                          ? '0 16px 40px rgba(0,0,0,0.35), 0 0 30px rgba(124,58,237,0.35)'
+                          : '0 16px 40px rgba(30,41,59,0.25), 0 0 30px rgba(124,58,237,0.25)',
+                      }}
+                    >
+                      {/* Value */}
+                      <div
+                        className={`text-3xl sm:text-4xl font-semibold text-center mb-3 bg-clip-text text-transparent ${valueGradient}`}
+                        suppressHydrationWarning
+                      >
+                        {stat.value}
+                      </div>
+
+                      {/* Label */}
+                      <p
+                        className={`text-sm sm:text-base text-center font-light ${textColor}`}
+                        suppressHydrationWarning
+                        style={{ lineHeight: '1.6' }}
+                      >
+                        {stat.label}
+                      </p>
+                    </div>
+                  </div>
                 </div>
                 )
               })}
             </div>
 
             {/* Search and Filters */}
-            <div className="rounded-2xl p-8 mb-8 backdrop-blur-xl border" suppressHydrationWarning style={{ 
+            <div className="rounded-2xl p-8 mb-4 backdrop-blur-xl border" suppressHydrationWarning style={{ 
               backgroundColor: themeColors.searchBg,
               borderColor: themeColors.searchBorder
             }}>
@@ -369,11 +403,11 @@ function CoursesContent() {
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
                       suppressHydrationWarning
-                      className={`w-full pl-14 pr-6 py-3.5 rounded-xl backdrop-blur-sm border transition-all duration-300 focus:outline-none focus:ring-2 font-light ${isDark ? 'placeholder-white/30 focus:ring-purple-500/50' : 'placeholder-amber-900/50 focus:ring-amber-800/50'}`}
+                      className={`w-full pl-14 pr-6 py-3.5 rounded-xl backdrop-blur-sm border transition-all duration-300 focus:outline-none focus:ring-2 font-light ${isDark ? 'placeholder-white/30 focus:ring-purple-500/50' : 'placeholder-gray-600/50 focus:ring-purple-700/50'}`}
                       style={{ 
                         backgroundColor: isDark ? 'rgba(0,0,0,0.4)' : 'rgba(255,255,255,0.9)', 
                         borderColor: isDark ? 'rgba(168,85,247,0.2)' : 'rgba(139,90,43,0.3)',
-                        color: isDark ? '#ffffff' : 'rgba(139,90,43,0.9)'
+                        color: isDark ? '#ffffff' : '#1a0f00'
                       }}
                     />
                   </div>
@@ -387,7 +421,7 @@ function CoursesContent() {
                     style={{ 
                       backgroundColor: isDark ? 'rgba(0,0,0,0.4)' : 'rgba(255,255,255,0.9)',
                       borderColor: isDark ? 'rgba(168,85,247,0.2)' : 'rgba(139,90,43,0.3)',
-                      color: isDark ? '#ffffff' : 'rgba(139,90,43,0.9)'
+                      color: isDark ? '#ffffff' : '#1a0f00'
                     }}
                     onMouseEnter={(e) => {
                       if (isDark) {
@@ -433,7 +467,7 @@ function CoursesContent() {
                     style={{ 
                       backgroundColor: isDark ? 'rgba(0,0,0,0.4)' : 'rgba(255,255,255,0.9)',
                       borderColor: isDark ? 'rgba(168,85,247,0.2)' : 'rgba(139,90,43,0.3)',
-                      color: isDark ? '#ffffff' : 'rgba(139,90,43,0.9)'
+                      color: isDark ? '#ffffff' : '#1a0f00'
                     }}
                     onMouseEnter={(e) => {
                       if (isDark) {
@@ -474,16 +508,16 @@ function CoursesContent() {
             </div>
 
             {/* Results Count */}
-            <div className="mb-8">
+            <div className="mb-2">
               <p className="text-sm font-light" suppressHydrationWarning style={{ 
-                color: isDark ? 'rgba(255,255,255,0.4)' : 'rgba(139,90,43,0.6)'
+                color: isDark ? 'rgba(255,255,255,0.4)' : 'rgba(26, 15, 0, 0.6)'
               }}>
                 {searchTerm && (
                   <span suppressHydrationWarning style={{ color: isDark ? '#c084fc' : '#8b6f47' }}>
                     Search results for "{searchTerm}":{" "}
                   </span>
                 )}
-                Showing <span suppressHydrationWarning style={{ color: isDark ? 'rgba(255,255,255,0.6)' : 'rgba(139,90,43,0.7)' }}>{filteredCourses.length}</span> of <span suppressHydrationWarning style={{ color: isDark ? 'rgba(255,255,255,0.6)' : 'rgba(139,90,43,0.7)' }}>{loading ? 0 : courses.length}</span> training programs
+                Showing <span suppressHydrationWarning style={{ color: isDark ? 'rgba(255,255,255,0.6)' : 'rgba(26, 15, 0, 0.7)' }}>{filteredCourses.length}</span> of <span suppressHydrationWarning style={{ color: isDark ? 'rgba(255,255,255,0.6)' : 'rgba(26, 15, 0, 0.7)' }}>{loading ? 0 : courses.length}</span> training programs
               </p>
             </div>
           </div>
@@ -491,7 +525,7 @@ function CoursesContent() {
       </section>
 
       {/* Courses Grid */}
-      <section className="pt-8 pb-24 relative overflow-hidden">
+      <section className="pt-2 pb-24 relative overflow-hidden">
         <div className="absolute inset-0 backdrop-blur-[1px]" style={{ background: themeStyles.pageBgGradient }}></div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
           {loading ? (
@@ -506,7 +540,7 @@ function CoursesContent() {
                 } else {
                   // Light mode - amber colors only
                   spinnerBorder = 'border-amber-700'
-                  loadingTextColor = 'text-amber-900/70'
+                  loadingTextColor = 'text-gray-800/70'
                 }
                 return (
                   <>
@@ -532,9 +566,9 @@ function CoursesContent() {
                   // Light mode - amber colors only
                   emptyBg = 'rgba(255,255,255,0.7)'
                   emptyBorder = 'rgba(139,90,43,0.3)'
-                  emptyIconColor = 'text-amber-900/50'
-                  emptyTitleColor = 'text-amber-900'
-                  emptyTextColor = 'text-amber-900/70'
+                  emptyIconColor = 'text-gray-600/50'
+                  emptyTitleColor = 'text-gray-900'
+                  emptyTextColor = 'text-gray-800/70'
                 }
                 return (
                   <>
@@ -637,7 +671,7 @@ function CoursesContent() {
                       <span className="px-3 py-1 rounded-full text-xs font-medium backdrop-blur-sm border flex items-center gap-1.5" style={{ 
                         backgroundColor: isDark ? 'rgba(0,0,0,0.6)' : 'rgba(255,255,255,0.9)',
                         borderColor: isDark ? 'rgba(168,85,247,0.2)' : 'rgba(139,90,43,0.3)',
-                        color: '#fbbf24'
+                        color: isDark ? '#8b5cf6' : '#7c3aed'
                       }}>
                         <Star className="w-3 h-3 fill-current" /> {course.rating}
                       </span>
@@ -668,7 +702,7 @@ function CoursesContent() {
                     </p>
 
                     <div className="flex items-center gap-4 text-xs pt-3 border-t" suppressHydrationWarning style={{ 
-                      color: isDark ? 'rgba(255,255,255,0.4)' : 'rgba(139,90,43,0.6)',
+                      color: isDark ? 'rgba(255,255,255,0.4)' : 'rgba(26, 15, 0, 0.6)',
                       borderColor: isDark ? 'rgba(255,255,255,0.05)' : 'rgba(139,90,43,0.1)'
                     }}>
                       <div className="flex items-center gap-1.5">
@@ -728,7 +762,7 @@ export default function CoursesPage() {
       <div className="min-h-screen flex items-center justify-center" suppressHydrationWarning style={{ backgroundColor: fallbackBg }}>
         <div className="text-center">
           <div className={`animate-spin rounded-full h-12 w-12 border-b-2 mx-auto mb-4 ${isDarkFallback ? 'border-purple-500' : 'border-amber-700'}`} suppressHydrationWarning></div>
-          <p className={`font-light ${isDarkFallback ? 'text-white/50' : 'text-amber-900/70'}`} suppressHydrationWarning>Loading courses...</p>
+          <p className={`font-light ${isDarkFallback ? 'text-white/50' : 'text-gray-800/70'}`} suppressHydrationWarning>Loading courses...</p>
         </div>
       </div>
     }>
@@ -736,3 +770,4 @@ export default function CoursesPage() {
     </Suspense>
   )
 }
+

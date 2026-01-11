@@ -290,13 +290,10 @@ export default function HomePage() {
         zIndex: 50,
         border: 'none',
         borderTop: 'none',
-        marginTop: 0,
         paddingTop: 0,
         backgroundColor: 'transparent'
       }}>
-        <div className="homepage-navbar-wrapper" style={{ marginTop: 0 }}>
-          <Navbar />
-        </div>
+        <Navbar />
       </div>
       
       {/* Hero Section */}
@@ -306,34 +303,37 @@ export default function HomePage() {
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
           <div className="max-w-4xl mx-auto text-center">
             <div className="inline-flex items-center gap-2 rounded-full px-4 py-2 mb-8 backdrop-blur-sm border" style={{ 
-              backgroundColor: theme === 'dark' ? 'rgba(168,85,247,0.08)' : 'rgba(255,255,255,0.7)',
-              borderColor: theme === 'dark' ? 'rgba(168,85,247,0.2)' : 'rgba(139,90,43,0.25)'
+              backgroundColor: theme === 'dark' ? 'rgba(124,58,237,0.08)' : 'rgba(255,255,255,0.7)',
+              borderColor: theme === 'dark' ? 'rgba(124,58,237,0.2)' : 'rgba(139,90,43,0.25)'
             }}>
               <Sparkles className="w-4 h-4" style={{ color: theme === 'dark' ? '#a855f7' : '#8b6f47' }} />
-              <span className={`text-sm font-medium ${theme === 'dark' ? 'text-white/80' : 'text-amber-900/80'}`}>Leading Industry Training Platform</span>
+              <span className={`text-sm font-medium ${theme === 'dark' ? 'text-white/80' : 'text-gray-900/80'}`}>Leading Industry Training Platform</span>
               </div>
               
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-normal mb-6 sm:mb-8 leading-tight tracking-tight px-2">
               <span className={`bg-clip-text text-transparent ${
                 theme === 'dark' 
-                  ? 'bg-gradient-to-r from-purple-300 via-purple-200 to-purple-300' 
-                  : 'bg-gradient-to-r from-amber-800 via-amber-700 to-amber-800'
+                  ? 'bg-gradient-to-r from-purple-600 via-purple-500 to-purple-600' 
+                  : 'bg-gradient-to-r from-purple-700 via-purple-600 to-purple-700'
               }`} style={{ 
                 textShadow: theme === 'dark' 
-                  ? '0 0 30px rgba(196,181,253,0.5), 0 0 60px rgba(196,181,253,0.3)' 
+                  ? '0 0 30px rgba(124,58,237,0.5), 0 0 60px rgba(124,58,237,0.3)' 
                   : 'none' 
-              }}>Transform</span> <span style={{ 
+              }}>Transform</span>               <span style={{ 
                 color: themeStyles.textPrimary,
                 textShadow: theme === 'dark' ? '0 0 20px rgba(255,255,255,0.3)' : 'none'
-              }}>Your Career with</span>
+              }}>Your Career</span> <span style={{ 
+                color: themeStyles.textPrimary,
+                textShadow: theme === 'dark' ? '0 0 20px rgba(255,255,255,0.3)' : 'none'
+              }}>with</span>
                 <br />
               <span className={`bg-clip-text text-transparent ${
                 theme === 'dark' 
-                  ? 'bg-gradient-to-r from-purple-300 via-purple-200 to-purple-300' 
-                  : 'bg-gradient-to-r from-amber-800 via-amber-700 to-amber-800'
+                  ? 'bg-gradient-to-r from-purple-600 via-purple-500 to-purple-600' 
+                  : 'bg-gradient-to-r from-purple-700 via-purple-600 to-purple-700'
               }`} style={{ 
                 textShadow: theme === 'dark' 
-                  ? '0 0 30px rgba(196,181,253,0.5), 0 0 60px rgba(196,181,253,0.3)' 
+                  ? '0 0 30px rgba(124,58,237,0.5), 0 0 60px rgba(124,58,237,0.3)' 
                   : 'none' 
               }}>Industry</span> <span style={{ 
                 color: themeStyles.textPrimary,
@@ -351,7 +351,7 @@ export default function HomePage() {
               {/* Search Bar */}
             <div className="max-w-2xl mx-auto mb-6 sm:mb-8 relative px-4">
                 <form onSubmit={handleSearch} className="relative">
-                <Search className={`absolute left-3 sm:left-4 top-1/2 transform -translate-y-1/2 z-10 ${theme === 'dark' ? 'text-white/50' : 'text-amber-900/50'}`} size={20} style={{ width: '20px', height: '20px' }} />
+                <Search className={`absolute left-3 sm:left-4 top-1/2 transform -translate-y-1/2 z-10 ${theme === 'dark' ? 'text-white/50' : 'text-gray-600/50'}`} size={20} style={{ width: '20px', height: '20px' }} />
                       <input
                         ref={searchInputRef}
                         type="text"
@@ -360,11 +360,11 @@ export default function HomePage() {
                         onChange={(e) => setSearchTerm(e.target.value)}
                         onFocus={() => searchTerm.trim().length > 0 && setShowRecommendations(true)}
                   className={`w-full pl-10 sm:pl-12 pr-24 sm:pr-32 py-3 sm:py-4 md:py-5 backdrop-blur-xl rounded-xl sm:rounded-2xl transition-all duration-300 text-sm sm:text-base md:text-lg border ${
-                    theme === 'dark' ? 'placeholder-white/40' : 'placeholder-amber-900/50'
+                    theme === 'dark' ? 'placeholder-white/40' : 'placeholder-gray-600/50'
                   }`}
                   style={{ 
-                    backgroundColor: theme === 'dark' ? 'rgba(168,85,247,0.08)' : 'rgba(255,255,255,0.8)',
-                    borderColor: theme === 'dark' ? 'rgba(168,85,247,0.2)' : 'rgba(139,90,43,0.25)',
+                    backgroundColor: theme === 'dark' ? 'rgba(124,58,237,0.08)' : 'rgba(255,255,255,0.8)',
+                    borderColor: theme === 'dark' ? 'rgba(124,58,237,0.2)' : 'rgba(139,90,43,0.25)',
                     color: themeStyles.textPrimary
                   }}
                   />
@@ -374,7 +374,7 @@ export default function HomePage() {
                   style={{ 
                     background: themeStyles.buttonGradient, 
                     color: '#ffffff', 
-                    borderColor: theme === 'dark' ? 'rgba(168,85,247,0.4)' : 'rgba(139,90,43,0.4)',
+                    borderColor: theme === 'dark' ? 'rgba(124,58,237,0.4)' : 'rgba(139,90,43,0.4)',
                     boxShadow: themeStyles.buttonShadow 
                   }}
                   onMouseEnter={(e) => e.currentTarget.style.boxShadow = themeStyles.buttonShadowHover}
@@ -387,29 +387,29 @@ export default function HomePage() {
                 {/* Recommendations Dropdown */}
                 {showRecommendations && searchRecommendations.length > 0 && (
                   <div className="absolute top-full left-0 right-0 mt-2 glass-card rounded-2xl border backdrop-blur-xl z-50 max-h-80 overflow-y-auto" style={{ 
-                    backgroundColor: theme === 'dark' ? 'rgba(168,85,247,0.08)' : 'rgba(255,255,255,0.9)',
-                    borderColor: theme === 'dark' ? 'rgba(168,85,247,0.2)' : 'rgba(139,90,43,0.25)'
+                    backgroundColor: theme === 'dark' ? 'rgba(124,58,237,0.08)' : 'rgba(255,255,255,0.9)',
+                    borderColor: theme === 'dark' ? 'rgba(124,58,237,0.2)' : 'rgba(139,90,43,0.25)'
                   }}>
                     <div className="p-3">
-                      <p className={`text-xs px-2 py-1 mb-1 ${theme === 'dark' ? 'text-gray-400' : 'text-amber-900/70'}`}>Suggestions</p>
+                      <p className={`text-xs px-2 py-1 mb-1 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-700/70'}`}>Suggestions</p>
                       {searchRecommendations.map((rec, index) => (
                         <button
                           key={index}
                           type="button"
                           onClick={() => handleRecommendationClick(rec)}
                           className={`w-full text-left px-3 py-2.5 rounded-lg transition-colors group ${
-                            theme === 'dark' ? 'hover:bg-white/10' : 'hover:bg-amber-900/10'
+                            theme === 'dark' ? 'hover:bg-white/10' : 'hover:bg-white/10'
                           }`}
                         >
                           <div className="flex items-center gap-3">
                             <Search className={`w-4 h-4 transition-colors flex-shrink-0 ${
                               theme === 'dark' 
                                 ? 'text-gray-400 group-hover:text-purple-400' 
-                                : 'text-amber-900/60 group-hover:text-amber-800'
+                                : 'text-gray-600 group-hover:text-gray-800'
                             }`} />
                             <div className="flex-1 min-w-0">
-                              <p className={`text-sm truncate ${theme === 'dark' ? 'text-white' : 'text-amber-900'}`}>{rec.title}</p>
-                              <p className={`text-xs truncate ${theme === 'dark' ? 'text-gray-400' : 'text-amber-900/70'}`}>{rec.subtitle}</p>
+                              <p className={`text-sm truncate ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>{rec.title}</p>
+                              <p className={`text-xs truncate ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600/70'}`}>{rec.subtitle}</p>
                             </div>
                           </div>
                         </button>
@@ -421,7 +421,7 @@ export default function HomePage() {
 
               {/* Popular Searches */}
               <div className="mb-6 sm:mb-8 px-4">
-              <p className={`text-sm sm:text-base mb-3 sm:mb-4 ${theme === 'dark' ? 'text-white/60' : 'text-amber-900/70'}`}>Popular searches:</p>
+              <p className={`text-sm sm:text-base mb-3 sm:mb-4 ${theme === 'dark' ? 'text-white/60' : 'text-gray-700/70'}`}>Popular searches:</p>
               <div className="flex flex-wrap gap-2 justify-center">
                   {popularSearches.map((term, index) => (
                     <button
@@ -429,13 +429,13 @@ export default function HomePage() {
                       onClick={() => handleQuickSearch(term)}
                     className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm md:text-base transition-all duration-300 backdrop-blur-sm border hover:border-opacity-60`}
                     style={{ 
-                      backgroundColor: theme === 'dark' ? 'rgba(168,85,247,0.08)' : 'rgba(255,255,255,0.7)',
-                      borderColor: theme === 'dark' ? 'rgba(168,85,247,0.2)' : 'rgba(139,90,43,0.25)',
+                      backgroundColor: theme === 'dark' ? 'rgba(124,58,237,0.08)' : 'rgba(255,255,255,0.7)',
+                      borderColor: theme === 'dark' ? 'rgba(124,58,237,0.2)' : 'rgba(139,90,43,0.25)',
                       color: themeStyles.textPrimary
                     }}
                     onMouseEnter={(e) => {
                       if (theme === 'dark') {
-                        e.currentTarget.style.boxShadow = '0 0 20px rgba(196,181,253,0.5), 0 0 40px rgba(196,181,253,0.3)'
+                        e.currentTarget.style.boxShadow = '0 0 20px rgba(124,58,237,0.5), 0 0 40px rgba(124,58,237,0.3)'
                       } else {
                         e.currentTarget.style.boxShadow = '0 0 15px rgba(139,90,43,0.3), 0 0 30px rgba(139,90,43,0.2)'
                       }
@@ -453,23 +453,18 @@ export default function HomePage() {
               <Link href="/courses" className="text-sm sm:text-base md:text-lg px-6 sm:px-8 py-3 sm:py-4 rounded-xl sm:rounded-2xl flex items-center gap-2 group w-full sm:w-fit transition-all duration-300 hover:opacity-90 backdrop-blur-sm border justify-center" style={{ 
                 background: themeStyles.buttonGradient, 
                 color: '#ffffff', 
-                borderColor: theme === 'dark' ? 'rgba(168,85,247,0.4)' : 'rgba(139,90,43,0.4)',
+                borderColor: theme === 'dark' ? 'rgba(124,58,237,0.4)' : 'rgba(139,90,43,0.4)',
                 boxShadow: themeStyles.buttonShadow 
               }} onMouseEnter={(e) => e.currentTarget.style.boxShadow = themeStyles.buttonShadowHover} onMouseLeave={(e) => e.currentTarget.style.boxShadow = themeStyles.buttonShadow}>
                   Explore Courses
                   <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" />
                 </Link>
-              <Link href="/partners" className={`text-sm sm:text-base md:text-lg px-6 sm:px-8 py-3 sm:py-4 rounded-xl sm:rounded-2xl flex items-center gap-2 transition-all duration-300 w-full sm:w-fit backdrop-blur-sm border hover:border-opacity-60 justify-center`} style={{ 
-                backgroundColor: theme === 'dark' ? 'rgba(168,85,247,0.08)' : 'rgba(255,255,255,0.7)',
-                borderColor: theme === 'dark' ? 'rgba(168,85,247,0.2)' : 'rgba(139,90,43,0.25)',
-                color: themeStyles.textPrimary
-              }} onMouseEnter={(e) => {
-                if (theme === 'dark') {
-                  e.currentTarget.style.boxShadow = '0 0 20px rgba(196,181,253,0.5), 0 0 40px rgba(196,181,253,0.3)'
-                } else {
-                  e.currentTarget.style.boxShadow = '0 0 15px rgba(139,90,43,0.3), 0 0 30px rgba(139,90,43,0.2)'
-                }
-              }} onMouseLeave={(e) => e.currentTarget.style.boxShadow = 'none'}>
+              <Link href="/partners" className="text-sm sm:text-base md:text-lg px-6 sm:px-8 py-3 sm:py-4 rounded-xl sm:rounded-2xl flex items-center gap-2 group w-full sm:w-fit transition-all duration-300 hover:opacity-90 backdrop-blur-sm border justify-center" style={{ 
+                background: themeStyles.buttonGradient, 
+                color: '#ffffff', 
+                borderColor: theme === 'dark' ? 'rgba(124,58,237,0.4)' : 'rgba(124,58,237,0.4)',
+                boxShadow: themeStyles.buttonShadow 
+              }} onMouseEnter={(e) => e.currentTarget.style.boxShadow = themeStyles.buttonShadowHover} onMouseLeave={(e) => e.currentTarget.style.boxShadow = themeStyles.buttonShadow}>
                   Watch Demo
                 </Link>
             </div>
@@ -477,59 +472,98 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Statistics Section */}
-      <section className="slide-up py-12 sm:py-16 md:py-20 relative overflow-hidden" style={{ backgroundColor: themeStyles.pageBg }}>
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
-            {[
-              { icon: Users, value: industryStats.totalStudents.toLocaleString('en-US'), label: "Students Trained" },
-              { icon: TrendingUp, value: industryStats.totalCourses, label: "Training Programs" },
-              { icon: Award, value: industryStats.totalPartners, label: "Partner Companies" },
-              { icon: Star, value: industryStats.averageRating, label: "Average Rating" },
-            ].map((stat, index) => {
-              // Theme-aware colors - same for all boxes
-              const boxBg = theme === 'dark' ? 'rgba(168,85,247,0.12)' : 'rgba(255,255,255,0.7)'
-              const boxBorder = theme === 'dark' ? 'rgba(168,85,247,0.25)' : 'rgba(139,90,43,0.3)'
-              const iconBg = theme === 'dark' ? 'rgba(168,85,247,0.22)' : 'rgba(255,255,255,0.9)'
-              const iconColor = theme === 'dark' ? '#c084fc' : '#8b6f47'
-              const hoverShadow = theme === 'dark' 
-                ? '0 0 20px rgba(196,181,253,0.5), 0 0 40px rgba(196,181,253,0.3)'
-                : '0 0 15px rgba(139,90,43,0.3), 0 0 30px rgba(139,90,43,0.2)'
-              
-              return (
-                <div 
-                  key={index} 
-                  className="text-center hover-lift p-4 sm:p-6 rounded-xl sm:rounded-2xl transition-all duration-300" 
-                  style={{ 
-                    backgroundColor: boxBg, 
-                    borderColor: boxBorder, 
-                    borderWidth: '1px' 
-                  }} 
-                  onMouseEnter={(e) => e.currentTarget.style.boxShadow = hoverShadow} 
-                  onMouseLeave={(e) => e.currentTarget.style.boxShadow = 'none'}
+   {/* Statistics Section – Flash Card Style */}
+<section className="slide-up py-16 sm:py-20 relative" style={{ backgroundColor: themeStyles.pageBg }}>
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      {[
+        { icon: Users, value: industryStats.totalStudents.toLocaleString('en-US'), label: "Students Trained" },
+        { icon: TrendingUp, value: industryStats.totalCourses, label: "Training Programs" },
+        { icon: Award, value: industryStats.totalPartners, label: "Partner Companies" },
+        { icon: Star, value: industryStats.averageRating, label: "Average Rating" },
+      ].map((stat, index) => {
+        const bg = theme === 'dark'
+          ? 'rgba(124,58,237,0.10)'
+          : 'transparent'
+
+        const border = theme === 'dark'
+          ? 'rgba(124,58,237,0.25)'
+          : 'rgba(124,58,237,0.25)'
+
+        const iconColor = theme === 'dark' ? '#8b5cf6' : '#7c3aed'
+        const textColor = theme === 'dark' ? 'text-white/70' : 'text-black'
+        const valueGradient = theme === 'dark'
+          ? 'bg-gradient-to-r from-purple-600 to-purple-500'
+          : 'bg-gradient-to-r from-purple-700 to-purple-600'
+
+        return (
+          <div
+            key={index}
+            className="flash-card-container"
+          >
+            <div
+              className="flash-card-inner"
+            >
+              {/* Front of card - Icon only */}
+              <div
+                className="flash-card-face flash-card-front rounded-2xl"
+                style={{
+                  padding: '2rem',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  backgroundColor: bg,
+                  border: `1px solid ${border}`,
+                  boxShadow: theme === 'dark'
+                    ? '0 8px 24px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.05)'
+                    : '0 8px 24px rgba(30,41,59,0.15), inset 0 1px 0 rgba(255,255,255,0.1)',
+                }}
+              >
+                <stat.icon
+                  className="w-24 h-24 transition-transform duration-300"
+                  style={{ color: iconColor }}
+                />
+              </div>
+
+              {/* Back of card - Stats */}
+              <div
+                className="flash-card-face flash-card-back rounded-2xl"
+                style={{
+                  padding: '2rem',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  backgroundColor: theme === 'dark' ? 'rgba(124,58,237,0.10)' : 'transparent',
+                  border: `1px solid ${border}`,
+                  boxShadow: theme === 'dark'
+                    ? '0 16px 40px rgba(0,0,0,0.35), 0 0 30px rgba(124,58,237,0.35)'
+                    : '0 16px 40px rgba(30,41,59,0.25), 0 0 30px rgba(124,58,237,0.25)',
+                }}
+              >
+                {/* Value */}
+                <div
+                  className={`text-3xl sm:text-4xl font-semibold text-center mb-3 bg-clip-text text-transparent ${valueGradient}`}
                 >
-                  <div 
-                    className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-lg sm:rounded-xl flex items-center justify-center mx-auto mb-3 sm:mb-4" 
-                    style={{ 
-                      backgroundColor: iconBg, 
-                      borderColor: boxBorder, 
-                      borderWidth: '1px' 
-                    }}
-                  >
-                    <stat.icon className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7" style={{ color: iconColor }} />
-                  </div>
-                  <h3 className={`text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold mb-2 sm:mb-3 break-words bg-clip-text text-transparent ${
-                    theme === 'dark' 
-                      ? 'bg-gradient-to-r from-purple-300 to-purple-400' 
-                      : 'bg-gradient-to-r from-amber-950 to-amber-900'
-                  }`}>{stat.value}</h3>
-                  <p className={`text-xs sm:text-sm md:text-base break-words ${theme === 'dark' ? 'text-white/70' : 'text-amber-950/90'}`} style={{ lineHeight: '1.6' }}>{stat.label}</p>
+                  {stat.value}
                 </div>
-              )
-            })}
+
+                {/* Label */}
+                <p
+                  className={`text-sm sm:text-base text-center font-light ${textColor}`}
+                  style={{ lineHeight: '1.6' }}
+                >
+                  {stat.label}
+                </p>
+              </div>
+            </div>
           </div>
-        </div>
-      </section>
+        )
+      })}
+    </div>
+  </div>
+</section>
+
 
       {/* Featured Companies Section */}
       <section className="slide-right py-12 sm:py-16 relative overflow-hidden">
@@ -543,11 +577,11 @@ export default function HomePage() {
                   textShadow: theme === 'dark' ? '0 0 20px rgba(255,255,255,0.3)' : 'none'
                 }}>Trusted by</span> <span className={`bg-clip-text text-transparent ${
                   theme === 'dark' 
-                    ? 'bg-gradient-to-r from-purple-300 to-purple-400' 
-                    : 'bg-gradient-to-r from-amber-800 to-amber-700'
+                    ? 'bg-gradient-to-r from-purple-600 to-purple-500' 
+                    : 'bg-gradient-to-r from-purple-700 to-purple-600'
                 }`} style={{ 
                   textShadow: theme === 'dark' 
-                    ? '0 0 30px rgba(196,181,253,0.5), 0 0 60px rgba(196,181,253,0.3)' 
+                    ? '0 0 30px rgba(124,58,237,0.5), 0 0 60px rgba(124,58,237,0.3)' 
                     : 'none' 
                 }}>Leading Companies</span>
             </h2>
@@ -567,24 +601,24 @@ export default function HomePage() {
                 <div key={rowIndex} className="flex gap-2 sm:gap-3 md:gap-4 justify-center md:justify-end">
                   {row.map((company) => {
                     const colors = theme === 'dark' ? [
-                      { bg: 'rgba(168,85,247,0.12)', border: 'rgba(168,85,247,0.25)', inner: 'rgba(168,85,247,0.22)' },
+                      { bg: 'rgba(124,58,237,0.12)', border: 'rgba(124,58,237,0.25)', inner: 'rgba(124,58,237,0.22)' },
                       { bg: 'rgba(99,102,241,0.12)', border: 'rgba(99,102,241,0.25)', inner: 'rgba(99,102,241,0.22)' },
                       { bg: 'rgba(236,72,153,0.12)', border: 'rgba(236,72,153,0.25)', inner: 'rgba(236,72,153,0.22)' },
                       { bg: 'rgba(139,92,246,0.12)', border: 'rgba(139,92,246,0.25)', inner: 'rgba(139,92,246,0.22)' },
                       { bg: 'rgba(79,70,229,0.12)', border: 'rgba(79,70,229,0.25)', inner: 'rgba(79,70,229,0.22)' },
                       { bg: 'rgba(192,132,252,0.12)', border: 'rgba(192,132,252,0.25)', inner: 'rgba(192,132,252,0.22)' },
                     ] : [
-                      { bg: 'rgba(217,119,6,0.15)', border: 'rgba(217,119,6,0.35)', inner: 'rgba(217,119,6,0.25)' },
-                      { bg: 'rgba(217,119,6,0.15)', border: 'rgba(217,119,6,0.35)', inner: 'rgba(217,119,6,0.25)' },
-                      { bg: 'rgba(217,119,6,0.15)', border: 'rgba(217,119,6,0.35)', inner: 'rgba(217,119,6,0.25)' },
-                      { bg: 'rgba(217,119,6,0.15)', border: 'rgba(217,119,6,0.35)', inner: 'rgba(217,119,6,0.25)' },
-                      { bg: 'rgba(217,119,6,0.15)', border: 'rgba(217,119,6,0.35)', inner: 'rgba(217,119,6,0.25)' },
-                      { bg: 'rgba(217,119,6,0.15)', border: 'rgba(217,119,6,0.35)', inner: 'rgba(217,119,6,0.25)' },
+                      { bg: 'rgba(124,58,237,0.15)', border: 'rgba(124,58,237,0.35)', inner: 'rgba(124,58,237,0.25)' },
+                      { bg: 'rgba(124,58,237,0.15)', border: 'rgba(124,58,237,0.35)', inner: 'rgba(124,58,237,0.25)' },
+                      { bg: 'rgba(124,58,237,0.15)', border: 'rgba(124,58,237,0.35)', inner: 'rgba(124,58,237,0.25)' },
+                      { bg: 'rgba(124,58,237,0.15)', border: 'rgba(124,58,237,0.35)', inner: 'rgba(124,58,237,0.25)' },
+                      { bg: 'rgba(124,58,237,0.15)', border: 'rgba(124,58,237,0.35)', inner: 'rgba(124,58,237,0.25)' },
+                      { bg: 'rgba(124,58,237,0.15)', border: 'rgba(124,58,237,0.35)', inner: 'rgba(124,58,237,0.25)' },
                     ]
                     const color = colors[company.index % 6]
                     const hoverShadow = theme === 'dark'
-                      ? '0 0 25px rgba(196,181,253,0.6), 0 0 50px rgba(196,181,253,0.4), inset 0 0 25px rgba(196,181,253,0.2)'
-                      : '0 0 25px rgba(217,119,6,0.4), 0 0 50px rgba(217,119,6,0.3), inset 0 0 25px rgba(217,119,6,0.2)'
+                      ? '0 0 25px rgba(124,58,237,0.6), 0 0 50px rgba(124,58,237,0.4), inset 0 0 25px rgba(124,58,237,0.2)'
+                      : '0 0 25px rgba(124,58,237,0.4), 0 0 50px rgba(124,58,237,0.3), inset 0 0 25px rgba(124,58,237,0.2)'
                     return (
                       <div key={company.index} className="hover-lift p-1.5 sm:p-2 flex items-center justify-center w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 lg:w-32 lg:h-32 rounded-xl sm:rounded-2xl transition-all duration-300 relative" style={{ backgroundColor: color.bg, borderColor: color.border, borderWidth: '1px' }} onMouseEnter={(e) => e.currentTarget.style.boxShadow = hoverShadow} onMouseLeave={(e) => e.currentTarget.style.boxShadow = 'none'}>
                         <div className="w-full h-full rounded-lg sm:rounded-xl flex items-center justify-center relative z-10 overflow-hidden" style={{ borderColor: color.border, borderWidth: '1px' }}>
@@ -613,11 +647,11 @@ export default function HomePage() {
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <div className="inline-flex items-center gap-2 rounded-full px-4 py-2 mb-6 backdrop-blur-sm border" style={{ 
-              backgroundColor: theme === 'dark' ? 'rgba(168,85,247,0.08)' : 'rgba(255,255,255,0.7)',
-              borderColor: theme === 'dark' ? 'rgba(168,85,247,0.2)' : 'rgba(139,90,43,0.25)'
+              backgroundColor: theme === 'dark' ? 'rgba(124,58,237,0.08)' : 'rgba(255,255,255,0.7)',
+              borderColor: theme === 'dark' ? 'rgba(124,58,237,0.2)' : 'rgba(139,90,43,0.25)'
             }}>
               <Star className="w-4 h-4" style={{ color: theme === 'dark' ? '#a855f7' : '#8b6f47' }} />
-              <span className={`text-base font-medium ${theme === 'dark' ? 'text-white/80' : 'text-amber-900/90'}`}>Handpicked Programs</span>
+              <span className={`text-base font-medium ${theme === 'dark' ? 'text-white/80' : 'text-gray-900/90'}`}>Handpicked Programs</span>
                     </div>
             <h2 className="text-4xl lg:text-5xl font-normal mb-6">
               <span style={{ 
@@ -625,11 +659,11 @@ export default function HomePage() {
                 textShadow: theme === 'dark' ? '0 0 20px rgba(255,255,255,0.3)' : 'none'
               }}>Featured</span> <span className={`bg-clip-text text-transparent ${
                 theme === 'dark' 
-                  ? 'bg-gradient-to-r from-purple-300 to-purple-400' 
-                  : 'bg-gradient-to-r from-amber-800 to-amber-700'
+                  ? 'bg-gradient-to-r from-purple-600 to-purple-500' 
+                  : 'bg-gradient-to-r from-purple-700 to-purple-600'
               }`} style={{ 
                 textShadow: theme === 'dark' 
-                  ? '0 0 30px rgba(196,181,253,0.5), 0 0 60px rgba(196,181,253,0.3)' 
+                  ? '0 0 30px rgba(124,58,237,0.5), 0 0 60px rgba(124,58,237,0.3)' 
                   : 'none' 
               }}>Training Programs</span>
             </h2>
@@ -647,20 +681,20 @@ export default function HomePage() {
               // Loading skeleton
               Array.from({ length: 6 }).map((_, index) => (
                 <div key={index} className="border rounded-2xl p-6 animate-pulse" style={{ 
-                  borderColor: theme === 'dark' ? 'rgba(168,85,247,0.2)' : 'rgba(139,90,43,0.3)',
+                  borderColor: theme === 'dark' ? 'rgba(124,58,237,0.2)' : 'rgba(139,90,43,0.3)',
                   backgroundColor: theme === 'dark' ? 'rgba(17,24,39,0.5)' : 'rgba(255,255,255,0.5)'
                 }}>
                   <div className="aspect-video rounded-xl mb-6" style={{ backgroundColor: theme === 'dark' ? 'rgba(55,65,81,1)' : 'rgba(139,90,43,0.2)' }}></div>
-                  <div className={`h-4 rounded mb-4 ${theme === 'dark' ? 'bg-gray-700' : 'bg-amber-900/20'}`}></div>
-                  <div className={`h-4 rounded w-3/4 ${theme === 'dark' ? 'bg-gray-700' : 'bg-amber-900/20'}`}></div>
+                  <div className={`h-4 rounded mb-4 ${theme === 'dark' ? 'bg-gray-700' : 'bg-gray-200'}`}></div>
+                  <div className={`h-4 rounded w-3/4 ${theme === 'dark' ? 'bg-gray-700' : 'bg-gray-200'}`}></div>
                 </div>
               ))
             ) : featuredCourses.length > 0 ? (
               featuredCourses.map((course, index) => {
-                const cardBg = theme === 'dark' ? 'rgba(168,85,247,0.05)' : 'rgba(255,255,255,0.8)'
-                const cardBorder = theme === 'dark' ? 'rgba(168,85,247,0.2)' : 'rgba(139,90,43,0.3)'
+                const cardBg = theme === 'dark' ? 'rgba(124,58,237,0.05)' : 'rgba(255,255,255,0.8)'
+                const cardBorder = theme === 'dark' ? 'rgba(124,58,237,0.2)' : 'rgba(139,90,43,0.3)'
                 const hoverShadow = theme === 'dark'
-                  ? '0 0 20px rgba(196,181,253,0.5), 0 0 40px rgba(196,181,253,0.3)'
+                  ? '0 0 20px rgba(124,58,237,0.5), 0 0 40px rgba(124,58,237,0.3)'
                   : '0 0 20px rgba(139,90,43,0.3), 0 0 40px rgba(139,90,43,0.2)'
                 
                 return (
@@ -683,8 +717,8 @@ export default function HomePage() {
                     <div className="absolute top-3 right-3">
                       <span className="px-3 py-1 rounded-full text-xs font-medium backdrop-blur-sm border" style={{ 
                         backgroundColor: theme === 'dark' ? 'rgba(0,0,0,0.5)' : 'rgba(255,255,255,0.9)',
-                        borderColor: theme === 'dark' ? 'rgba(168,85,247,0.2)' : 'rgba(139,90,43,0.3)',
-                        color: '#fbbf24'
+                        borderColor: theme === 'dark' ? 'rgba(124,58,237,0.2)' : 'rgba(139,90,43,0.3)',
+                        color: theme === 'dark' ? '#8b5cf6' : '#7c3aed'
                       }}>
                         ⭐ {course.rating || 0}
                       </span>
@@ -693,7 +727,7 @@ export default function HomePage() {
                       <span className="px-3 py-1 rounded-full text-xs font-medium backdrop-blur-sm border" style={{ 
                         background: themeStyles.buttonGradient, 
                         color: '#ffffff', 
-                        borderColor: theme === 'dark' ? 'rgba(168,85,247,0.4)' : 'rgba(139,90,43,0.4)',
+                        borderColor: theme === 'dark' ? 'rgba(124,58,237,0.4)' : 'rgba(139,90,43,0.4)',
                         boxShadow: themeStyles.buttonShadow 
                       }}>
                         {course.type}
@@ -704,8 +738,8 @@ export default function HomePage() {
                   <div className="space-y-4">
                     <div className="mb-3">
                       <span className="px-3 py-1 rounded-full text-base font-medium border" style={{ 
-                        backgroundColor: theme === 'dark' ? 'rgba(168,85,247,0.1)' : 'rgba(255,255,255,0.9)',
-                        borderColor: theme === 'dark' ? 'rgba(168,85,247,0.2)' : 'rgba(139,90,43,0.3)',
+                        backgroundColor: theme === 'dark' ? 'rgba(124,58,237,0.1)' : 'rgba(255,255,255,0.9)',
+                        borderColor: theme === 'dark' ? 'rgba(124,58,237,0.2)' : 'rgba(139,90,43,0.3)',
                         color: themeStyles.textPrimary
                       }}>
                         {course.type}
@@ -723,7 +757,7 @@ export default function HomePage() {
                       {course.description}
                     </p>
 
-                    <div className={`flex items-center justify-between text-base mb-4 ${theme === 'dark' ? 'text-white/70' : 'text-amber-900/80'}`}>
+                    <div className={`flex items-center justify-between text-base mb-4 ${theme === 'dark' ? 'text-white/70' : 'text-gray-800/80'}`}>
                       <div className="flex items-center gap-1">
                         <Clock className="w-4 h-4" />
                         <span>{course.duration}</span>
@@ -742,7 +776,7 @@ export default function HomePage() {
                       <Link href={`/courses/${course.id}`} className="text-base px-5 py-2.5 rounded-xl hover:opacity-90 backdrop-blur-sm border transition-all duration-300" style={{ 
                         background: themeStyles.buttonGradient, 
                         color: '#ffffff', 
-                        borderColor: theme === 'dark' ? 'rgba(168,85,247,0.4)' : 'rgba(139,90,43,0.4)',
+                        borderColor: theme === 'dark' ? 'rgba(124,58,237,0.4)' : 'rgba(139,90,43,0.4)',
                         boxShadow: themeStyles.buttonShadow 
                       }} onMouseEnter={(e) => e.currentTarget.style.boxShadow = themeStyles.buttonShadowHover} onMouseLeave={(e) => e.currentTarget.style.boxShadow = themeStyles.buttonShadow}>
                         Learn More
@@ -753,7 +787,7 @@ export default function HomePage() {
                 )
               })
             ) : (
-              <div className={`col-span-3 text-center py-12 ${theme === 'dark' ? 'text-white/70' : 'text-amber-900/80'}`}>
+              <div className={`col-span-3 text-center py-12 ${theme === 'dark' ? 'text-white/70' : 'text-gray-800/80'}`}>
                 No courses available at the moment.
               </div>
             )}
@@ -763,7 +797,7 @@ export default function HomePage() {
             <Link href="/courses" className="text-lg px-8 py-4 rounded-2xl inline-flex items-center gap-2 hover:opacity-90 backdrop-blur-sm border transition-all duration-300" style={{ 
               background: themeStyles.buttonGradient, 
               color: '#ffffff', 
-              borderColor: theme === 'dark' ? 'rgba(168,85,247,0.4)' : 'rgba(139,90,43,0.4)',
+              borderColor: theme === 'dark' ? 'rgba(124,58,237,0.4)' : 'rgba(139,90,43,0.4)',
               boxShadow: themeStyles.buttonShadow 
             }} onMouseEnter={(e) => e.currentTarget.style.boxShadow = themeStyles.buttonShadowHover} onMouseLeave={(e) => e.currentTarget.style.boxShadow = themeStyles.buttonShadow}>
               View All Courses
@@ -781,19 +815,19 @@ export default function HomePage() {
             <h2 className="text-2xl sm:text-3xl font-normal mb-3 sm:mb-4" suppressHydrationWarning>
               <span className={`bg-clip-text text-transparent ${
                 theme === 'dark' 
-                  ? 'bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-400' 
-                  : 'bg-gradient-to-r from-amber-800 via-amber-700 to-amber-800'
+                  ? 'bg-gradient-to-r from-purple-600 via-purple-500 to-purple-600' 
+                  : 'bg-gradient-to-r from-purple-700 via-purple-600 to-purple-700'
               }`} suppressHydrationWarning style={{ 
                 textShadow: theme === 'dark' 
-                  ? '0 0 30px rgba(250,204,21,0.6), 0 0 60px rgba(250,204,21,0.4)' 
+                  ? '0 0 30px rgba(124,58,237,0.5), 0 0 60px rgba(124,58,237,0.3)' 
                   : 'none' 
               }}>Industry</span> <span className={`bg-clip-text text-transparent ${
                 theme === 'dark' 
-                  ? 'bg-gradient-to-r from-purple-300 to-purple-400' 
-                  : 'bg-gradient-to-r from-amber-700 to-amber-600'
+                  ? 'bg-gradient-to-r from-purple-600 to-purple-500' 
+                  : 'bg-gradient-to-r from-purple-700 to-purple-600'
               }`} suppressHydrationWarning style={{ 
                 textShadow: theme === 'dark' 
-                  ? '0 0 30px rgba(196,181,253,0.5), 0 0 60px rgba(196,181,253,0.3)' 
+                  ? '0 0 30px rgba(124,58,237,0.5), 0 0 60px rgba(124,58,237,0.3)' 
                   : 'none' 
               }}>Insights</span>
             </h2>
@@ -814,13 +848,13 @@ export default function HomePage() {
                 { value: industryInsights.averageCoursePrice, label: "Average Price", desc: "Course pricing", isTall: false },
               ].map((insight, index) => {
                 // Theme-aware colors - same for all boxes
-                const boxBg = isDark ? 'rgba(168,85,247,0.12)' : 'rgba(255,255,255,0.7)'
-                const boxBorder = isDark ? 'rgba(168,85,247,0.25)' : 'rgba(139,90,43,0.3)'
+                const boxBg = isDark ? 'rgba(124,58,237,0.12)' : 'rgba(255,255,255,0.7)'
+                const boxBorder = isDark ? 'rgba(124,58,237,0.25)' : 'rgba(139,90,43,0.3)'
                 const hoverShadow = isDark 
-                  ? '0 12px 32px rgba(0,0,0,0.3), 0 0 25px rgba(196,181,253,0.3), inset 0 1px 0 rgba(255,255,255,0.08)'
+                  ? '0 12px 32px rgba(0,0,0,0.3), 0 0 25px rgba(124,58,237,0.3), inset 0 1px 0 rgba(255,255,255,0.08)'
                   : '0 12px 32px rgba(58,46,31,0.2), 0 0 25px rgba(139,90,43,0.25), inset 0 1px 0 rgba(255,255,255,0.1)'
                 const defaultShadow = isDark
-                  ? '0 8px 24px rgba(0,0,0,0.2), 0 0 15px rgba(196,181,253,0.15), inset 0 1px 0 rgba(255,255,255,0.05)'
+                  ? '0 8px 24px rgba(0,0,0,0.2), 0 0 15px rgba(124,58,237,0.15), inset 0 1px 0 rgba(255,255,255,0.05)'
                   : '0 8px 24px rgba(58,46,31,0.15), 0 0 15px rgba(139,90,43,0.2), inset 0 1px 0 rgba(255,255,255,0.1)'
                 // First box (tall) and last box (tall) have same height, 2nd and 3rd (short) have same height
                 const heightClass = insight.isTall 
@@ -870,19 +904,19 @@ export default function HomePage() {
               <h2 className="text-2xl sm:text-3xl md:text-3xl lg:text-4xl font-normal mb-3 sm:mb-4" suppressHydrationWarning>
                 <span className={`bg-clip-text text-transparent ${
                   theme === 'dark' 
-                    ? 'bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-400' 
-                    : 'bg-gradient-to-r from-amber-800 via-amber-700 to-amber-800'
+                    ? 'bg-gradient-to-r from-purple-600 via-purple-500 to-purple-600' 
+                    : 'bg-gradient-to-r from-purple-700 via-purple-600 to-purple-700'
                 }`} suppressHydrationWarning style={{ 
                   textShadow: theme === 'dark' 
-                    ? '0 0 30px rgba(250,204,21,0.6), 0 0 60px rgba(250,204,21,0.4)' 
+                    ? '0 0 30px rgba(124,58,237,0.5), 0 0 60px rgba(124,58,237,0.3)' 
                     : 'none' 
                 }}>Industry</span> <span className={`bg-clip-text text-transparent ${
                   theme === 'dark' 
-                    ? 'bg-gradient-to-r from-purple-300 to-purple-400' 
-                    : 'bg-gradient-to-r from-amber-700 to-amber-600'
+                    ? 'bg-gradient-to-r from-purple-600 to-purple-500' 
+                    : 'bg-gradient-to-r from-purple-700 to-purple-600'
                 }`} suppressHydrationWarning style={{ 
                   textShadow: theme === 'dark' 
-                    ? '0 0 30px rgba(196,181,253,0.5), 0 0 60px rgba(196,181,253,0.3)' 
+                    ? '0 0 30px rgba(124,58,237,0.5), 0 0 60px rgba(124,58,237,0.3)' 
                     : 'none' 
                 }}>Insights</span>
               </h2>
@@ -902,13 +936,13 @@ export default function HomePage() {
                 { value: industryInsights.marketGrowth, label: "Market Growth", desc: "Year over year", isTall: true },
               ].map((insight, index) => {
                 // Theme-aware colors - same for all boxes
-                const boxBg = isDark ? 'rgba(168,85,247,0.12)' : 'rgba(255,255,255,0.7)'
-                const boxBorder = isDark ? 'rgba(168,85,247,0.25)' : 'rgba(139,90,43,0.3)'
+                const boxBg = isDark ? 'rgba(124,58,237,0.12)' : 'rgba(255,255,255,0.7)'
+                const boxBorder = isDark ? 'rgba(124,58,237,0.25)' : 'rgba(139,90,43,0.3)'
                 const hoverShadow = isDark 
-                  ? '0 12px 32px rgba(0,0,0,0.3), 0 0 25px rgba(196,181,253,0.3), inset 0 1px 0 rgba(255,255,255,0.08)'
+                  ? '0 12px 32px rgba(0,0,0,0.3), 0 0 25px rgba(124,58,237,0.3), inset 0 1px 0 rgba(255,255,255,0.08)'
                   : '0 12px 32px rgba(58,46,31,0.2), 0 0 25px rgba(139,90,43,0.25), inset 0 1px 0 rgba(255,255,255,0.1)'
                 const defaultShadow = isDark
-                  ? '0 8px 24px rgba(0,0,0,0.2), 0 0 15px rgba(196,181,253,0.15), inset 0 1px 0 rgba(255,255,255,0.05)'
+                  ? '0 8px 24px rgba(0,0,0,0.2), 0 0 15px rgba(124,58,237,0.15), inset 0 1px 0 rgba(255,255,255,0.05)'
                   : '0 8px 24px rgba(58,46,31,0.15), 0 0 15px rgba(139,90,43,0.2), inset 0 1px 0 rgba(255,255,255,0.1)'
                 // First box (tall) and last box (tall) have same height, 2nd and 3rd (short) have same height
                 const heightClass = insight.isTall 
@@ -964,7 +998,15 @@ export default function HomePage() {
           <div className="grid md:grid-cols-2 gap-6 sm:gap-8 items-center">
             <div className="text-center md:text-left">
               <h2 className="text-2xl sm:text-3xl md:text-3xl lg:text-4xl font-normal mb-3 sm:mb-4">
-                <span style={{ color: themeStyles.textPrimary, textShadow: theme === 'dark' ? '0 0 20px rgba(255,255,255,0.3)' : 'none' }}>Ready to</span> <span className="bg-gradient-to-r from-gray-700 via-gray-600 to-gray-700 bg-clip-text text-transparent" style={{ textShadow: 'none' }}>Transform</span> <span style={{ color: themeStyles.textPrimary, textShadow: theme === 'dark' ? '0 0 20px rgba(255,255,255,0.3)' : 'none' }}>Your Career?</span>
+                <span style={{ color: themeStyles.textPrimary, textShadow: theme === 'dark' ? '0 0 20px rgba(255,255,255,0.3)' : 'none' }}>Ready to</span> <span className={`bg-clip-text text-transparent ${
+                  theme === 'dark' 
+                    ? 'bg-gradient-to-r from-purple-600 via-purple-500 to-purple-600' 
+                    : 'bg-gradient-to-r from-gray-700 via-gray-600 to-gray-700'
+                }`} style={{ 
+                  textShadow: theme === 'dark' 
+                    ? '0 0 30px rgba(124,58,237,0.5), 0 0 60px rgba(124,58,237,0.3)' 
+                    : 'none' 
+                }}>Transform</span> <span style={{ color: themeStyles.textPrimary, textShadow: theme === 'dark' ? '0 0 20px rgba(255,255,255,0.3)' : 'none' }}>Your Career?</span>
             </h2>
               <p className="text-base sm:text-lg max-w-xl mx-auto md:mx-0" style={{ lineHeight: '1.8', color: themeStyles.textSecondary }}>
               Join thousands of professionals who have accelerated their careers with our industry-leading training programs.
@@ -975,43 +1017,34 @@ export default function HomePage() {
                 href="/courses" 
                 className="text-base px-7 py-3 rounded-2xl hover:opacity-90 transition-all duration-300 backdrop-blur-sm border" 
                 style={{ 
-                  background: theme === 'dark'
-                    ? 'linear-gradient(to right, #a78bfa, #c084fc, #a78bfa)' 
-                    : 'linear-gradient(to right, #92400e, #78350f, #92400e)', 
+                  background: themeStyles.buttonGradient, 
                   color: '#ffffff', 
-                  borderColor: theme === 'dark' ? 'rgba(168,85,247,0.4)' : 'rgba(146,64,14,0.35)',
-                  boxShadow: theme === 'dark' 
-                    ? '0 0 20px rgba(196,181,253,0.4), 0 0 40px rgba(196,181,253,0.2)' 
-                    : '0 0 20px rgba(146,64,14,0.15), 0 0 40px rgba(146,64,14,0.1)'
+                  borderColor: theme === 'dark' ? 'rgba(124,58,237,0.4)' : 'rgba(124,58,237,0.4)',
+                  boxShadow: themeStyles.buttonShadow 
                 }} 
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.boxShadow = theme === 'dark'
-                    ? '0 0 25px rgba(196,181,253,0.6), 0 0 50px rgba(196,181,253,0.4)'
-                    : '0 0 25px rgba(146,64,14,0.25), 0 0 50px rgba(146,64,14,0.15)'
+                  e.currentTarget.style.boxShadow = themeStyles.buttonShadowHover
                 }} 
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.boxShadow = theme === 'dark'
-                    ? '0 0 20px rgba(196,181,253,0.4), 0 0 40px rgba(196,181,253,0.2)'
-                    : '0 0 20px rgba(146,64,14,0.15), 0 0 40px rgba(146,64,14,0.1)'
+                  e.currentTarget.style.boxShadow = themeStyles.buttonShadow
                 }}
               >
                 Get Started Today
               </Link>
               <Link 
                 href="/partners" 
-                className="text-base px-7 py-3 rounded-2xl transition-all duration-300 backdrop-blur-sm border" 
+                className="text-base px-7 py-3 rounded-2xl hover:opacity-90 transition-all duration-300 backdrop-blur-sm border" 
                 style={{ 
-                  backgroundColor: theme === 'dark' ? 'rgba(168,85,247,0.15)' : 'rgba(255,255,255,0.9)', 
-                  color: theme === 'dark' ? '#c084fc' : '#8b6f47',
-                  borderColor: theme === 'dark' ? 'rgba(168,85,247,0.3)' : 'rgba(139,90,43,0.3)'
+                  background: themeStyles.buttonGradient, 
+                  color: '#ffffff', 
+                  borderColor: theme === 'dark' ? 'rgba(124,58,237,0.4)' : 'rgba(124,58,237,0.4)',
+                  boxShadow: themeStyles.buttonShadow 
                 }} 
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.opacity = '0.9'
-                  e.currentTarget.style.borderColor = theme === 'dark' ? 'rgba(168,85,247,0.5)' : 'rgba(139,90,43,0.5)'
+                  e.currentTarget.style.boxShadow = themeStyles.buttonShadowHover
                 }} 
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.opacity = '1'
-                  e.currentTarget.style.borderColor = theme === 'dark' ? 'rgba(168,85,247,0.3)' : 'rgba(139,90,43,0.3)'
+                  e.currentTarget.style.boxShadow = themeStyles.buttonShadow
                 }}
               >
                 Explore Partners
