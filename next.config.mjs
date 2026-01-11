@@ -6,6 +6,10 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
+  // Exclude src directory from page discovery
+  pageExtensions: ['tsx', 'ts', 'jsx', 'js'],
+  // Exclude react-router-dom from server components
+  serverExternalPackages: ['react-router-dom'],
   images: {
     unoptimized: false, // Enable image optimization for better performance
     formats: ['image/avif', 'image/webp'],
@@ -35,13 +39,26 @@ const nextConfig = {
         fs: false,
       }
     }
-    // Ignore src/pages and src/App.jsx which use react-router-dom
+    // Ignore src/pages directory and old React Router files
     config.module.rules.push({
-      test: /src\/(pages|App\.jsx|main\.jsx)/,
+      test: /\.(js|jsx|ts|tsx)$/,
+      include: [
+        /src\/pages\//,
+        /src\/App\.jsx$/,
+        /src\/main\.jsx$/,
+        /src\/components\/Sidebar\.jsx$/
+      ],
       use: {
         loader: 'ignore-loader'
       }
     })
+    // Exclude src/pages from being resolved
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      'src/pages': false,
+      'src/App': false,
+      'src/main': false,
+    }
     return config
   },
   // Enable compression
