@@ -473,8 +473,8 @@ export default function LoginPage() {
                   elements: {
                     rootBox: "mx-auto w-full flex flex-col items-center",
                     card: "bg-transparent shadow-none border-none p-0 w-full",
-                    headerTitle: `text-2xl lg:text-3xl font-light mb-2 tracking-tight text-center ${isDark ? 'text-white' : 'text-purple-900'}`,
-                    headerSubtitle: `font-light mb-8 text-center ${isDark ? 'text-white/50' : 'text-purple-900/70'}`,
+                    headerTitle: "hidden",
+                    headerSubtitle: "hidden",
                     socialButtonsBlockButton: "rounded-xl border-2 transition-all duration-300 font-light w-full py-3 px-4 backdrop-blur-sm",
                     formButtonPrimary: `rounded-xl transition-all duration-300 hover:opacity-90 backdrop-blur-sm border ${isDark ? 'border-purple-400/40' : 'border-purple-400/50'} font-medium w-full`,
                     footerActionLink: "transition-colors duration-200 font-light",
