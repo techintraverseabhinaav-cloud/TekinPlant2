@@ -412,7 +412,8 @@ export default function Navbar() {
             {/* Profile Icon (Desktop, only when logged in) */}
             {isLoaded && user && (
               <div 
-                className="relative user-menu z-50"
+                className="relative user-menu"
+              style={{ zIndex: 9999 }}
                 onMouseEnter={() => {
                   if (userMenuTimerRef.current) {
                     clearTimeout(userMenuTimerRef.current)
@@ -464,13 +465,14 @@ export default function Navbar() {
                 
                 {showUserMenu && (
                   <div 
-                    className="absolute right-0 mt-2 w-48 rounded-xl p-2 border backdrop-blur-xl z-50"
+                    className="absolute right-0 mt-2 w-48 rounded-xl p-2 border backdrop-blur-xl"
                     style={{
-                      backgroundColor: isDark ? 'rgba(168,85,247,0.08)' : 'rgba(255,255,255,0.9)',
-                      borderColor: isDark ? 'rgba(168,85,247,0.25)' : 'rgba(124,58,237,0.3)',
+                      zIndex: 9999,
+                      backgroundColor: isDark ? 'rgba(30, 27, 75, 0.98)' : 'rgba(255,255,255,0.98)',
+                      borderColor: isDark ? 'rgba(168,85,247,0.4)' : 'rgba(124,58,237,0.4)',
                       boxShadow: isDark 
-                        ? '0 0 20px rgba(196,181,253,0.3), 0 0 40px rgba(196,181,253,0.2)'
-                        : '0 0 20px rgba(58,46,31,0.15), 0 0 40px rgba(58,46,31,0.1)'
+                        ? '0 0 20px rgba(196,181,253,0.5), 0 0 40px rgba(196,181,253,0.3), 0 10px 30px rgba(0,0,0,0.5)'
+                        : '0 0 20px rgba(58,46,31,0.2), 0 0 40px rgba(58,46,31,0.15), 0 10px 30px rgba(0,0,0,0.2)'
                     }}
                     onMouseEnter={() => {
                       if (userMenuTimerRef.current) {
@@ -596,14 +598,15 @@ export default function Navbar() {
                 </button>
                 
                 {showUserMenu && (
-                <div 
-                  className="absolute right-0 mt-2 w-48 rounded-xl p-2 border backdrop-blur-xl z-50"
-                  style={{
-                    backgroundColor: isDark ? 'rgba(168,85,247,0.08)' : 'rgba(255,255,255,0.9)',
-                    borderColor: isDark ? 'rgba(168,85,247,0.25)' : 'rgba(124,58,237,0.3)',
-                    boxShadow: isDark 
-                      ? '0 0 20px rgba(196,181,253,0.3), 0 0 40px rgba(196,181,253,0.2)'
-                      : '0 0 20px rgba(58,46,31,0.15), 0 0 40px rgba(58,46,31,0.1)'
+                  <div 
+                    className="absolute right-0 mt-2 w-48 rounded-xl p-2 border backdrop-blur-xl"
+                    style={{
+                      zIndex: 9999,
+                      backgroundColor: isDark ? 'rgba(30, 27, 75, 0.98)' : 'rgba(255,255,255,0.98)',
+                      borderColor: isDark ? 'rgba(168,85,247,0.4)' : 'rgba(124,58,237,0.4)',
+                      boxShadow: isDark 
+                        ? '0 0 20px rgba(196,181,253,0.5), 0 0 40px rgba(196,181,253,0.3), 0 10px 30px rgba(0,0,0,0.5)'
+                        : '0 0 20px rgba(58,46,31,0.2), 0 0 40px rgba(58,46,31,0.15), 0 10px 30px rgba(0,0,0,0.2)'
                   }}
                 >
                   {isLoaded && user ? (
@@ -681,31 +684,31 @@ export default function Navbar() {
               <Link
                 href="/login"
                 className="px-4 py-2 rounded-xl transition-all duration-300 hover:opacity-90 backdrop-blur-sm border text-sm font-semibold"
-                style={{
-                  background: themeStyles.buttonGradient,
-                  color: '#ffffff',
-                  borderColor: isDark ? 'rgba(168,85,247,0.4)' : 'rgba(124,58,237,0.4)',
-                  boxShadow: themeStyles.buttonShadow
-                }}
-                onMouseEnter={(e) => e.currentTarget.style.boxShadow = themeStyles.buttonShadowHover}
+              style={{ 
+                background: themeStyles.buttonGradient, 
+                color: '#ffffff', 
+                borderColor: isDark ? 'rgba(168,85,247,0.4)' : 'rgba(124,58,237,0.4)',
+                boxShadow: themeStyles.buttonShadow 
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.boxShadow = themeStyles.buttonShadowHover}
                 onMouseLeave={(e) => e.currentTarget.style.boxShadow = themeStyles.buttonShadow}
               >
                 Sign In
               </Link>
             )}
 
-            {/* Mobile menu button */}
-            <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
+          {/* Mobile menu button */}
+          <button
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
               className={`p-2 transition-all duration-300 rounded-xl ${
-                isDark ? 'text-white/70 hover:text-white' : 'text-gray-800/80 hover:text-gray-900'
-              }`}
-              style={{ backgroundColor: 'transparent' }}
-              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = isDark ? 'rgba(168,85,247,0.1)' : 'rgba(124,58,237,0.1)'}
-              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
-            >
-              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
+              isDark ? 'text-white/70 hover:text-white' : 'text-gray-800/80 hover:text-gray-900'
+            }`}
+            style={{ backgroundColor: 'transparent' }}
+            onMouseEnter={(e) => e.currentTarget.style.backgroundColor = isDark ? 'rgba(168,85,247,0.1)' : 'rgba(124,58,237,0.1)'}
+            onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
+          >
+            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
           </div>
         </div>
 

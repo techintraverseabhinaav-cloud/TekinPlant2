@@ -250,7 +250,7 @@ function CoursesContent() {
         marginTop: 0,
         backgroundColor: themeStyles.pageBg
       }}>
-        <Navbar />
+      <Navbar />
       </div>
       
       {/* Header */}

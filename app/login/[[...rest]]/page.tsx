@@ -239,29 +239,34 @@ export default function LoginPage() {
       {/* Background Gradient */}
       <div className="absolute inset-0 backdrop-blur-[1px]" style={{ background: themeStyles.pageBgGradient }}></div>
       
+      {/* Top Header - Logo (Visible on all devices) */}
+      <div className="absolute top-0 left-0 right-0 z-50 p-4 sm:p-6 lg:p-8">
+        <div className="flex items-center justify-center lg:justify-start">
+          <div className="flex items-center space-x-2 sm:space-x-3">
+            <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-purple-600 to-blue-600 rounded-xl flex items-center justify-center transition-transform duration-300 hover:scale-110">
+              <span className="text-white font-bold text-lg sm:text-xl">T</span>
+            </div>
+            <div>
+              <span className={`text-xl sm:text-2xl lg:text-3xl font-bold bg-clip-text text-transparent ${
+                isDark 
+                  ? 'bg-gradient-to-r from-purple-300 via-purple-200 to-purple-300' 
+                  : 'bg-gradient-to-r from-purple-700 via-purple-600 to-purple-700'
+              }`} style={{ 
+                textShadow: isDark 
+                  ? '0 0 30px rgba(196,181,253,0.5), 0 0 60px rgba(196,181,253,0.3)' 
+                  : 'none',
+                letterSpacing: '-0.02em'
+              }}>TekInPlant</span>
+              <div className={`text-xs sm:text-sm -mt-0.5 sm:-mt-1 font-medium ${isDark ? 'text-white/70' : 'text-purple-900/80'}`}>Portal</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
       {/* Left Side - Branding */}
       <div className="hidden lg:flex lg:flex-1 relative overflow-hidden">
         <div className="relative z-10 flex flex-col justify-center p-12 lg:p-16 xl:p-20 text-white w-full">
           <div className="max-w-lg">
-            {/* TekInPlant Logo */}
-            <div className="slide-up flex items-center space-x-3 mb-12" style={{ transitionDelay: '0.05s' }}>
-              <div className="w-12 h-12 bg-gradient-to-br from-purple-600 to-blue-600 rounded-xl flex items-center justify-center transition-transform duration-300 hover:scale-110">
-                <span className="text-white font-bold text-xl">T</span>
-              </div>
-              <div>
-                <span className={`text-3xl font-bold bg-clip-text text-transparent ${
-                  isDark 
-                    ? 'bg-gradient-to-r from-purple-300 via-purple-200 to-purple-300' 
-                    : 'bg-gradient-to-r from-purple-700 via-purple-600 to-purple-700'
-                }`} style={{ 
-                  textShadow: isDark 
-                    ? '0 0 30px rgba(196,181,253,0.5), 0 0 60px rgba(196,181,253,0.3)' 
-                    : 'none',
-                  letterSpacing: '-0.02em'
-                }}>TekInPlant</span>
-                <div className={`text-sm -mt-1 font-medium ${isDark ? 'text-white/70' : 'text-purple-900/80'}`}>Portal</div>
-              </div>
-            </div>
             <div className={`slide-up inline-flex items-center gap-2 rounded-full px-4 py-1.5 mb-8 backdrop-blur-sm border ${isDark ? 'border-purple-500/20' : 'border-purple-500/30'}`} style={{ backgroundColor: isDark ? 'rgba(0,0,0,0.4)' : 'rgba(255,255,255,0.7)', transitionDelay: '0.1s' }}>
               <span className={`text-xs font-medium tracking-wide uppercase ${isDark ? 'text-white/70' : 'text-purple-900/80'}`}>Welcome Back</span>
             </div>
@@ -297,13 +302,13 @@ export default function LoginPage() {
                       }}
                     >
                       <div className="w-full h-full flex items-center justify-center">
-                        <Award 
+                      <Award
                           size={64}
                           className="transition-transform duration-300"
                           style={{
                             color: isDark ? '#ffffff' : '#7c3aed'
                           }}
-                        />
+                      />
                       </div>
                     </div>
 
@@ -354,13 +359,13 @@ export default function LoginPage() {
                       }}
                     >
                       <div className="w-full h-full flex items-center justify-center">
-                        <Users 
+                      <Users
                           size={64}
                           className="transition-transform duration-300"
                           style={{
                             color: isDark ? '#ffffff' : '#7c3aed'
                           }}
-                        />
+                      />
                       </div>
                     </div>
 
@@ -414,7 +419,7 @@ export default function LoginPage() {
                         <TrendingUp 
                           size={64}
                           className="transition-transform duration-300"
-                          style={{
+                      style={{
                             color: isDark ? '#ffffff' : '#7c3aed'
                           }}
                         />
@@ -457,26 +462,7 @@ export default function LoginPage() {
       <div className="flex-1 flex flex-col justify-center items-center py-6 sm:py-8 lg:py-12 px-4 sm:px-6 lg:px-12 xl:px-16 relative z-10 w-full overflow-y-auto">
         <div className="w-full max-w-md mx-auto">
           {/* Mobile Header */}
-          <div className="slide-up lg:hidden mb-6 sm:mb-8 text-center" style={{ transitionDelay: '0.05s' }}>
-            {/* TekInPlant Logo */}
-            <div className="flex items-center justify-center space-x-2 mb-6 sm:mb-8">
-              <div className="w-10 h-10 bg-gradient-to-br from-purple-600 to-blue-600 rounded-xl flex items-center justify-center">
-                <span className="text-white font-bold text-lg">T</span>
-              </div>
-              <div>
-                <span className={`text-2xl font-bold bg-clip-text text-transparent ${
-                  isDark 
-                    ? 'bg-gradient-to-r from-purple-300 via-purple-200 to-purple-300' 
-                    : 'bg-gradient-to-r from-purple-700 via-purple-600 to-purple-700'
-                }`} style={{ 
-                  textShadow: isDark 
-                    ? '0 0 30px rgba(196,181,253,0.5), 0 0 60px rgba(196,181,253,0.3)' 
-                    : 'none',
-                  letterSpacing: '-0.02em'
-                }}>TekInPlant</span>
-                <div className={`text-xs -mt-0.5 font-medium ${isDark ? 'text-white/70' : 'text-purple-900/80'}`}>Portal</div>
-              </div>
-            </div>
+          <div className="slide-up lg:hidden mb-6 sm:mb-8 text-center pt-16 sm:pt-20" style={{ transitionDelay: '0.05s' }}>
             <div className={`inline-flex items-center gap-2 rounded-full px-3 sm:px-4 py-1.5 mb-4 sm:mb-6 backdrop-blur-sm border ${isDark ? 'border-purple-500/20' : 'border-purple-500/30'}`} style={{ backgroundColor: isDark ? 'rgba(0,0,0,0.4)' : 'rgba(255,255,255,0.7)' }}>
               <span className={`text-xs font-medium tracking-wide uppercase ${isDark ? 'text-white/70' : 'text-purple-900/80'}`}>Welcome Back</span>
             </div>

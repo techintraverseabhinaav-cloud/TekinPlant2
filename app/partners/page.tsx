@@ -182,8 +182,8 @@ export default function PartnersPage() {
         paddingTop: 0,
         marginTop: 0,
         backgroundColor: themeStyles.pageBg
-      }}>
-        <Navbar />
+    }}>
+      <Navbar />
       </div>
       
       {/* Header */}

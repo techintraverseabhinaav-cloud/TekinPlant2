@@ -138,7 +138,7 @@ export default function AboutPage() {
         marginTop: 0,
         backgroundColor: themeStyles.pageBg
       }}>
-        <Navbar />
+      <Navbar />
       </div>
       
       {/* Hero Section */}
@@ -360,22 +360,22 @@ export default function AboutPage() {
                 className="slide-up text-center transition-all duration-500" 
                 style={{ transitionDelay: `${0.3 + index * 0.1}s` }}
               >
-                <div 
+                    <div
                   className="mx-auto mb-6 rounded-xl flex items-center justify-center transition-transform duration-300 hover:scale-110"
-                  style={{
+                      style={{
                     width: '80px',
                     height: '80px',
-                    backgroundColor: valueBg,
-                    border: `1px solid ${valueBorder}`,
-                    boxShadow: isDark
-                      ? '0 8px 24px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.05)'
-                      : '0 8px 24px rgba(30,41,59,0.15), inset 0 1px 0 rgba(255,255,255,0.1)',
-                  }}
-                >
-                  <value.icon
+                        backgroundColor: valueBg,
+                        border: `1px solid ${valueBorder}`,
+                        boxShadow: isDark
+                          ? '0 8px 24px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.05)'
+                          : '0 8px 24px rgba(30,41,59,0.15), inset 0 1px 0 rgba(255,255,255,0.1)',
+                      }}
+                    >
+                      <value.icon
                     className="w-12 h-12"
-                    style={{ color: iconColor }}
-                  />
+                        style={{ color: iconColor }}
+                      />
                 </div>
                 <h3 className={`text-xl font-light mb-4 ${isDark ? 'text-white' : 'text-purple-900'}`}>{value.title}</h3>
                 <p className={`leading-relaxed font-light ${isDark ? 'text-white/50' : 'text-purple-900/70'}`}>
