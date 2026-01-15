@@ -75,9 +75,9 @@ export default function SignUpPage() {
   const primaryColor = isDark ? 'rgba(168,85,247' : 'rgba(168,85,247' // purple for both
   const primaryColorLight = isDark ? 'rgba(196,181,253' : 'rgba(196,181,253' // purple-300 for both
   const borderColor = isDark ? 'rgba(168,85,247' : 'rgba(168,85,247' 
-  const gradientFrom = isDark ? 'from-purple-300' : 'from-purple-300'
-  const gradientVia = isDark ? 'via-purple-200' : 'via-purple-200'
-  const gradientTo = isDark ? 'to-purple-300' : 'to-purple-300'
+  const gradientFrom = isDark ? 'from-purple-600' : 'from-purple-800'
+  const gradientVia = isDark ? 'via-purple-700' : 'via-purple-900'
+  const gradientTo = isDark ? 'to-purple-600' : 'to-purple-800'
 
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
@@ -429,11 +429,6 @@ export default function SignUpPage() {
           {/* Clerk Sign Up Component */}
           <div className="slide-up w-full" style={{ transitionDelay: '0.7s' }}>
             <div className={`rounded-2xl p-6 sm:p-8 lg:p-12 xl:p-14 backdrop-blur-xl border ${isDark ? 'border-purple-500/20' : 'border-purple-600/30'} w-full`} style={{ backgroundColor: themeStyles.cardBg }}>
-              {/* Welcome text inside the box */}
-              <div className="text-center mb-4 sm:mb-6">
-                <h2 className={`text-xl sm:text-2xl lg:text-3xl font-light mb-2 ${isDark ? 'text-white' : 'text-purple-900'}`}>Welcome</h2>
-                <p className={`text-sm sm:text-base font-light ${isDark ? 'text-white/60' : 'text-purple-900/70'}`}>Sign up to TekInPlant</p>
-              </div>
               <SignUp 
                 appearance={{
                   elements: {

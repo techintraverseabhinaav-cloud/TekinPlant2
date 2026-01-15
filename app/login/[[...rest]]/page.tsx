@@ -494,7 +494,6 @@ export default function LoginPage() {
               {/* Welcome Back text inside the box */}
               <div className="text-center mb-4 sm:mb-6">
                 <h2 className={`text-xl sm:text-2xl lg:text-3xl font-light mb-2 ${isDark ? 'text-white' : 'text-purple-900'}`}>Welcome Back</h2>
-                <p className={`text-sm sm:text-base font-light ${isDark ? 'text-white/60' : 'text-purple-900/70'}`}>Sign in to TekInPlant</p>
               </div>
               {/* Error boundary for Clerk component */}
               {!process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY ? (
