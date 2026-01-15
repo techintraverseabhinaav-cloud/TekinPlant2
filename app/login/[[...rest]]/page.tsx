@@ -265,7 +265,7 @@ export default function LoginPage() {
       
       {/* Left Side - Branding */}
       <div className="hidden lg:flex lg:flex-1 relative overflow-hidden">
-        <div className="relative z-10 flex flex-col justify-center p-12 lg:p-16 xl:p-20 text-white w-full">
+        <div className="relative z-10 flex flex-col p-12 lg:p-16 xl:p-20 text-white w-full" style={{ paddingTop: '6rem', justifyContent: 'flex-start' }}>
           <div className="max-w-lg">
             <div className={`slide-up inline-flex items-center gap-2 rounded-full px-4 py-1.5 mb-8 backdrop-blur-sm border ${isDark ? 'border-purple-500/20' : 'border-purple-500/30'}`} style={{ backgroundColor: isDark ? 'rgba(0,0,0,0.4)' : 'rgba(255,255,255,0.7)', transitionDelay: '0.1s' }}>
               <span className={`text-xs font-medium tracking-wide uppercase ${isDark ? 'text-white/70' : 'text-purple-900/80'}`}>Welcome Back</span>
