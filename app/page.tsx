@@ -103,6 +103,22 @@ export default function HomePage() {
   
   // Update theme when resolvedTheme changes
   useLayoutEffect(() => {
+    // Ensure theme is initialized before reading (prevents flash)
+    if (typeof document !== 'undefined') {
+      const isInitialized = document.documentElement.hasAttribute('data-theme-initialized')
+      if (!isInitialized) {
+        // Wait for theme initialization
+        const checkTheme = setInterval(() => {
+          if (document.documentElement.hasAttribute('data-theme-initialized')) {
+            clearInterval(checkTheme)
+            const dataTheme = document.documentElement.getAttribute('data-theme')
+            setIsDark(dataTheme === 'dark')
+          }
+        }, 10)
+        return () => clearInterval(checkTheme)
+      }
+    }
+    
     if (resolvedTheme) {
       setIsDark(resolvedTheme === 'dark')
     } else if (typeof window !== 'undefined') {
@@ -712,7 +728,7 @@ export default function HomePage() {
                 }} onMouseEnter={(e) => e.currentTarget.style.boxShadow = hoverShadow} onMouseLeave={(e) => e.currentTarget.style.boxShadow = 'none'}>
                   <div className="aspect-video rounded-xl overflow-hidden mb-6 relative bg-black/20">
                     <Image
-                      src={course.image_url || "/placeholder.svg"}
+                      src={industryCourses.find(c => c.title === course.title)?.image || course.image_url || "/placeholder.svg"}
                       alt={course.title}
                       width={800}
                       height={450}

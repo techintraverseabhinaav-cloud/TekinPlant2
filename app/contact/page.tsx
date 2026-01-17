@@ -66,8 +66,29 @@ export default function ContactPage() {
   
   // Update theme when resolvedTheme changes
   useLayoutEffect(() => {
+    // Ensure theme is initialized before reading (prevents flash)
+    if (typeof document !== 'undefined') {
+      const isInitialized = document.documentElement.hasAttribute('data-theme-initialized')
+      if (!isInitialized) {
+        // Wait for theme initialization
+        const checkTheme = setInterval(() => {
+          if (document.documentElement.hasAttribute('data-theme-initialized')) {
+            clearInterval(checkTheme)
+            const dataTheme = document.documentElement.getAttribute('data-theme')
+            setIsDark(dataTheme === 'dark')
+          }
+        }, 10)
+        return () => clearInterval(checkTheme)
+      }
+    }
+    
     if (resolvedTheme) {
       setIsDark(resolvedTheme === 'dark')
+    } else if (typeof window !== 'undefined') {
+      const dataTheme = document.documentElement.getAttribute('data-theme')
+      if (dataTheme) {
+        setIsDark(dataTheme === 'dark')
+      }
     }
   }, [resolvedTheme])
   

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { auth } from '@clerk/nextjs/server'
+import { auth, currentUser } from '@clerk/nextjs/server'
 import { generateUserIdFromClerkId } from '../../../lib/supabase/sync-clerk-user'
 import { createClient } from '@supabase/supabase-js'
 
@@ -78,20 +78,59 @@ export async function PUT(request: NextRequest) {
       console.log('🔄 Trying to find profile by clerk_id...')
       const { data: profileByClerkId, error: clerkIdError } = await supabase
         .from('profiles')
-        .select('id, full_name, clerk_id')
+        .select('id, full_name, clerk_id, email')
         .eq('clerk_id', clerkId)
         .single()
       
       if (clerkIdError || !profileByClerkId) {
-        return NextResponse.json(
-          { 
-            error: 'User profile not found. Please ensure you are logged in and your profile exists in Supabase.',
-            details: profileError.message,
-            clerkId,
-            supabaseUserId
-          },
-          { status: 404 }
-        )
+        // If profile doesn't exist, try to create it using the sync function
+        console.log('🔄 Profile not found, attempting to create it...')
+        try {
+          const { syncClerkUserToSupabase } = await import('../../../lib/supabase/sync-clerk-user')
+          
+          // Get full user data from Clerk to create the profile properly
+          const clerkUser = await currentUser()
+          if (!clerkUser) {
+            return NextResponse.json(
+              { error: 'Could not fetch user data from Clerk' },
+              { status: 401 }
+            )
+          }
+          
+          const constructedFullName = fullName || 
+            (firstName && lastName ? `${firstName} ${lastName}` : firstName || lastName || clerkUser.fullName || null)
+          
+          // Use the sync function to create the profile with all necessary data
+          const syncResult = await syncClerkUserToSupabase({
+            clerkId: clerkId,
+            email: clerkUser.emailAddresses[0]?.emailAddress || '',
+            fullName: constructedFullName,
+            firstName: firstName || clerkUser.firstName || null,
+            lastName: lastName || clerkUser.lastName || null,
+            avatarUrl: avatarUrl || clerkUser.imageUrl || null,
+            role: (clerkUser.publicMetadata?.role as string) || 'student'
+          })
+          
+          console.log('✅ Profile created via sync:', syncResult)
+          return NextResponse.json({
+            success: true,
+            profile: syncResult,
+            message: 'Profile created and updated successfully in Supabase'
+          })
+        } catch (syncError: any) {
+          console.error('❌ Error creating profile via sync:', syncError)
+          console.error('❌ Sync error details:', syncError.message, syncError.stack)
+          return NextResponse.json(
+            { 
+              error: 'User profile not found and could not be created. Please try signing out and back in to sync your profile.',
+              details: syncError.message || profileError.message,
+              clerkId,
+              supabaseUserId,
+              hint: 'Your profile may need to be synced. Try visiting the dashboard or signing out and back in.'
+            },
+            { status: 404 }
+          )
+        }
       }
       
       // Use profile found by clerk_id
@@ -160,6 +199,12 @@ export async function PUT(request: NextRequest) {
     // Prepare update data
     // Note: updated_at is automatically handled by database trigger
     const updateData: any = {}
+    
+    // Ensure clerk_id is set (in case it was missing)
+    if (!profile.clerk_id) {
+      updateData.clerk_id = clerkId
+      console.log('📝 Setting missing clerk_id on profile')
+    }
 
     // Update full_name - construct from firstName/lastName or use provided fullName
     if (fullName) {
@@ -178,6 +223,23 @@ export async function PUT(request: NextRequest) {
       updateData.avatar_url = avatarUrl.trim() || null
     }
 
+    // Check if there's anything to update
+    if (Object.keys(updateData).length === 0) {
+      console.log('ℹ️ No changes to update')
+      // Return current profile even if no changes
+      const { data: currentProfile } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('id', supabaseUserId)
+        .single()
+      
+      return NextResponse.json({
+        success: true,
+        profile: currentProfile,
+        message: 'No changes to update'
+      })
+    }
+
     console.log('📝 Update data:', updateData)
 
     // Update profile in Supabase
@@ -193,8 +255,25 @@ export async function PUT(request: NextRequest) {
       console.error('❌ Update error code:', updateError.code)
       console.error('❌ Update error message:', updateError.message)
       console.error('❌ Update error details:', updateError.details)
+      console.error('❌ Update error hint:', updateError.hint)
+      
+      // Provide helpful error messages based on error code
+      let errorMessage = 'Failed to update profile in Supabase'
+      if (updateError.code === '23505') {
+        errorMessage = 'Profile update conflict - please try again'
+      } else if (updateError.code === '23503') {
+        errorMessage = 'Database constraint violation - please contact support'
+      } else if (updateError.message?.includes('permission') || updateError.message?.includes('policy')) {
+        errorMessage = 'Permission denied - RLS policy may be blocking update'
+      }
+      
       return NextResponse.json(
-        { error: 'Failed to update profile in Supabase', details: updateError.message },
+        { 
+          error: errorMessage, 
+          details: updateError.message,
+          code: updateError.code,
+          hint: updateError.hint
+        },
         { status: 500 }
       )
     }

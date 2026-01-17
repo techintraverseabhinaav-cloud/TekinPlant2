@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { auth } from '@clerk/nextjs/server'
+import { auth, currentUser } from '@clerk/nextjs/server'
 import { createClient } from '../../../lib/supabase/server'
 import { generateUserIdFromClerkId } from '../../../lib/supabase/sync-clerk-user'
 
@@ -106,35 +106,108 @@ export async function POST(request: NextRequest) {
     const serviceSupabase = await createServiceClient()
     console.log('✅ Supabase service client created')
     
-    // Verify profile exists
+    // Verify profile exists, create if missing
     console.log('🔍 Verifying profile exists:', studentId)
-    const { data: profile, error: profileError } = await serviceSupabase
+    let { data: profile, error: profileError } = await serviceSupabase
       .from('profiles')
       .select('id, email, full_name')
       .eq('id', studentId)
       .maybeSingle()
 
+    // If profile not found, try to create it from Clerk data
     if (profileError || !profile) {
-      console.error('❌ Profile not found:', profileError)
-      console.error('❌ Student ID:', studentId)
+      console.warn('⚠️ Profile not found, attempting to create from Clerk data...')
       
-      // Try to list profiles for debugging
-      const { data: sampleProfiles } = await serviceSupabase
-        .from('profiles')
-        .select('id, email, clerk_id')
-        .limit(3)
+      if (clerkId) {
+        try {
+          // Get user data from Clerk
+          const clerkUser = await currentUser()
+          
+          if (clerkUser) {
+            const fullName = clerkUser.fullName || 
+              (clerkUser.firstName && clerkUser.lastName 
+                ? `${clerkUser.firstName} ${clerkUser.lastName}` 
+                : clerkUser.firstName || null)
+            
+            const email = clerkUser.emailAddresses[0]?.emailAddress || null
+            const role = (clerkUser.publicMetadata?.role as string) || 'student'
+            
+            console.log('➕ Creating profile from Clerk data...', {
+              id: studentId,
+              clerk_id: clerkId,
+              email,
+              full_name: fullName,
+              role
+            })
+            
+            // Try to create profile
+            const { data: newProfile, error: createError } = await serviceSupabase
+              .from('profiles')
+              .insert({
+                id: studentId,
+                clerk_id: clerkId,
+                email: email,
+                full_name: fullName,
+                role: role,
+                avatar_url: clerkUser.imageUrl || null
+              })
+              .select('id, email, full_name')
+              .single()
+            
+            if (createError) {
+              // If creation fails due to unique constraint, try to find by clerk_id
+              if (createError.code === '23505') {
+                console.log('🔄 Profile already exists with different ID, looking up by clerk_id...')
+                const { data: existingProfile } = await serviceSupabase
+                  .from('profiles')
+                  .select('id, email, full_name')
+                  .eq('clerk_id', clerkId)
+                  .maybeSingle()
+                
+                if (existingProfile) {
+                  profile = existingProfile
+                  studentId = existingProfile.id
+                  console.log('✅ Found existing profile by clerk_id:', studentId)
+                } else {
+                  throw createError
+                }
+              } else {
+                throw createError
+              }
+            } else {
+              profile = newProfile
+              console.log('✅ Created new profile:', profile.id)
+            }
+          }
+        } catch (createErr: any) {
+          console.error('❌ Error creating profile:', createErr)
+          // Fall through to return error
+        }
+      }
       
-      console.log('📋 Sample profiles in database:', sampleProfiles)
-      
-      return NextResponse.json(
-        { 
-          error: 'User profile not found. Please ensure you are logged in and your profile exists in Supabase.',
-          details: profileError?.message || 'Profile does not exist',
-          studentId,
-          hint: 'Try signing out and signing back in to sync your profile'
-        },
-        { status: 404 }
-      )
+      // If still no profile, return error
+      if (!profile) {
+        console.error('❌ Profile not found and could not be created:', profileError)
+        console.error('❌ Student ID:', studentId)
+        
+        // Try to list profiles for debugging
+        const { data: sampleProfiles } = await serviceSupabase
+          .from('profiles')
+          .select('id, email, clerk_id')
+          .limit(3)
+        
+        console.log('📋 Sample profiles in database:', sampleProfiles)
+        
+        return NextResponse.json(
+          { 
+            error: 'User profile not found. Please ensure you are logged in and your profile exists in Supabase.',
+            details: profileError?.message || 'Profile does not exist and could not be created',
+            studentId,
+            hint: 'Try signing out and signing back in to sync your profile, or visit /profile to update your profile'
+          },
+          { status: 404 }
+        )
+      }
     }
 
     console.log('✅ Found profile:', profile.id)

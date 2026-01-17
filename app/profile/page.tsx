@@ -172,11 +172,7 @@ export default function ProfilePage() {
           console.error('❌ Response status:', response.status)
           console.error('❌ Full error:', JSON.stringify(errorData, null, 2))
           
-          // Show error to user
-          toast.warning("Profile updated in Clerk", {
-            description: `But failed to sync to Supabase: ${errorData.error || 'Unknown error'}. Check console for details.`,
-            duration: 5000,
-          })
+          // Error logged to console only - no toast notification
         } else {
           const result = await response.json()
           console.log('✅ Profile synced to Supabase:', result)
@@ -187,11 +183,7 @@ export default function ProfilePage() {
         console.error('❌ Error message:', syncError?.message)
         console.error('❌ Error stack:', syncError?.stack)
         
-        // Show error to user
-        toast.warning("Profile updated in Clerk", {
-          description: `But failed to sync to Supabase: ${syncError?.message || 'Network error'}. Check console for details.`,
-          duration: 5000,
-        })
+        // Error logged to console only - no toast notification
       }
       
       // Note: Email changes typically require verification in Clerk
@@ -333,13 +325,13 @@ export default function ProfilePage() {
               <Link 
                 href="/"
                 className={`flex items-center space-x-2 px-3 py-2 transition-colors rounded-lg ${
-                  isDark ? 'text-gray-400 hover:text-white hover:bg-gray-700' : 'text-amber-900/70 hover:text-amber-900 hover:bg-amber-900/10'
+                  isDark ? 'text-gray-400 hover:text-white hover:bg-gray-700' : 'text-purple-900/70 hover:text-purple-900 hover:bg-purple-900/10'
                 }`}
               >
                 <ArrowLeft size={18} />
                 <span className="text-sm font-medium">Back to Home</span>
               </Link>
-              <div className="h-6 w-px" style={{ backgroundColor: isDark ? 'rgba(255,255,255,0.2)' : 'rgba(139,90,43,0.3)' }}></div>
+              <div className="h-6 w-px" style={{ backgroundColor: isDark ? 'rgba(255,255,255,0.2)' : 'rgba(124,58,237,0.3)' }}></div>
               <h1 className="text-xl font-semibold" style={{ color: themeStyles.textPrimary }}>Profile Settings</h1>
             </div>
           </div>
@@ -357,7 +349,7 @@ export default function ProfilePage() {
               <div className={`w-24 h-24 rounded-full flex items-center justify-center ${
                 isDark 
                   ? 'bg-gradient-to-br from-purple-600 to-blue-600' 
-                  : 'bg-gradient-to-br from-amber-700 to-amber-800'
+                  : 'bg-gradient-to-br from-purple-600 to-purple-700'
               }`}>
                 {user.imageUrl ? (
                   <img 
@@ -375,7 +367,7 @@ export default function ProfilePage() {
                 <label className={`absolute bottom-0 right-0 p-2 rounded-full transition-colors cursor-pointer ${
                   isDark 
                     ? 'bg-purple-600 hover:bg-purple-700' 
-                    : 'bg-amber-700 hover:bg-amber-800'
+                    : 'bg-purple-600 hover:bg-purple-700'
                 }`}>
                   <Camera size={16} className="text-white" />
                   <input
@@ -400,7 +392,7 @@ export default function ProfilePage() {
                 userRole === 'admin' ? (isDark ? 'bg-red-900/30 text-red-300' : 'bg-red-200 text-red-800') :
                 userRole === 'trainer' ? (isDark ? 'bg-green-900/30 text-green-300' : 'bg-green-200 text-green-800') :
                 userRole === 'corporate' ? (isDark ? 'bg-blue-900/30 text-blue-300' : 'bg-blue-200 text-blue-800') :
-                (isDark ? 'bg-purple-900/30 text-purple-300' : 'bg-amber-200 text-amber-800')
+                (isDark ? 'bg-purple-900/30 text-purple-300' : 'bg-purple-200 text-purple-800')
               }`}>
                 {userRole.charAt(0).toUpperCase() + userRole.slice(1)}
               </span>
@@ -411,7 +403,7 @@ export default function ProfilePage() {
                 className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-colors ${
                   isDark 
                     ? 'bg-purple-600 hover:bg-purple-700 text-white' 
-                    : 'bg-amber-700 hover:bg-amber-800 text-white'
+                    : 'bg-purple-600 hover:bg-purple-700 text-white'
                 }`}
               >
                 <Edit2 size={18} />
@@ -536,12 +528,12 @@ export default function ProfilePage() {
                   onClick={() => setTheme('light')}
                   className={`flex flex-col items-center justify-center p-4 rounded-lg border-2 transition-all ${
                     theme === 'light'
-                      ? (isDark ? 'border-purple-500 bg-purple-500/10' : 'border-amber-700 bg-amber-700/20')
-                      : (isDark ? 'border-gray-600 hover:border-gray-500 bg-gray-700/50' : 'border-amber-900/30 hover:border-amber-800/50 bg-white/50')
+                      ? (isDark ? 'border-purple-500 bg-purple-500/10' : 'border-purple-600 bg-purple-600/20')
+                      : (isDark ? 'border-gray-600 hover:border-gray-500 bg-gray-700/50' : 'border-purple-900/30 hover:border-purple-800/50 bg-white/50')
                   }`}
                 >
-                  <Sun size={24} className={`mb-2 ${theme === 'light' ? (isDark ? 'text-purple-400' : 'text-amber-800') : (isDark ? 'text-gray-400' : 'text-amber-900/60')}`} />
-                  <span className={`text-sm font-medium ${theme === 'light' ? (isDark ? 'text-purple-300' : 'text-amber-900') : (isDark ? 'text-gray-400' : 'text-amber-900/70')}`}>
+                  <Sun size={24} className={`mb-2 ${theme === 'light' ? (isDark ? 'text-purple-400' : 'text-purple-700') : (isDark ? 'text-gray-400' : 'text-purple-900/60')}`} />
+                  <span className={`text-sm font-medium ${theme === 'light' ? (isDark ? 'text-purple-300' : 'text-purple-900') : (isDark ? 'text-gray-400' : 'text-purple-900/70')}`}>
                     Light
                   </span>
                 </button>
@@ -549,12 +541,12 @@ export default function ProfilePage() {
                   onClick={() => setTheme('dark')}
                   className={`flex flex-col items-center justify-center p-4 rounded-lg border-2 transition-all ${
                     theme === 'dark'
-                      ? (isDark ? 'border-purple-500 bg-purple-500/10' : 'border-amber-700 bg-amber-700/20')
-                      : (isDark ? 'border-gray-600 hover:border-gray-500 bg-gray-700/50' : 'border-amber-900/30 hover:border-amber-800/50 bg-white/50')
+                      ? (isDark ? 'border-purple-500 bg-purple-500/10' : 'border-purple-600 bg-purple-600/20')
+                      : (isDark ? 'border-gray-600 hover:border-gray-500 bg-gray-700/50' : 'border-purple-900/30 hover:border-purple-800/50 bg-white/50')
                   }`}
                 >
-                  <Moon size={24} className={`mb-2 ${theme === 'dark' ? (isDark ? 'text-purple-400' : 'text-amber-800') : (isDark ? 'text-gray-400' : 'text-amber-900/60')}`} />
-                  <span className={`text-sm font-medium ${theme === 'dark' ? (isDark ? 'text-purple-300' : 'text-amber-900') : (isDark ? 'text-gray-400' : 'text-amber-900/70')}`}>
+                  <Moon size={24} className={`mb-2 ${theme === 'dark' ? (isDark ? 'text-purple-400' : 'text-purple-700') : (isDark ? 'text-gray-400' : 'text-purple-900/60')}`} />
+                  <span className={`text-sm font-medium ${theme === 'dark' ? (isDark ? 'text-purple-300' : 'text-purple-900') : (isDark ? 'text-gray-400' : 'text-purple-900/70')}`}>
                     Dark
                   </span>
                 </button>
@@ -562,12 +554,12 @@ export default function ProfilePage() {
                   onClick={() => setTheme('system')}
                   className={`flex flex-col items-center justify-center p-4 rounded-lg border-2 transition-all ${
                     theme === 'system'
-                      ? (isDark ? 'border-purple-500 bg-purple-500/10' : 'border-amber-700 bg-amber-700/20')
-                      : (isDark ? 'border-gray-600 hover:border-gray-500 bg-gray-700/50' : 'border-amber-900/30 hover:border-amber-800/50 bg-white/50')
+                      ? (isDark ? 'border-purple-500 bg-purple-500/10' : 'border-purple-600 bg-purple-600/20')
+                      : (isDark ? 'border-gray-600 hover:border-gray-500 bg-gray-700/50' : 'border-purple-900/30 hover:border-purple-800/50 bg-white/50')
                   }`}
                 >
-                  <Monitor size={24} className={`mb-2 ${theme === 'system' ? (isDark ? 'text-purple-400' : 'text-amber-800') : (isDark ? 'text-gray-400' : 'text-amber-900/60')}`} />
-                  <span className={`text-sm font-medium ${theme === 'system' ? (isDark ? 'text-purple-300' : 'text-amber-900') : (isDark ? 'text-gray-400' : 'text-amber-900/70')}`}>
+                  <Monitor size={24} className={`mb-2 ${theme === 'system' ? (isDark ? 'text-purple-400' : 'text-purple-700') : (isDark ? 'text-gray-400' : 'text-purple-900/60')}`} />
+                  <span className={`text-sm font-medium ${theme === 'system' ? (isDark ? 'text-purple-300' : 'text-purple-900') : (isDark ? 'text-gray-400' : 'text-purple-900/70')}`}>
                     System
                   </span>
                 </button>

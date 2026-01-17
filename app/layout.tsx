@@ -50,11 +50,15 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        {/* CRITICAL: Theme script in <head> - Stack Overflow solution */}
+        {/* Based on: https://stackoverflow.com/questions/62635314/how-to-stop-light-mode-flickering-to-darker-background-on-page-load */}
         <script
           id="theme-script"
           dangerouslySetInnerHTML={{
             __html: `
               (function() {
+                // CRITICAL: Apply theme BEFORE body is parsed and displayed
+                // This runs synchronously in <head> to prevent flash
                 try {
                   // Check local storage first, then system preference
                   var savedTheme = localStorage.getItem('theme');
@@ -67,18 +71,14 @@ export default function RootLayout({
                     theme = savedTheme; // 'dark' or 'light'
                   }
                   
-                  // Apply the theme to the document element IMMEDIATELY and SYNCHRONOUSLY
-                  // This must happen before any rendering to prevent flash
+                  // Apply class to <html> tag (document.documentElement) - Stack Overflow solution
+                  // This is the key - apply BEFORE body is parsed and displayed
+                  // Based on: https://stackoverflow.com/questions/62635314/how-to-stop-light-mode-flickering-to-darker-background-on-page-load
                   var html = document.documentElement;
-                  
-                  // Remove any existing theme classes first
                   html.classList.remove('dark', 'light');
-                  
-                  // Set data-theme attribute
+                  html.classList.add(theme);
                   html.setAttribute('data-theme', theme);
-                  
-                  // Set className (this is what next-themes uses)
-                  html.className = theme;
+                  html.setAttribute('data-theme-initialized', 'true');
                   
                   // Set background colors immediately to prevent flash
                   if (theme === 'dark') {
@@ -86,6 +86,51 @@ export default function RootLayout({
                   } else {
                     html.style.setProperty('background-color', '#f5f1e8', 'important');
                   }
+                } catch (e) {
+                  // Fallback to dark theme on error
+                  var html = document.documentElement;
+                  html.classList.remove('dark', 'light');
+                  html.classList.add('dark');
+                  html.setAttribute('data-theme', 'dark');
+                  html.style.setProperty('background-color', '#000000', 'important');
+                }
+                
+                // Function to apply theme (for re-application on navigation)
+                function applyTheme() {
+                  try {
+                    // Check local storage first, then system preference
+                    var savedTheme = localStorage.getItem('theme');
+                    var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+                    var theme;
+                    
+                    if (savedTheme === 'system' || !savedTheme) {
+                      theme = prefersDark ? 'dark' : 'light';
+                    } else {
+                      theme = savedTheme; // 'dark' or 'light'
+                    }
+                    
+                    // Apply the theme to the document element IMMEDIATELY and SYNCHRONOUSLY
+                    // This must happen before any rendering to prevent flash
+                    var html = document.documentElement;
+                    
+                    // Remove any existing theme classes first
+                    html.classList.remove('dark', 'light');
+                    
+                    // Set data-theme attribute
+                    html.setAttribute('data-theme', theme);
+                    
+                    // Set className (this is what next-themes uses)
+                    html.className = theme;
+                    
+                    // Set background colors immediately to prevent flash
+                    if (theme === 'dark') {
+                      html.style.setProperty('background-color', '#000000', 'important');
+                    } else {
+                      html.style.setProperty('background-color', '#f5f1e8', 'important');
+                    }
+                    
+                    // Mark theme as initialized IMMEDIATELY
+                    html.setAttribute('data-theme-initialized', 'true');
                   
                   // Apply body class and background color when body is available
                   function applyBodyClass() {
@@ -107,7 +152,8 @@ export default function RootLayout({
                       }
                       // Disable transitions during initialization to prevent flash
                       body.style.setProperty('transition', 'none', 'important');
-                      html.setAttribute('data-theme-initialized', 'true');
+                      
+                      // Theme applied - body is already visible
                       
                       // Re-enable transitions after a short delay
                       setTimeout(function() {
@@ -129,12 +175,15 @@ export default function RootLayout({
                     });
                     observer.observe(document.documentElement, { childList: true, subtree: true });
                   }
+                  
+                  // Theme applied successfully
                 } catch (e) {
                   // Fallback to dark theme on error
                   var html = document.documentElement;
                   html.classList.remove('dark', 'light');
                   html.className = 'dark';
                   html.setAttribute('data-theme', 'dark');
+                  html.setAttribute('data-theme-initialized', 'true');
                   html.style.setProperty('background-color', '#000000', 'important');
                   // Apply body class and background if body exists
                   if (document.body) {
@@ -143,7 +192,31 @@ export default function RootLayout({
                     document.body.style.setProperty('background', 'linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%)', 'important');
                     document.body.style.setProperty('color', '#ffffff', 'important');
                     document.body.style.setProperty('transition', 'none', 'important');
+                    // Body is already visible
                   }
+                }
+                
+                // Call applyTheme immediately on page load
+                applyTheme();
+                
+                // Handle browser back/forward navigation (bfcache) - Stack Overflow solution
+                // pageshow event fires when page is restored from cache
+                if (typeof window !== 'undefined') {
+                  window.addEventListener('pageshow', function(event) {
+                    // event.persisted is true when page is loaded from cache (back/forward navigation)
+                    if (event.persisted) {
+                      // Re-apply theme immediately for cached pages
+                      applyTheme();
+                    }
+                  });
+                  
+                  // Also handle popstate (back/forward button)
+                  window.addEventListener('popstate', function() {
+                    // Small delay to ensure DOM is ready
+                    setTimeout(function() {
+                      applyTheme();
+                    }, 0);
+                  });
                 }
               })();
             `,
@@ -171,7 +244,6 @@ export default function RootLayout({
                 background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%) !important;
                 color: #ffffff !important;
                 transition: none !important;
-                opacity: 1 !important;
               }
               /* Light mode via data-theme attribute */
               html[data-theme="light"] body,

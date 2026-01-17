@@ -817,29 +817,7 @@ export default function Navbar() {
               >
                 Partners
               </Link>
-              {/* Dashboard - Only visible when logged in (mobile) */}
-              {isLoaded && user && (
-                <Link 
-                  href={getDashboardLink()}
-                  className={`text-base font-semibold transition-all duration-300 py-2.5 px-4 rounded-xl ${
-                    isDark ? 'text-white/80 hover:text-white' : 'text-gray-800/90 hover:text-gray-900'
-                  }`}
-                  style={{ backgroundColor: pathname?.startsWith('/student-dashboard') || pathname?.startsWith('/admin-dashboard') || pathname?.startsWith('/trainer-dashboard') || pathname?.startsWith('/corporate-dashboard') ? (isDark ? 'rgba(168,85,247,0.15)' : 'rgba(124,58,237,0.15)') : 'transparent' }}
-                  onMouseEnter={(e) => {
-                    if (!pathname?.startsWith('/student-dashboard') && !pathname?.startsWith('/admin-dashboard') && !pathname?.startsWith('/trainer-dashboard') && !pathname?.startsWith('/corporate-dashboard')) {
-                      e.currentTarget.style.backgroundColor = isDark ? 'rgba(168,85,247,0.1)' : 'rgba(124,58,237,0.1)'
-                    }
-                  }}
-                  onMouseLeave={(e) => {
-                    if (!pathname?.startsWith('/student-dashboard') && !pathname?.startsWith('/admin-dashboard') && !pathname?.startsWith('/trainer-dashboard') && !pathname?.startsWith('/corporate-dashboard')) {
-                      e.currentTarget.style.backgroundColor = 'transparent'
-                    }
-                  }}
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Dashboard
-                </Link>
-              )}
+              {/* Dashboard - Hidden on mobile, only visible in user menu dropdown */}
               <Link 
                 href="/about" 
                 className={`text-sm font-medium transition-all duration-300 py-2 px-3 rounded-xl ${
@@ -931,36 +909,7 @@ export default function Navbar() {
                       <p className={`text-xs ${isDark ? 'text-white/60' : 'text-gray-900/70'}`}>{userEmail}</p>
                       <p className={`text-xs capitalize ${isDark ? 'text-purple-400' : 'text-purple-700'}`}>{userRole}</p>
                     </div>
-                    <Link 
-                      href="/profile"
-                      className="w-full text-center py-3 rounded-xl transition-all duration-300 hover:opacity-90 backdrop-blur-sm border mb-3"
-                      style={{ 
-                        background: themeStyles.buttonGradient, 
-                        color: '#ffffff', 
-                        borderColor: isDark ? 'rgba(168,85,247,0.4)' : 'rgba(124,58,237,0.4)',
-                        boxShadow: themeStyles.buttonShadow 
-                      }}
-                      onMouseEnter={(e) => e.currentTarget.style.boxShadow = themeStyles.buttonShadowHover}
-                      onMouseLeave={(e) => e.currentTarget.style.boxShadow = themeStyles.buttonShadow}
-                      onClick={() => setIsMenuOpen(false)}
-                    >
-                      Profile Settings
-                    </Link>
-                    <Link 
-                      href={getDashboardLink()}
-                      className="w-full text-center py-3 rounded-xl transition-all duration-300 hover:opacity-90 backdrop-blur-sm border mb-3"
-                      style={{ 
-                        background: themeStyles.buttonGradient, 
-                        color: '#ffffff', 
-                        borderColor: isDark ? 'rgba(168,85,247,0.4)' : 'rgba(124,58,237,0.4)',
-                        boxShadow: themeStyles.buttonShadow 
-                      }}
-                      onMouseEnter={(e) => e.currentTarget.style.boxShadow = themeStyles.buttonShadowHover}
-                      onMouseLeave={(e) => e.currentTarget.style.boxShadow = themeStyles.buttonShadow}
-                      onClick={() => setIsMenuOpen(false)}
-                    >
-                      Dashboard
-                    </Link>
+                    {/* Profile Settings and Dashboard - Hidden on mobile, only visible in user menu dropdown */}
                     <button 
                       onClick={handleLogout}
                       className="w-full text-center py-3 rounded-xl border text-red-400 hover:text-red-300 transition-all duration-300"

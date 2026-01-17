@@ -121,9 +121,25 @@ export default function PartnersPage() {
   
   // Update theme when resolvedTheme changes (from next-themes)
   useLayoutEffect(() => {
+    // Ensure theme is initialized before reading
+    if (typeof document !== 'undefined') {
+      const isInitialized = document.documentElement.hasAttribute('data-theme-initialized')
+      if (!isInitialized) {
+        // Wait for theme initialization (should be very fast)
+        const checkTheme = setInterval(() => {
+          if (document.documentElement.hasAttribute('data-theme-initialized')) {
+            clearInterval(checkTheme)
+            const dataTheme = document.documentElement.getAttribute('data-theme')
+            setIsDark(dataTheme === 'dark')
+          }
+        }, 5)
+        return () => clearInterval(checkTheme)
+      }
+    }
+    
     if (resolvedTheme) {
       setIsDark(resolvedTheme === 'dark')
-    } else if (typeof window !== 'undefined') {
+    } else if (typeof document !== 'undefined') {
       // Fallback to reading from HTML if resolvedTheme not available yet
       const dataTheme = document.documentElement.getAttribute('data-theme')
       const htmlClass = document.documentElement.className
